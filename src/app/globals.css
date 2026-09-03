@@ -1,26 +1,101 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+
+  /* UzChess brand palette, exposed as bg-, text-, border- utilities
+     (e.g. bg-main-bg, bg-dark, text-brand-blue, border-brand-grey) */
+  --color-main-bg: var(--main-bg);
+  --color-dark: var(--dark);
+  --color-dark-2: var(--dark-2);
+  --color-brand-white: var(--brand-white);
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-light: var(--brand-blue-light);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-secondary-low: var(--brand-secondary-low);
+  --color-brand-grey: var(--brand-grey);
+  --color-brand-yellow: var(--brand-yellow);
+  --color-brand-accent: var(--brand-accent);
+  --color-brand-green: var(--brand-green);
+  --color-brand-red: var(--brand-red);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+:root {
+  /* UzChess Figma design tokens — dark theme only, no light mode in scope */
+  --main-bg: #111315;
+  --dark: #1a1d1f;
+  --dark-2: #13181c;
+  --brand-white: #f7f9fa;
+  --brand-blue: #1c92e0;
+  --brand-blue-light: #32acfc;
+  --brand-secondary: #6c6f70;
+  --brand-secondary-low: #9da1a3;
+  --brand-grey: #ababaf;
+  --brand-yellow: #e0b531;
+  --brand-accent: #ffdf00;
+  --brand-green: #82cc27;
+  --brand-red: #dc2d2d;
+
+  /* shadcn semantic tokens, wired to the palette above so every shadcn
+     primitive renders in the UzChess dark theme with no per-component work */
+  --background: var(--main-bg);
+  --foreground: var(--brand-white);
+  --card: var(--dark);
+  --card-foreground: var(--brand-white);
+  --popover: var(--dark);
+  --popover-foreground: var(--brand-white);
+  --primary: var(--brand-blue);
+  --primary-foreground: var(--brand-white);
+  --secondary: var(--dark);
+  --secondary-foreground: var(--brand-white);
+  --muted: var(--dark-2);
+  --muted-foreground: var(--brand-secondary-low);
+  --accent: var(--dark-2);
+  --accent-foreground: var(--brand-white);
+  --destructive: var(--brand-red);
+  --border: var(--dark-2);
+  --input: var(--dark-2);
+  --ring: var(--brand-blue-light);
+  --radius: 0.625rem;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
   }
-}
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
 }

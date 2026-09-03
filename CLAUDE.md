@@ -23,7 +23,7 @@ There is no test runner configured yet — do not assume Jest/Vitest exist until
 
 ## Current state
 
-This is presently a bare `create-next-app` scaffold (App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`) — only `src/app/layout.tsx`, `src/app/page.tsx`, and `src/app/globals.css` exist. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Treat any architectural guidance below as the standard to build *toward* as features are added, not a description of code that already exists.
+App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`) live under `src/components/shared/`. No feature screens, Redux store, or RTK Query setup exist yet — `src/app/page.tsx` is still the unmodified `create-next-app` placeholder. Treat the architectural guidance below as the standard to build *toward* as features land, not a description of code that fully exists yet.
 
 ## Mandated architecture
 
@@ -37,9 +37,16 @@ Apply SOLID principles per component/hook/service (single responsibility, depend
 
 ## Mandated tech stack
 
-- **State**: Redux Toolkit only (no ad-hoc `useState`/context for anything beyond purely ephemeral, view-local UI state like a dropdown's open/close). `redux-persist` and RTK Query will be added later — design slices so server-cache state stays separable from client UI state for a clean RTK Query migration.
+- **State**: Redux Toolkit only (no ad-hoc `useState`/context for anything beyond purely ephemeral, view-local UI state like a dropdown's open/close). `redux-persist` will be added when the first feature needs persisted client state (e.g. auth tokens).
+- **Server cache / data fetching**: RTK Query, code-split per feature — one `createApi` base slice with **no endpoints** (e.g. `src/lib/api/base-api.ts`), then each feature injects its own endpoints via `.injectEndpoints()` in its own model-layer file (e.g. `src/features/auth/model/auth-api.ts`). Never add endpoints to the base slice directly, and never define endpoints for feature A inside feature B's file — this is what keeps each feature's API surface (and its bundle chunk) independent. Route-level code splitting comes for free from the App Router (each `page.tsx` is already its own chunk); reach for `next/dynamic` additionally only for something genuinely heavy and below-the-fold (e.g. a chart or the certificate/print view), not by default.
 - **Forms**: `react-hook-form` + `zod` via `@hookform/resolvers` for every form. No uncontrolled/manual form state, no other validation library.
 - **UI**: shadcn/ui for every element (buttons, inputs, layout primitives, and prefer shadcn text/typography primitives over bare `<p>`/`<span>` where one exists). Check for an existing shadcn component (install via the shadcn CLI) before hand-rolling HTML/CSS.
+- **Loading states**: shadcn `Skeleton` for every async/data-dependent view — a skeleton matching the eventual layout, never a bare spinner or a blank flash while an RTK Query hook is loading.
+- **Images**: `next/image` for every image, never a bare `<img>`. Configure `images.remotePatterns` in `next.config.ts` for the backend's asset host as soon as a feature actually renders a backend-hosted image (avatars, book covers, course thumbnails), rather than pre-emptively.
+
+## Before building any feature: Figma and backend must agree
+
+Cross-check both **before** writing a feature's code, not just for Auth/Profile: read the relevant Figma frames for layout/styling AND the relevant live Swagger group (see "Backend API reference (live)" below) for the actual fields/flow/validation, and reconcile them. Figma governs visuals only; the backend governs what data exists, what's required, and what the flow actually does. If a Figma frame implies a field, step, or endpoint the backend doesn't have, don't build it — flag it as a backend gap in the relevant to-do section (the pattern already used for phone auth, forgot-password, news comments, and the review-report modal) instead of guessing or inventing a client-only workaround. This applies to `builder`/`tester` agent work too — see their agent definitions.
 
 ## Figma design — implementation to-do list
 

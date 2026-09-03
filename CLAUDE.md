@@ -47,6 +47,17 @@ Source of truth: [UzChess Figma](https://www.figma.com/design/rOvRUuLpYyFLJ1q8OU
 
 **Before starting UI work**, resolve the open questions in "Ambiguities to clarify" below with design/product — several affect routing and component structure, not just visuals.
 
+### Backend API reference (live)
+
+Deployed backend + Swagger: `https://uzchess.onrender.com`. Same rule as Auth/Profile: **styling from Figma, fields/flow from these specs** — treat them as more current than reading backend source, since this is what's actually deployed. Re-fetch (`GET {base}/swagger/{group}-json`) if a shape looks stale.
+
+- **`/swagger/home`** — Players (`GET /players/read`, `/players/ranking`, `/players/ranking/filters`), Games (`GET /games/read`, `/games/list`, `/games/filters`), Game of the Day (`GET /game-of-day/active`), News (`GET /news/read`, `/news/read/{id}`), Banners (`GET /banners/read`). Drives Home + Ranking + News + Live sections. Mutations (`create`/`update`/`delete`) on all of these are admin-only — ignore for the public site.
+- **`/swagger/account`** — Auth (`/auth/register|login|refresh|logout`), Profile (`/profile`, `/profile/password`, `/profile/email(/resend|/confirm)`, `/profile/verify-email(/resend|/confirm)`), Book Cart (`/cart/read`, `/cart/summary`, `/cart/add|update|remove/{id}`), Book Favourite (`/favourites/read`, `/favourites/add|remove/{id}`), Order (`GET /orders`, `POST /orders/checkout`), Course Favourite (`/courses/favourites`, `/courses/favourite/{id}`). Drives Auth + Profile + Cart/Checkout sections.
+- **`/swagger/books`** — Books (`GET /books/read`, `/books/read/{id}`, `/books/top-rated`), Authors/Book Categories/Difficulty/Languages (`GET .../read`, used as catalog filter option lists), Book Rating (`POST/DELETE /books/rate/{id}`), Coupon (`GET /coupons/read`), Delivery Setting (`GET /delivery-setting`). Drives Library section + checkout coupon/shipping.
+- **`/swagger/courses`** — Courses (`GET /courses/read`, `/courses/read/{id}`, `/courses/top-rated`), Course Categories (filter option list), Course Rating (`GET /courses/reviews/{id}`, `POST/DELETE /courses/rate/{id}`), Course Sections/Lessons (`GET /courses/sections/read`, `/courses/lessons/read`), Course Purchase (`GET /courses/purchased`, `POST /courses/{id}/purchase`), Lesson Progress (`GET /courses/{id}/lessons`, `GET /courses/lessons/{id}/next`, `POST /courses/lessons/{id}/complete`), Certificate (`GET /courses/{id}/certificate`, `GET /certificates/{code}/verify`). Drives Education/Courses section.
+
+**Terminology note**: Figma's "Sotib olingan/Saqlangan mahsulotlar" (purchased/saved *products*) in Profile means **books**, bought via `/cart` → `/orders/checkout` (not a separate "product" entity) — distinct from "kurslar" (courses), which are purchased directly via `/courses/{id}/purchase`. Map "mahsulotlar" lists to the Book Cart/Favourite/Order endpoints, "kurslar" lists to Course Purchase/Favourite endpoints.
+
 ### 0. Foundations (do first — everything else depends on these)
 
 - [ ] Tailwind theme tokens — colors: `Main bg #111315`, `Dark #1A1D1F`, `Dark 2 #13181C`, `White #F7F9FA`, `Blue #1C92E0`, `Lighter blue #32ACFC`, `Secondary #6C6F70`, `secondary low #9DA1A3`, `Grey #ABABAF`, `Yellow #E0B531`, accent `#FFDF00`, `Green #82CC27`, `Red #DC2D2D`.
@@ -57,7 +68,7 @@ Source of truth: [UzChess Figma](https://www.figma.com/design/rOvRUuLpYyFLJ1q8OU
 - [ ] Global "site in test mode" banner (UZ/RU/EN).
 
 ### 1. Home
-- [ ] Base layout: hero/news carousel, donation banner, promo `Banners`, "Game of the day" video block (→ links to Live single-game page), Top-5 ranking widget (→ "Barchasi" links to full Ranking page), Top-4 courses (→ links to catalog), Top books, footer.
+- [ ] Base layout: hero/news carousel (`GET /news/read`, latest N), donation banner, promo `Banners` (`GET /banners/read`), "Game of the day" video block (`GET /game-of-day/active`, → links to Live single-game page), Top-5 ranking widget (`GET /players/ranking`, sliced to 5, → "Barchasi" links to full Ranking page), Top-4 courses (`GET /courses/top-rated`, → links to catalog), Top books (`GET /books/top-rated`), footer.
 - [ ] Header states as one parametrized component (not separate pages): logged-out (Kirish/Ro'yxatdan o'tish), logged-in w/ avatar dropdown, search-open, notifications-open, language-switcher-open, scroll-compacted.
 - [ ] Global search — matches on title only (per design annotation).
 
@@ -75,28 +86,28 @@ Backend reality (`src/features/auth` in the backend repo):
 - [ ] Terms checkbox on sign up — no backend field for it; treat as client-only gating before enabling the submit button (confirm with product whether this needs a backend flag later).
 
 ### 3. Ranking
-- [ ] Ranking table component (shared with home widget)
-- [ ] Full ranking page: tabs (Barchasi / Tamomlangan o'yinlar / Barcha o'yinlar), country-flag filter, pagination
+- [ ] Ranking table component (shared with home widget) — `GET /players/ranking`
+- [ ] Full ranking page: tabs (Barchasi / Tamomlangan o'yinlar / Barcha o'yinlar likely map to `GET /games/list` + `/games/filters`, TBD against actual query params), country-flag filter (`GET /players/ranking/filters` for the option list), pagination
 
 ### 4. News
-- [ ] News list (incl. empty state: "Hech qanday ma'lumot topilmadi")
-- [ ] News single/detail — share, related articles, comment thread with replies
+- [ ] News list (`GET /news/read`, incl. empty state: "Hech qanday ma'lumot topilmadi")
+- [ ] News single/detail (`GET /news/read/{id}`) — share, related articles, comment thread with replies (**no comments endpoint exists in `/swagger/home` or `/swagger/account`** — flag as a backend gap like the forgot-password one, don't build against it yet)
 - [ ] Homepage news section shows latest items only (per design annotation)
 
 ### 5. Education / Courses
-- [ ] Catalog with filters (level, category, language, rating) + "Tozalash" clear-all
-- [ ] Course detail — pricing, section/lesson list, difficulty tag, purchased badge, video preview, reviews
-- [ ] Lesson/tactics answering screen (countdown timer, submit answer)
-- [ ] "Next lesson locked" modal when next lesson isn't purchased (per design annotation)
-- [ ] Course completion screen + certificate (printable, landscape)
-- [ ] Purchase modal (default / success / fail)
-- [ ] Review report modal ("Shikoyat qilish", reason dropdown + optional text)
-- [ ] Course comments visible only to purchasers who completed the course (per design annotation — backend-enforced, but UI should reflect gated state)
+- [ ] Catalog (`GET /courses/read`) with filters (`GET /courses/categories/read` for category, `GET /languages/read`/`GET /difficulty/read` from the books group for language/level — confirm these are shared across books+courses or course-specific, rating filter is a query param) + "Tozalash" clear-all
+- [ ] Course detail (`GET /courses/read/{id}`) — pricing, section/lesson list (`GET /courses/sections/read`, `GET /courses/lessons/read`), difficulty tag, purchased badge (`GET /courses/purchased`), video preview, reviews (`GET /courses/reviews/{id}`, submit via `POST /courses/rate/{id}`)
+- [ ] Lesson/tactics answering screen (countdown timer, submit via `POST /courses/lessons/{id}/complete`)
+- [ ] "Next lesson locked" modal when next lesson isn't purchased (`GET /courses/lessons/{id}/next` — per design annotation)
+- [ ] Course completion screen + certificate (`GET /courses/{id}/certificate`, printable, landscape; verification via `GET /certificates/{code}/verify`)
+- [ ] Purchase modal (default / success / fail) — `POST /courses/{id}/purchase`
+- [ ] Review report modal ("Shikoyat qilish", reason dropdown + optional text) — **no report/moderation endpoint found**; flag as a backend gap
+- [ ] Course comments visible only to purchasers who completed the course (per design annotation — backend-enforced via `/courses/reviews/{id}`, but UI should reflect gated state)
 - [ ] Responsive/mobile variants for catalog + detail
 
 ### 6. Library (books)
-- [ ] Catalog
-- [ ] Book detail — not-purchased (price, add to cart, author, pages, year) and purchased states
+- [ ] Catalog (`GET /books/read`) with filters (`GET /books/categories/read`, `GET /authors/read`, `GET /difficulty/read`, `GET /languages/read`)
+- [ ] Book detail (`GET /books/read/{id}`) — not-purchased (price, add to cart via `POST /cart/add/{id}`, author, pages, year) and purchased states (cross-check against `GET /orders`); rating via `POST/DELETE /books/rate/{id}`
 - [ ] Responsive variant
 
 ### 7. Contact ("Bog'lanish")
@@ -115,12 +126,12 @@ Same rule as Auth above: styling from Figma, fields/flow from the backend (`/pro
 - [ ] Edit profile — `PATCH /profile` (multipart/form-data) `{firstName?, lastName?, birthDate?, avatar?}`.
 - [ ] Change password — `PATCH /profile/password` `{currentPassword, newPassword, confirmNewPassword}` (authenticated; this is the only "password reset" surface that currently exists — see Auth section note on the missing forgot-password endpoint).
 - [ ] Edit email (no "edit phone") — `PATCH /profile/email` `{currentPassword, newEmail}` sends a 6-digit code to the new address, then `POST /profile/email/confirm {code}` finalizes it (same OTP visual as email verification, separate cache/endpoint from signup verification).
-- [ ] Purchased products, purchased courses lists
-- [ ] Saved courses / saved products / saved books (three separate lists)
+- [ ] Purchased products (books, `GET /orders`), purchased courses (`GET /courses/purchased`) lists
+- [ ] Saved courses (`GET /courses/favourites`) / saved products (books, `GET /favourites/read`) — Figma's "saved books" is the same list as "saved products" (see terminology note above), not a third endpoint
 
 ### 10. Cart / Checkout
-- [ ] Cart — line items, quantity picker, totals, discount, coupon
-- [ ] Checkout — shipping/contact form, place order
+- [ ] Cart (`GET /cart/read`, `GET /cart/summary`) — line items, quantity picker (`PATCH /cart/update/{id}`, `DELETE /cart/remove/{id}`), totals, discount, coupon (`GET /coupons/read` for validation — confirm exact apply-coupon contract against `/orders/checkout` payload)
+- [ ] Checkout — shipping/contact form (shipping cost from `GET /delivery-setting`), place order via `POST /orders/checkout`
 - [ ] Order success
 
 ### 11. Misc

@@ -47,6 +47,10 @@
   --color-brand-accent: var(--brand-accent);
   --color-brand-green: var(--brand-green);
   --color-brand-red: var(--brand-red);
+
+  /* Simple board tile colors (decorative/static chess board only) */
+  --color-board-light: var(--board-light);
+  --color-board-dark: var(--board-dark);
 }
 
 :root {
@@ -64,6 +68,8 @@
   --brand-accent: #ffdf00;
   --brand-green: #82cc27;
   --brand-red: #dc2d2d;
+  --board-light: #e8f4fc;
+  --board-dark: #8bbee0;
 
   /* shadcn semantic tokens, wired to the palette above so every shadcn
      primitive renders in the UzChess dark theme with no per-component work */

@@ -1,10 +1,9 @@
 "use client"
 
-import * as React from "react"
 import { EyeIcon, EyeOffIcon } from "lucide-react"
+import * as React from "react"
 
-import { cn } from "@/lib/utils"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/components/ui/button"
 import {
   Field,
   FieldContent,
@@ -12,7 +11,8 @@ import {
   FieldError,
   FieldLabel,
 } from "@/components/ui/field"
-import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { cn } from "@/lib/utils"
 
 type TextFieldVariant = "default" | "password" | "phone"
 

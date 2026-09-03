@@ -1,10 +1,10 @@
-import { cn } from "@/lib/utils"
-import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
-import { VictoryIcon } from "@/components/shared/chess/victory-icon"
 import {
   TimeControlTag,
   type TimeControl,
 } from "@/components/shared/chess/time-control-tag"
+import { VictoryIcon } from "@/components/shared/chess/victory-icon"
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar"
+import { cn } from "@/lib/utils"
 
 interface GameInfoPlayer {
   name: string

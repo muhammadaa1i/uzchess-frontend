@@ -1,20 +1,20 @@
 "use client"
 
+import { BellIcon, ChevronDownIcon, LogInIcon, SearchIcon } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BellIcon, ChevronDownIcon, LogInIcon, SearchIcon } from "lucide-react"
 
-import { cn } from "@/lib/utils"
-import { Button } from "@/components/ui/button"
-import { Separator } from "@/components/ui/separator"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { Button } from "@/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { Separator } from "@/components/ui/separator"
+import { cn } from "@/lib/utils"
 
 const NAV_LINKS = [
   { href: "/", label: "Asosiy" },

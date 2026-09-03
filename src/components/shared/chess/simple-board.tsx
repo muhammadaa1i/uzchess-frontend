@@ -1,9 +1,9 @@
-import { cn } from "@/lib/utils"
 import {
   ChessPiece,
   type ChessPieceSide,
   type ChessPieceType,
 } from "@/components/shared/chess/chess-piece"
+import { cn } from "@/lib/utils"
 
 interface BoardPiece {
   /** 0-7, 0 = top rank (8th rank) */

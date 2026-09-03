@@ -1,5 +1,5 @@
-import Image from "next/image"
 import { cva, type VariantProps } from "class-variance-authority"
+import Image from "next/image"
 
 import { cn } from "@/lib/utils"
 

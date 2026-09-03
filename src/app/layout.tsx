@@ -3,6 +3,7 @@ import { Poppins } from "next/font/google";
 import "./globals.css";
 
 import { StoreProvider } from "@/lib/store/provider";
+import { SiteShell } from "@/components/shared/layout/site-shell";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -19,7 +20,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="uz" className={`${poppins.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <StoreProvider>{children}</StoreProvider>
+        <StoreProvider>
+          <SiteShell>{children}</SiteShell>
+        </StoreProvider>
       </body>
     </html>
   );

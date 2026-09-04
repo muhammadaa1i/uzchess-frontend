@@ -87,7 +87,11 @@ const eslintConfig = defineConfig([
     files: [
       "src/app/**/{page,layout,loading,error,not-found,template,default,global-error}.{ts,tsx}",
       "src/app/**/route.ts",
-      "src/middleware.ts",
+      "src/proxy.ts",
+      // next-intl's plugin loads this file's default export as the request
+      // config — same "framework requires a default export" exception as
+      // the Next.js special files above.
+      "src/i18n/request.ts",
       "next.config.ts",
       "postcss.config.mjs",
       "eslint.config.mjs",

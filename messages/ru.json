@@ -1,0 +1,78 @@
+{
+  "Nav": {
+    "home": "Главная",
+    "news": "Новости",
+    "courses": "Курсы",
+    "library": "Библиотека",
+    "contact": "Контакты"
+  },
+  "Header": {
+    "search": "Поиск",
+    "notifications": "Уведомления",
+    "signIn": "Войти",
+    "profile": "Профиль",
+    "logout": "Выйти"
+  },
+  "Footer": {
+    "about": "О нас",
+    "terms": "Условия использования",
+    "cookiePolicy": "Политика использования файлов cookie",
+    "copyright": "© UzChess. Все права защищены."
+  },
+  "TestModeBanner": {
+    "message": "Сайт работает в тестовом режиме",
+    "close": "Закрыть"
+  },
+  "Home": {
+    "donation": {
+      "title": "Вклад в развитие проекта",
+      "subtitle": "Внесите свой вклад в развитие шахмат",
+      "badge": "Скоро"
+    },
+    "gameOfDay": {
+      "title": "Игра дня",
+      "watch": "Смотреть",
+      "watchAria": "Смотреть видео"
+    },
+    "ranking": {
+      "title": "Рейтинг",
+      "seeAll": "Все",
+      "empty": "Рейтинг пока недоступен"
+    },
+    "shortcuts": {
+      "courses": "Курсы",
+      "library": "Библиотека"
+    },
+    "completedGames": {
+      "title": "Завершённые партии",
+      "seeAll": "Все",
+      "players": "Игроки",
+      "result": "Результат",
+      "gameType": "Тип игры",
+      "moves": "Ходы",
+      "date": "Дата",
+      "empty": "Пока нет завершённых партий"
+    },
+    "banners": {
+      "cta": "Подробнее"
+    },
+    "topCourses": {
+      "title": "Топ курсы",
+      "seeAll": "Все",
+      "empty": "Пока нет курсов"
+    },
+    "topBooks": {
+      "title": "Топ книги",
+      "seeAll": "Все",
+      "empty": "Пока нет книг"
+    },
+    "news": {
+      "title": "Новости",
+      "seeAll": "Все",
+      "empty": "Ничего не найдено"
+    }
+  },
+  "Common": {
+    "emptyState": "Данные пока отсутствуют"
+  }
+}

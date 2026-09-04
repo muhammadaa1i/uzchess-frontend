@@ -42,3 +42,5 @@ next-env.d.ts
 
 # Claude Code (backed up separately via the memory-sync repo, same as backend)
 /.claude
+
+/.idea

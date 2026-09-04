@@ -1,11 +1,7 @@
 import Image from "next/image"
-import Link from "next/link"
+import { useTranslations } from "next-intl"
 
-const FOOTER_LINKS = [
-  { href: "/about", label: "Biz haqimizda" },
-  { href: "/terms", label: "Foydalanish qoidalari" },
-  { href: "/cookie-policy", label: "Cookie fayllari siyosati" },
-] as const
+import { Link } from "@/i18n/navigation"
 
 const SOCIAL_LINKS = [
   { href: "https://instagram.com", label: "Instagram", icon: "instagram" },
@@ -16,6 +12,14 @@ const SOCIAL_LINKS = [
 ] as const
 
 function SiteFooter() {
+  const t = useTranslations("Footer")
+
+  const footerLinks = [
+    { href: "/about", label: t("about") },
+    { href: "/terms", label: t("terms") },
+    { href: "/cookie-policy", label: t("cookiePolicy") },
+  ] as const
+
   return (
     <footer className="bg-dark">
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 px-8 py-10">
@@ -29,7 +33,7 @@ function SiteFooter() {
           />
         </Link>
         <nav className="flex flex-wrap items-center justify-center gap-6">
-          {FOOTER_LINKS.map((link) => (
+          {footerLinks.map((link) => (
             <Link
               key={link.href}
               href={link.href}
@@ -60,9 +64,9 @@ function SiteFooter() {
       </div>
       <div className="border-t border-white/10">
         <div className="mx-auto flex max-w-[1440px] flex-wrap items-center justify-between gap-4 px-8 py-4 text-sm text-brand-white">
-          <span>© UzChess. All rights reserved.</span>
+          <span>{t("copyright")}</span>
           <Link href="/terms" className="hover:text-brand-white/80">
-            Foydalanish qoidalari
+            {t("terms")}
           </Link>
         </div>
       </div>

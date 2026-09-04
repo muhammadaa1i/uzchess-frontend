@@ -2,8 +2,7 @@
 
 import { BellIcon, ChevronDownIcon, LogInIcon, SearchIcon } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
-import { usePathname } from "next/navigation"
+import { useLocale, useTranslations } from "next-intl"
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
@@ -14,21 +13,17 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
+import { Link, usePathname, useRouter } from "@/i18n/navigation"
+import type { routing } from "@/i18n/routing"
 import { cn } from "@/lib/utils"
 
-const NAV_LINKS = [
-  { href: "/", label: "Asosiy" },
-  { href: "/news", label: "Yangiliklar" },
-  { href: "/courses", label: "Kurslar" },
-  { href: "/library", label: "Kutubxona" },
-  { href: "/contact", label: "Bog'lanish" },
-] as const
+type Locale = (typeof routing.locales)[number]
 
-const LANGUAGES = [
+const LANGUAGES: Array<{ code: Locale; label: string }> = [
   { code: "uz", label: "O'zbekcha" },
   { code: "ru", label: "Русский" },
   { code: "en", label: "English" },
-] as const
+]
 
 interface SiteHeaderUser {
   name: string
@@ -42,7 +37,17 @@ interface SiteHeaderProps {
 }
 
 function SiteHeader({ user = null, onSignInClick, className }: SiteHeaderProps) {
+  const t = useTranslations("Nav")
+  const tHeader = useTranslations("Header")
   const pathname = usePathname()
+
+  const navLinks = [
+    { href: "/", label: t("home") },
+    { href: "/news", label: t("news") },
+    { href: "/courses", label: t("courses") },
+    { href: "/library", label: t("library") },
+    { href: "/contact", label: t("contact") },
+  ] as const
 
   return (
     <header className={cn("sticky top-0 z-40 lg:top-5", className)}>
@@ -59,17 +64,17 @@ function SiteHeader({ user = null, onSignInClick, className }: SiteHeaderProps) 
           />
         </Link>
         <div className="flex items-center gap-2">
-          <Button variant="ghost" size="icon-sm" aria-label="Qidiruv">
+          <Button variant="ghost" size="icon-sm" aria-label={tHeader("search")}>
             <SearchIcon />
           </Button>
-          <Button variant="ghost" size="icon-sm" aria-label="Bildirishnomalar">
+          <Button variant="ghost" size="icon-sm" aria-label={tHeader("notifications")}>
             <BellIcon />
           </Button>
           {user ? (
             <UserMenu user={user} />
           ) : (
             <Button size="sm" onClick={onSignInClick}>
-              Kirish
+              {tHeader("signIn")}
             </Button>
           )}
         </div>
@@ -97,7 +102,7 @@ function SiteHeader({ user = null, onSignInClick, className }: SiteHeaderProps) 
         </div>
 
         <nav className="flex items-center gap-10">
-          {NAV_LINKS.map((link) => {
+          {navLinks.map((link) => {
             const isActive = pathname === link.href
             return (
               <Link
@@ -118,10 +123,10 @@ function SiteHeader({ user = null, onSignInClick, className }: SiteHeaderProps) 
         </nav>
 
         <div className="flex items-center gap-5">
-          <Button variant="ghost" size="icon-sm" aria-label="Qidiruv">
+          <Button variant="ghost" size="icon-sm" aria-label={tHeader("search")}>
             <SearchIcon />
           </Button>
-          <Button variant="ghost" size="icon-sm" aria-label="Bildirishnomalar">
+          <Button variant="ghost" size="icon-sm" aria-label={tHeader("notifications")}>
             <BellIcon />
           </Button>
           <Separator orientation="vertical" className="h-6" />
@@ -129,7 +134,7 @@ function SiteHeader({ user = null, onSignInClick, className }: SiteHeaderProps) 
             <UserMenu user={user} />
           ) : (
             <Button onClick={onSignInClick}>
-              Kirish
+              {tHeader("signIn")}
               <LogInIcon />
             </Button>
           )}
@@ -140,15 +145,25 @@ function SiteHeader({ user = null, onSignInClick, className }: SiteHeaderProps) 
 }
 
 function LanguageSwitcher() {
+  const locale = useLocale()
+  const pathname = usePathname()
+  const router = useRouter()
+  const current = LANGUAGES.find((language) => language.code === locale) ?? LANGUAGES[0]
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="flex items-center gap-2 text-sm font-medium text-brand-white outline-none">
-        O&apos;zbekcha
+        {current.label}
         <ChevronDownIcon className="size-4" />
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         {LANGUAGES.map((language) => (
-          <DropdownMenuItem key={language.code}>{language.label}</DropdownMenuItem>
+          <DropdownMenuItem
+            key={language.code}
+            onClick={() => router.replace(pathname, { locale: language.code })}
+          >
+            {language.label}
+          </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
     </DropdownMenu>
@@ -156,6 +171,8 @@ function LanguageSwitcher() {
 }
 
 function UserMenu({ user }: { user: SiteHeaderUser }) {
+  const t = useTranslations("Header")
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
@@ -165,8 +182,8 @@ function UserMenu({ user }: { user: SiteHeaderUser }) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>Profil</DropdownMenuItem>
-        <DropdownMenuItem>Chiqish</DropdownMenuItem>
+        <DropdownMenuItem>{t("profile")}</DropdownMenuItem>
+        <DropdownMenuItem>{t("logout")}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

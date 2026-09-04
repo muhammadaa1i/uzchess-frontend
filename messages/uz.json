@@ -1,0 +1,78 @@
+{
+  "Nav": {
+    "home": "Asosiy",
+    "news": "Yangiliklar",
+    "courses": "Kurslar",
+    "library": "Kutubxona",
+    "contact": "Bog'lanish"
+  },
+  "Header": {
+    "search": "Qidiruv",
+    "notifications": "Bildirishnomalar",
+    "signIn": "Kirish",
+    "profile": "Profil",
+    "logout": "Chiqish"
+  },
+  "Footer": {
+    "about": "Biz haqimizda",
+    "terms": "Foydalanish qoidalari",
+    "cookiePolicy": "Cookie fayllari siyosati",
+    "copyright": "© UzChess. Barcha huquqlar himoyalangan."
+  },
+  "TestModeBanner": {
+    "message": "Sayt test rejimida ishlamoqda",
+    "close": "Yopish"
+  },
+  "Home": {
+    "donation": {
+      "title": "Loyiha rivojiga xissa",
+      "subtitle": "Shaxmat rivojiga hissa qo'shing",
+      "badge": "Tez orada"
+    },
+    "gameOfDay": {
+      "title": "Kun o'yini",
+      "watch": "Ko'rish",
+      "watchAria": "Tomosha qilish"
+    },
+    "ranking": {
+      "title": "Reyting",
+      "seeAll": "Barchasi",
+      "empty": "Hozircha reyting mavjud emas"
+    },
+    "shortcuts": {
+      "courses": "Kurslar",
+      "library": "Kutubxona"
+    },
+    "completedGames": {
+      "title": "Yakunlangan o'yinlar",
+      "seeAll": "Barchasi",
+      "players": "O'yinchilar",
+      "result": "Natija",
+      "gameType": "O'yin turi",
+      "moves": "Yurishlar",
+      "date": "Sana",
+      "empty": "Hozircha yakunlangan o'yinlar mavjud emas"
+    },
+    "banners": {
+      "cta": "Batafsil"
+    },
+    "topCourses": {
+      "title": "Top kurslar",
+      "seeAll": "Barchasi",
+      "empty": "Hozircha kurslar mavjud emas"
+    },
+    "topBooks": {
+      "title": "Top kitoblar",
+      "seeAll": "Barchasi",
+      "empty": "Hozircha kitoblar mavjud emas"
+    },
+    "news": {
+      "title": "Yangiliklar",
+      "seeAll": "Barchasi",
+      "empty": "Hech qanday ma'lumot topilmadi"
+    }
+  },
+  "Common": {
+    "emptyState": "Hozircha ma'lumot yo'q"
+  }
+}

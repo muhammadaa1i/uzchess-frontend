@@ -1,0 +1,78 @@
+{
+  "Nav": {
+    "home": "Home",
+    "news": "News",
+    "courses": "Courses",
+    "library": "Library",
+    "contact": "Contact"
+  },
+  "Header": {
+    "search": "Search",
+    "notifications": "Notifications",
+    "signIn": "Sign in",
+    "profile": "Profile",
+    "logout": "Log out"
+  },
+  "Footer": {
+    "about": "About us",
+    "terms": "Terms of use",
+    "cookiePolicy": "Cookie policy",
+    "copyright": "© UzChess. All rights reserved."
+  },
+  "TestModeBanner": {
+    "message": "The site is running in test mode",
+    "close": "Close"
+  },
+  "Home": {
+    "donation": {
+      "title": "Support the project",
+      "subtitle": "Contribute to the development of chess",
+      "badge": "Soon"
+    },
+    "gameOfDay": {
+      "title": "Game of the day",
+      "watch": "Watch",
+      "watchAria": "Watch video"
+    },
+    "ranking": {
+      "title": "Ranking",
+      "seeAll": "See all",
+      "empty": "Ranking is not available yet"
+    },
+    "shortcuts": {
+      "courses": "Courses",
+      "library": "Library"
+    },
+    "completedGames": {
+      "title": "Completed games",
+      "seeAll": "See all",
+      "players": "Players",
+      "result": "Result",
+      "gameType": "Game type",
+      "moves": "Moves",
+      "date": "Date",
+      "empty": "No completed games yet"
+    },
+    "banners": {
+      "cta": "Learn more"
+    },
+    "topCourses": {
+      "title": "Top courses",
+      "seeAll": "See all",
+      "empty": "No courses yet"
+    },
+    "topBooks": {
+      "title": "Top books",
+      "seeAll": "See all",
+      "empty": "No books yet"
+    },
+    "news": {
+      "title": "News",
+      "seeAll": "See all",
+      "empty": "No results found"
+    }
+  },
+  "Common": {
+    "emptyState": "No data yet"
+  }
+}

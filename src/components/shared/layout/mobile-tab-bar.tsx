@@ -10,7 +10,7 @@ import {
 } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-import { Link, usePathname } from "@/i18n/navigation"
+import { Link, usePathname } from "@/lib/i18n/navigation"
 import { cn } from "@/lib/utils"
 
 function MobileTabBar() {

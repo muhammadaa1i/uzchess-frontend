@@ -5,7 +5,7 @@ import { hasLocale, NextIntlClientProvider } from "next-intl";
 import { setRequestLocale } from "next-intl/server";
 
 import { SiteShell } from "@/components/shared/layout/site-shell";
-import { routing } from "@/i18n/routing";
+import { routing } from "@/lib/i18n/routing";
 import { StoreProvider } from "@/lib/store/provider";
 
 import "../globals.css";

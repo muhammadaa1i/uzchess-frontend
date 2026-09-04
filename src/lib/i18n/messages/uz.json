@@ -72,6 +72,54 @@
       "empty": "Hech qanday ma'lumot topilmadi"
     }
   },
+  "Auth": {
+    "signIn": {
+      "title": "Kirish",
+      "email": "Email",
+      "password": "Parol",
+      "submit": "Kirish",
+      "switchPrompt": "Hisobingiz yo'qmi?",
+      "switchAction": "Ro'yxatdan o'tish"
+    },
+    "signUp": {
+      "title": "Ro'yxatdan o'tish",
+      "firstName": "Ism",
+      "lastName": "Familiya",
+      "email": "Email",
+      "password": "Parol",
+      "confirmPassword": "Parolni tasdiqlang",
+      "terms": "Men foydalanish shartlariga roziman",
+      "submit": "Ro'yxatdan o'tish",
+      "switchPrompt": "Hisobingiz bormi?",
+      "switchAction": "Kirish"
+    },
+    "verifyEmail": {
+      "title": "Emailni tasdiqlang",
+      "description": "Tasdiqlash kodi emailingizga yuborildi",
+      "codeLabel": "Tasdiqlash kodi",
+      "submit": "Tasdiqlash",
+      "resend": "Kodni qayta yuborish",
+      "resendCooldown": "Qayta yuborish ({seconds}s)",
+      "skip": "Keyinroq"
+    },
+    "validation": {
+      "firstNameRequired": "Ismni kiriting",
+      "lastNameRequired": "Familiyani kiriting",
+      "emailRequired": "Emailni kiriting",
+      "emailInvalid": "Email noto'g'ri",
+      "passwordRequired": "Parolni kiriting",
+      "confirmPasswordRequired": "Parolni tasdiqlang",
+      "passwordMismatch": "Parollar mos kelmadi",
+      "termsRequired": "Foydalanish shartlarini qabul qiling",
+      "codeRequired": "6 xonali kodni kiriting"
+    },
+    "errors": {
+      "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring",
+      "invalidCredentials": "Email yoki parol noto'g'ri",
+      "codeExpired": "Kod muddati tugagan. Yangi kod so'rang",
+      "codeInvalid": "Kod noto'g'ri"
+    }
+  },
   "Common": {
     "emptyState": "Hozircha ma'lumot yo'q"
   }

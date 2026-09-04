@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 
-import { Link } from "@/i18n/navigation"
+import { Link } from "@/lib/i18n/navigation"
 
 const SOCIAL_LINKS = [
   { href: "https://instagram.com", label: "Instagram", icon: "instagram" },

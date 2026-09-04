@@ -13,8 +13,12 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { Link, usePathname, useRouter } from "@/i18n/navigation"
-import type { routing } from "@/i18n/routing"
+import { useLogoutMutation } from "@/features/auth/model/auth-api"
+import type { AuthUser } from "@/features/auth/model/auth-schemas"
+import { authModalOpened, loggedOut } from "@/features/auth/model/auth-slice"
+import { Link, usePathname, useRouter } from "@/lib/i18n/navigation"
+import type { routing } from "@/lib/i18n/routing"
+import { useAppDispatch, useAppSelector } from "@/lib/store/hooks"
 import { cn } from "@/lib/utils"
 
 type Locale = (typeof routing.locales)[number]
@@ -25,21 +29,17 @@ const LANGUAGES: Array<{ code: Locale; label: string }> = [
   { code: "en", label: "English" },
 ]
 
-interface SiteHeaderUser {
-  name: string
-  avatarUrl?: string
-}
-
 interface SiteHeaderProps {
-  user?: SiteHeaderUser | null
-  onSignInClick?: () => void
   className?: string
 }
 
-function SiteHeader({ user = null, onSignInClick, className }: SiteHeaderProps) {
+function SiteHeader({ className }: SiteHeaderProps) {
   const t = useTranslations("Nav")
   const tHeader = useTranslations("Header")
+  const dispatch = useAppDispatch()
+  const user = useAppSelector((state) => state.auth.user)
   const pathname = usePathname()
+  const onSignInClick = () => dispatch(authModalOpened("sign-in"))
 
   const navLinks = [
     { href: "/", label: t("home") },
@@ -170,24 +170,38 @@ function LanguageSwitcher() {
   )
 }
 
-function UserMenu({ user }: { user: SiteHeaderUser }) {
+function UserMenu({ user }: { user: AuthUser }) {
   const t = useTranslations("Header")
+  const dispatch = useAppDispatch()
+  const [logout] = useLogoutMutation()
+  const name = `${user.firstName} ${user.lastName}`
+
+  async function handleLogout() {
+    // Log out client-side regardless of whether the server call succeeds —
+    // an expired/already-invalid token shouldn't leave the user stuck
+    // "logged in" on the client.
+    try {
+      await logout().unwrap()
+    } finally {
+      dispatch(loggedOut())
+    }
+  }
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="outline-none">
         <Avatar size="sm">
-          <AvatarImage src={user.avatarUrl} alt={user.name} />
-          <AvatarFallback>{user.name.charAt(0)}</AvatarFallback>
+          <AvatarImage src={user.avatar ?? undefined} alt={name} />
+          <AvatarFallback>{user.firstName.charAt(0)}</AvatarFallback>
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem>{t("profile")}</DropdownMenuItem>
-        <DropdownMenuItem>{t("logout")}</DropdownMenuItem>
+        <DropdownMenuItem onClick={handleLogout}>{t("logout")}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )
 }
 
 export { SiteHeader }
-export type { SiteHeaderProps, SiteHeaderUser }
+export type { SiteHeaderProps }

@@ -5,7 +5,7 @@ import { MobileTabBar } from "@/components/shared/layout/mobile-tab-bar"
 import { SiteFooter } from "@/components/shared/layout/site-footer"
 import { SiteHeader } from "@/components/shared/layout/site-header"
 import { TestModeBanner } from "@/components/shared/layout/test-mode-banner"
-
+import { AuthModal } from "@/features/auth/view/auth-modal"
 
 function SiteShell({ children }: { children: ReactNode }) {
   return (
@@ -17,6 +17,7 @@ function SiteShell({ children }: { children: ReactNode }) {
         <SiteFooter />
       </div>
       <MobileTabBar />
+      <AuthModal />
     </div>
   )
 }

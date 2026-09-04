@@ -72,6 +72,54 @@
       "empty": "No results found"
     }
   },
+  "Auth": {
+    "signIn": {
+      "title": "Sign in",
+      "email": "Email",
+      "password": "Password",
+      "submit": "Sign in",
+      "switchPrompt": "Don't have an account?",
+      "switchAction": "Sign up"
+    },
+    "signUp": {
+      "title": "Sign up",
+      "firstName": "First name",
+      "lastName": "Last name",
+      "email": "Email",
+      "password": "Password",
+      "confirmPassword": "Confirm password",
+      "terms": "I accept the terms of use",
+      "submit": "Sign up",
+      "switchPrompt": "Already have an account?",
+      "switchAction": "Sign in"
+    },
+    "verifyEmail": {
+      "title": "Verify your email",
+      "description": "A verification code has been sent to your email",
+      "codeLabel": "Verification code",
+      "submit": "Verify",
+      "resend": "Resend code",
+      "resendCooldown": "Resend ({seconds}s)",
+      "skip": "Later"
+    },
+    "validation": {
+      "firstNameRequired": "Enter your first name",
+      "lastNameRequired": "Enter your last name",
+      "emailRequired": "Enter your email",
+      "emailInvalid": "Invalid email",
+      "passwordRequired": "Enter your password",
+      "confirmPasswordRequired": "Confirm your password",
+      "passwordMismatch": "Passwords don't match",
+      "termsRequired": "Accept the terms of use",
+      "codeRequired": "Enter the 6-digit code"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again",
+      "invalidCredentials": "Invalid email or password",
+      "codeExpired": "The code has expired. Request a new one",
+      "codeInvalid": "Invalid code"
+    }
+  },
   "Common": {
     "emptyState": "No data yet"
   }

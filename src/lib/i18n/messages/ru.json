@@ -72,6 +72,54 @@
       "empty": "Ничего не найдено"
     }
   },
+  "Auth": {
+    "signIn": {
+      "title": "Вход",
+      "email": "Email",
+      "password": "Пароль",
+      "submit": "Войти",
+      "switchPrompt": "Нет аккаунта?",
+      "switchAction": "Зарегистрироваться"
+    },
+    "signUp": {
+      "title": "Регистрация",
+      "firstName": "Имя",
+      "lastName": "Фамилия",
+      "email": "Email",
+      "password": "Пароль",
+      "confirmPassword": "Подтвердите пароль",
+      "terms": "Я принимаю условия использования",
+      "submit": "Зарегистрироваться",
+      "switchPrompt": "Уже есть аккаунт?",
+      "switchAction": "Войти"
+    },
+    "verifyEmail": {
+      "title": "Подтвердите email",
+      "description": "Код подтверждения отправлен на ваш email",
+      "codeLabel": "Код подтверждения",
+      "submit": "Подтвердить",
+      "resend": "Отправить код повторно",
+      "resendCooldown": "Повторная отправка ({seconds}с)",
+      "skip": "Позже"
+    },
+    "validation": {
+      "firstNameRequired": "Введите имя",
+      "lastNameRequired": "Введите фамилию",
+      "emailRequired": "Введите email",
+      "emailInvalid": "Неверный email",
+      "passwordRequired": "Введите пароль",
+      "confirmPasswordRequired": "Подтвердите пароль",
+      "passwordMismatch": "Пароли не совпадают",
+      "termsRequired": "Примите условия использования",
+      "codeRequired": "Введите 6-значный код"
+    },
+    "errors": {
+      "generic": "Произошла ошибка. Попробуйте снова",
+      "invalidCredentials": "Неверный email или пароль",
+      "codeExpired": "Срок действия кода истёк. Запросите новый код",
+      "codeInvalid": "Неверный код"
+    }
+  },
   "Common": {
     "emptyState": "Данные пока отсутствуют"
   }

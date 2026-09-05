@@ -1,0 +1,16 @@
+import { useGetNewsByIdQuery } from "@/features/news/model/news-api"
+
+function useNewsDetail(newsId: number) {
+  const { data, isLoading, isError } = useGetNewsByIdQuery(newsId, {
+    skip: !Number.isFinite(newsId),
+  })
+
+  return {
+    news: data,
+    relatedNews: data?.relatedNews ?? [],
+    isLoading,
+    isError: isError || !Number.isFinite(newsId),
+  }
+}
+
+export { useNewsDetail }

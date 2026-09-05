@@ -94,6 +94,21 @@
       "next": "Keyingi"
     }
   },
+  "News": {
+    "title": "Yangiliklar",
+    "empty": "Hech qanday ma'lumot topilmadi",
+    "notFound": "Yangilik topilmadi",
+    "related": "O'xshash yangiliklar",
+    "views": "{count} marta ko'rilgan",
+    "share": {
+      "label": "Ulashish",
+      "copied": "Nusxalandi"
+    },
+    "pagination": {
+      "previous": "Oldingi",
+      "next": "Keyingi"
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Kirish",

@@ -94,6 +94,21 @@
       "next": "Next"
     }
   },
+  "News": {
+    "title": "News",
+    "empty": "No results found",
+    "notFound": "News article not found",
+    "related": "Related news",
+    "views": "{count} views",
+    "share": {
+      "label": "Share",
+      "copied": "Copied"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Sign in",

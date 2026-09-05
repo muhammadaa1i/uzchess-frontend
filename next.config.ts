@@ -10,7 +10,7 @@ const nextConfig: NextConfig = {
         // images come back from the API as full URLs on this host.
         protocol: "https",
         hostname: "pub-83d44d477896463e9c27188da6d489de.r2.dev",
-        pathname: "/**",
+        pathname: "/**"
       },
     ],
   },

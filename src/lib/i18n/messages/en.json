@@ -72,6 +72,28 @@
       "empty": "No results found"
     }
   },
+  "Ranking": {
+    "title": "Ranking",
+    "tabs": {
+      "all": "All",
+      "completedGames": "Completed games",
+      "allGames": "All games"
+    },
+    "countryFilter": {
+      "placeholder": "Country",
+      "all": "All countries"
+    },
+    "table": {
+      "rank": "#",
+      "player": "Player",
+      "rating": "Rating"
+    },
+    "empty": "Ranking is not available yet",
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Sign in",

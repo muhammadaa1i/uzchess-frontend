@@ -1,6 +1,7 @@
 import { ChevronRightIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
+import { Link } from "@/lib/i18n/navigation"
 import { cn } from "@/lib/utils"
 
 interface SectionHeadingProps {
@@ -10,21 +11,25 @@ interface SectionHeadingProps {
   actionIcon?: boolean
   /** Extra classes for the action button — used for the odd cases where Figma dims one section's link more than another's. */
   actionClassName?: string
+  /**
+   * Locale-aware route the action button links to. Omit to render the
+   * button disabled — the default for sections whose target page (Courses
+   * catalog, Library catalog, News detail) doesn't exist yet (see CLAUDE.md's
+   * Home to-do).
+   */
+  href?: Parameters<typeof Link>[0]["href"]
   /** Title text size: "default" is 20px, "sm" is 18px (used by the sidebar list cards). */
   size?: "default" | "sm"
   titleClassName?: string
   className?: string
 }
 
-// "Barchasi"/"Ko'rish" style CTAs render disabled — the pages they'd link to
-// (Ranking, Courses catalog, Library catalog, News detail) don't exist yet,
-// so this is a visual placeholder rather than a broken route (see CLAUDE.md's
-// Home to-do).
 function SectionHeading({
   title,
   actionLabel,
   actionIcon,
   actionClassName,
+  href,
   size = "default",
   titleClassName,
   className,
@@ -40,17 +45,29 @@ function SectionHeading({
       >
         {title}
       </h2>
-      {actionLabel && (
-        <Button
-          variant="ghost"
-          size="sm"
-          disabled
-          className={cn("text-brand-blue-light", actionClassName)}
-        >
-          {actionLabel}
-          {actionIcon && <ChevronRightIcon />}
-        </Button>
-      )}
+      {actionLabel &&
+        (href ? (
+          <Button
+            variant="ghost"
+            size="sm"
+            className={cn("text-brand-blue-light", actionClassName)}
+            nativeButton={false}
+            render={<Link href={href} />}
+          >
+            {actionLabel}
+            {actionIcon && <ChevronRightIcon />}
+          </Button>
+        ) : (
+          <Button
+            variant="ghost"
+            size="sm"
+            disabled
+            className={cn("text-brand-blue-light", actionClassName)}
+          >
+            {actionLabel}
+            {actionIcon && <ChevronRightIcon />}
+          </Button>
+        ))}
     </div>
   )
 }

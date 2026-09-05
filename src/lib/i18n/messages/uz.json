@@ -72,6 +72,28 @@
       "empty": "Hech qanday ma'lumot topilmadi"
     }
   },
+  "Ranking": {
+    "title": "Reyting",
+    "tabs": {
+      "all": "Barchasi",
+      "completedGames": "Tamomlangan o'yinlar",
+      "allGames": "Barcha o'yinlar"
+    },
+    "countryFilter": {
+      "placeholder": "Mamlakat",
+      "all": "Barcha mamlakatlar"
+    },
+    "table": {
+      "rank": "#",
+      "player": "O'yinchi",
+      "rating": "Reyting"
+    },
+    "empty": "Hozircha reyting mavjud emas",
+    "pagination": {
+      "previous": "Oldingi",
+      "next": "Keyingi"
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Kirish",

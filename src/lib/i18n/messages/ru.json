@@ -72,6 +72,28 @@
       "empty": "Ничего не найдено"
     }
   },
+  "Ranking": {
+    "title": "Рейтинг",
+    "tabs": {
+      "all": "Все",
+      "completedGames": "Завершённые партии",
+      "allGames": "Все партии"
+    },
+    "countryFilter": {
+      "placeholder": "Страна",
+      "all": "Все страны"
+    },
+    "table": {
+      "rank": "#",
+      "player": "Игрок",
+      "rating": "Рейтинг"
+    },
+    "empty": "Рейтинг пока недоступен",
+    "pagination": {
+      "previous": "Назад",
+      "next": "Далее"
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Вход",

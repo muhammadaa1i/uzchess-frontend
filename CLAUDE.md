@@ -23,7 +23,17 @@ There is no test runner configured yet — do not assume Jest/Vitest exist until
 
 ## Current state
 
-App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`) live under `src/components/shared/`. No feature screens, Redux store, or RTK Query setup exist yet — `src/app/page.tsx` is still the unmodified `create-next-app` placeholder. Treat the architectural guidance below as the standard to build *toward* as features land, not a description of code that fully exists yet.
+App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/[locale]/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`, chess-specific components) live under `src/components/shared/`. Routing/i18n, the Redux store, and RTK Query's base slice are wired (see "Cross-cutting infrastructure" below), and two feature slices exist end-to-end under `src/features/` as the reference implementations of the MVVM pattern: `auth` (sign up/sign in modal, email verification) and `home`. Treat the architectural guidance below as the standard for every feature that lands after these.
+
+Everything under `src/app/` lives inside the `[locale]` dynamic segment (`src/app/[locale]/...`) — there is no un-prefixed `src/app/page.tsx`; routes are always locale-prefixed (see i18n below).
+
+## Cross-cutting infrastructure (read before touching routing, auth, or data fetching)
+
+- **i18n routing** — `next-intl`, configured in `src/lib/i18n/routing.ts`: locales `uz`/`ru`/`en`, default `uz`, `localePrefix: "always"` (every route, including the default locale, is prefixed — `/uz/...`, not a bare `/`). `src/proxy.ts` runs `next-intl`'s middleware; **in this Next.js version the file is named `proxy.ts`, not `middleware.ts`** — see the "NOT the Next.js you know" note above. Messages live in `src/lib/i18n/messages/{uz,ru,en}.json`. Navigation helpers (locale-aware `Link`, `redirect`, etc.) come from `src/lib/i18n/navigation.ts` — use those instead of `next/navigation`'s directly wherever a link needs to stay on the current locale.
+- **Redux store** — `src/lib/store/store.ts` combines `baseApi.reducer` (RTK Query) with a `redux-persist`-wrapped `auth` slice. Only the auth slice is persisted, and only its `accessToken`/`refreshToken`/`user` fields (`whitelist`) — transient UI state like the auth modal's open/closed view is deliberately left out of the whitelist so a page reload never reopens a stale modal. Always import the typed hooks from `src/lib/store/hooks.ts` (`useAppDispatch`/`useAppSelector`/`useAppStore`), never the raw hooks from `react-redux` — this is lint-enforced (see below).
+- **RTK Query base + auth refresh** — `src/lib/api/base-api.ts` exports the single `baseApi` slice (`endpoints: () => ({})` — feature files inject their own via `.injectEndpoints()`, per the mandate above). Its `baseQueryWithReauth` wraps `fetchBaseQuery`: on a 401 it calls `POST /auth/refresh` once (de-duped across concurrent in-flight requests via a shared `refreshPromise`), retries the original request on success, and dispatches `loggedOut()` on failure. New endpoint files never need to reimplement auth/refresh handling — it's centralized here.
+- **Env vars** — `NEXT_PUBLIC_API_BASE_URL` (backend base URL, consumed by `base-api.ts`) must be set in `.env`/`.env.local` for data fetching to work at all.
+- **Feature-building workflow** — `.claude/agents/builder.md` and `.claude/agents/tester.md` define subagents used to build and verify new feature screens end-to-end against this repo's conventions; foundational/cross-cutting work (like the infrastructure above) is done directly rather than through them.
 
 ## Mandated architecture
 
@@ -34,6 +44,13 @@ The project follows a strict MVVM layering, deliberately as rigorous as a NestJS
 - **View** — "dumb" components built from shadcn/ui primitives that only render UI, receiving data/handlers via props or hooks.
 
 Apply SOLID principles per component/hook/service (single responsibility, dependency inversion via hooks/interfaces rather than tight coupling). When scaffolding a new feature, create separate model / viewmodel / view pieces rather than mixing data-fetching or business logic directly into JSX.
+
+Several of these mandates are enforced by custom rules in `eslint.config.mjs`, not just convention — a violation fails `npm run lint` and the pre-commit hook:
+- No JSX inside `**/model/**`, `**/viewmodel/**`, `*.slice.ts`, or `*-api.ts` files (the MVVM "no JSX outside View" rule).
+- No importing `useDispatch`/`useSelector`/`useStore` from `react-redux` directly — must go through `src/lib/store/hooks.ts`.
+- No default exports except from Next.js special files (`page`/`layout`/`route`/etc.) and a short allow-list of framework-required config files.
+- `next/router` is banned in favor of `next/navigation` (App Router only).
+- kebab-case filenames, and `import/order` grouping external → internal `@/*` → relative, alphabetized.
 
 ## Mandated tech stack
 
@@ -96,6 +113,8 @@ Backend reality (`src/features/auth` in the backend repo):
 ### 3. Ranking
 - [ ] Ranking table component (shared with home widget) — `GET /players/ranking`
 - [ ] Full ranking page: tabs (Barchasi / Tamomlangan o'yinlar / Barcha o'yinlar likely map to `GET /games/list` + `/games/filters`, TBD against actual query params), country-flag filter (`GET /players/ranking/filters` for the option list), pagination
+
+Resolved against the live `/swagger/home-json` spec: only "Barchasi" has a real backend mapping — `GET /players/ranking` (`page`/`size`/`country`/`title`/`sortBy=classical|rapid|blitz`) plus `GET /players/ranking/filters` (`{countries, titles}`) for the country-flag filter. **"Tamomlangan o'yinlar" / "Barcha o'yinlar" are a backend gap, same pattern as forgot-password/news-comments**: `GET /games/list` and `GET /games/read` both return two-player game *records* (`whitePlayerId`/`blackPlayerId`/scores/moves), not per-player ranking rows — a different entity shape from the ranking table entirely — and every item from either endpoint already has final `whiteScore`/`blackScore`/`movesCount`, i.e. there's no field distinguishing "completed" games from "all" games. Building those two tabs would mean guessing a distinction the API doesn't expose, so they're rendered as disabled tabs (Figma-faithful labels, no fabricated data) pending either a real "all/ongoing games" endpoint or product clarification on what those tabs are meant to show.
 
 ### 4. News
 - [ ] News list (`GET /news/read`, incl. empty state: "Hech qanday ma'lumot topilmadi")

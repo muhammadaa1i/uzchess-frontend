@@ -23,7 +23,7 @@ There is no test runner configured yet — do not assume Jest/Vitest exist until
 
 ## Current state
 
-App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/[locale]/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`, chess-specific components) live under `src/components/shared/`. Routing/i18n, the Redux store, and RTK Query's base slice are wired (see "Cross-cutting infrastructure" below), and two feature slices exist end-to-end under `src/features/` as the reference implementations of the MVVM pattern: `auth` (sign up/sign in modal, email verification) and `home`. Treat the architectural guidance below as the standard for every feature that lands after these.
+App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/[locale]/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`, chess-specific components) live under `src/components/shared/`. Routing/i18n, the Redux store, and RTK Query's base slice are wired (see "Cross-cutting infrastructure" below). Four feature slices exist end-to-end under `src/features/` as reference implementations of the MVVM pattern: `auth` (sign up/sign in modal, email verification), `home`, `ranking`, and `news`. A fifth, `courses`, is scaffolded (model/viewmodel/view files for catalog, detail, lessons, purchase, reviews, and certificates) but not yet committed/verified — treat it as in-progress, not a finished reference. Treat the architectural guidance below as the standard for every feature that lands after these.
 
 Everything under `src/app/` lives inside the `[locale]` dynamic segment (`src/app/[locale]/...`) — there is no un-prefixed `src/app/page.tsx`; routes are always locale-prefixed (see i18n below).
 
@@ -110,16 +110,16 @@ Backend reality (`src/features/auth` in the backend repo):
 - [ ] **Email verification (post-signup, non-blocking)** — since register already returns a session, show a "verify your email" prompt (reuse Figma's OTP-typing/error visuals for a **6-digit numeric code**, with resend cooldown) backed by `POST /profile/verify-email/resend` and `POST /profile/verify-email/confirm {code}`. Codes expire (`GoneException` → "request a new code" state) — surface that as the OTP error state.
 - [ ] Terms checkbox on sign up — no backend field for it; treat as client-only gating before enabling the submit button (confirm with product whether this needs a backend flag later).
 
-### 3. Ranking
-- [ ] Ranking table component (shared with home widget) — `GET /players/ranking`
-- [ ] Full ranking page: tabs (Barchasi / Tamomlangan o'yinlar / Barcha o'yinlar likely map to `GET /games/list` + `/games/filters`, TBD against actual query params), country-flag filter (`GET /players/ranking/filters` for the option list), pagination
+### 3. Ranking (done — `src/features/ranking`, shared table also used by the Home widget)
+- [x] Ranking table component (shared with home widget) — `GET /players/ranking`
+- [x] Full ranking page: tabs (Barchasi / Tamomlangan o'yinlar / Barcha o'yinlar likely map to `GET /games/list` + `/games/filters`, TBD against actual query params), country-flag filter (`GET /players/ranking/filters` for the option list), pagination
 
 Resolved against the live `/swagger/home-json` spec: only "Barchasi" has a real backend mapping — `GET /players/ranking` (`page`/`size`/`country`/`title`/`sortBy=classical|rapid|blitz`) plus `GET /players/ranking/filters` (`{countries, titles}`) for the country-flag filter. **"Tamomlangan o'yinlar" / "Barcha o'yinlar" are a backend gap, same pattern as forgot-password/news-comments**: `GET /games/list` and `GET /games/read` both return two-player game *records* (`whitePlayerId`/`blackPlayerId`/scores/moves), not per-player ranking rows — a different entity shape from the ranking table entirely — and every item from either endpoint already has final `whiteScore`/`blackScore`/`movesCount`, i.e. there's no field distinguishing "completed" games from "all" games. Building those two tabs would mean guessing a distinction the API doesn't expose, so they're rendered as disabled tabs (Figma-faithful labels, no fabricated data) pending either a real "all/ongoing games" endpoint or product clarification on what those tabs are meant to show.
 
-### 4. News
-- [ ] News list (`GET /news/read`, incl. empty state: "Hech qanday ma'lumot topilmadi")
-- [ ] News single/detail (`GET /news/read/{id}`) — share, related articles, comment thread with replies (**no comments endpoint exists in `/swagger/home` or `/swagger/account`** — flag as a backend gap like the forgot-password one, don't build against it yet)
-- [ ] Homepage news section shows latest items only (per design annotation)
+### 4. News (done — `src/features/news`, shared card also used by the Home widget)
+- [x] News list (`GET /news/read`, incl. empty state: "Hech qanday ma'lumot topilmadi")
+- [x] News single/detail (`GET /news/read/{id}`) — share, related articles, comment thread with replies (**no comments endpoint exists in `/swagger/home` or `/swagger/account`** — flag as a backend gap like the forgot-password one, don't build against it yet)
+- [x] Homepage news section shows latest items only (per design annotation)
 
 ### 5. Education / Courses
 - [ ] Catalog (`GET /courses/read`) with filters (`GET /courses/categories/read` for category, `GET /languages/read`/`GET /difficulty/read` from the books group for language/level — confirm these are shared across books+courses or course-specific, rating filter is a query param) + "Tozalash" clear-all

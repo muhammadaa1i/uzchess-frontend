@@ -109,6 +109,122 @@
       "next": "Keyingi"
     }
   },
+  "Courses": {
+    "title": "Kurslar",
+    "empty": "Hech qanday kurs topilmadi",
+    "notFound": "Kurs topilmadi",
+    "filters": {
+      "searchPlaceholder": "Nomi bo'yicha qidirish",
+      "category": "Kategoriya",
+      "difficulty": "Daraja",
+      "language": "Til",
+      "rating": "Reyting",
+      "any": "Barchasi",
+      "ratingAndUp": "{stars}+ yulduz",
+      "clear": "Tozalash"
+    },
+    "card": {
+      "lessons": "{count} ta dars"
+    },
+    "pagination": {
+      "previous": "Oldingi",
+      "next": "Keyingi"
+    },
+    "detail": {
+      "sectionsTitle": "Kurs dasturi",
+      "sectionsSummary": "{sections} ta bo'lim • {lessons} ta dars",
+      "purchasedBadge": "Sotib olingan",
+      "buyCta": "Kursni sotib olish",
+      "continueCta": "Kursni davom ettirish",
+      "freeBadge": "Bepul",
+      "lockedAria": "Yopiq",
+      "completedAria": "Yakunlangan"
+    },
+    "purchase": {
+      "title": "Kursni sotib olish",
+      "description": "Kursni ochish uchun to'lov usulini tanlang",
+      "providerLabel": "To'lov usuli",
+      "providers": {
+        "paylov": "Paylov",
+        "payme": "Payme",
+        "click": "Click",
+        "uzum": "Uzum Bank"
+      },
+      "submit": "To'lash",
+      "success": {
+        "title": "To'lov muvaffaqiyatli",
+        "description": "Kurs endi darslar bo'limida mavjud",
+        "close": "Davom etish"
+      },
+      "fail": {
+        "title": "To'lov amalga oshmadi",
+        "retry": "Qaytadan urinib ko'ring"
+      },
+      "errors": {
+        "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+      }
+    },
+    "reviews": {
+      "title": "Sharhlar",
+      "empty": "Hozircha sharhlar yo'q",
+      "gated": {
+        "title": "Sharhlar faqat kursni tugatganlar uchun",
+        "description": "Sharh qoldirish uchun kursni to'liq yakunlang"
+      },
+      "form": {
+        "scoreLabel": "Bahoingiz",
+        "commentLabel": "Sharh (ixtiyoriy)",
+        "commentPlaceholder": "Kurs haqidagi fikringizni yozing",
+        "submit": "Sharhni yuborish",
+        "success": "Sharhingiz uchun rahmat!"
+      },
+      "validation": {
+        "scoreRequired": "Bahoni tanlang",
+        "commentTooLong": "Sharh juda uzun"
+      },
+      "errors": {
+        "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+      }
+    },
+    "lesson": {
+      "backToCourse": "Kursga qaytish",
+      "countdown": "{seconds}s dan so'ng mavjud bo'ladi",
+      "completeCta": "Yakunlangan deb belgilash",
+      "continueCta": "Davom etish",
+      "lockedTitle": "Bu dars yopiq",
+      "lockedDescription": "Darsni ochish uchun kursni sotib oling",
+      "lockedCta": "Kursni sotib olish",
+      "notFound": "Dars topilmadi",
+      "signInRequired": "Darsni ko'rish uchun tizimga kiring",
+      "errors": {
+        "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+      },
+      "nextLocked": {
+        "title": "Keyingi dars yopiq",
+        "description": "Keyingi darsga o'tish uchun kursni sotib oling",
+        "cta": "Kursni sotib olish",
+        "close": "Yopish"
+      }
+    },
+    "certificate": {
+      "title": "Tabriklaymiz!",
+      "description": "Siz kursni muvaffaqiyatli yakunladingiz. Mana sertifikatingiz.",
+      "downloadCta": "PDF yuklab olish",
+      "printCta": "Chop etish",
+      "notEarnedYetTitle": "Sertifikat hali mavjud emas",
+      "notEarnedYetDescription": "Sertifikat olish uchun kursdagi barcha darslarni yakunlang",
+      "signInRequiredTitle": "Tizimga kirish talab qilinadi",
+      "signInRequiredDescription": "Sertifikatni ko'rish uchun tizimga kiring",
+      "backToCourse": "Kursga qaytish"
+    },
+    "certificateVerify": {
+      "title": "Sertifikatni tekshirish",
+      "notFound": "Sertifikat topilmadi",
+      "student": "Talaba",
+      "course": "Kurs",
+      "issuedAt": "Berilgan sana"
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Kirish",

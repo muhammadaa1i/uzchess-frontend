@@ -109,6 +109,122 @@
       "next": "Next"
     }
   },
+  "Courses": {
+    "title": "Courses",
+    "empty": "No courses found",
+    "notFound": "Course not found",
+    "filters": {
+      "searchPlaceholder": "Search by title",
+      "category": "Category",
+      "difficulty": "Difficulty",
+      "language": "Language",
+      "rating": "Rating",
+      "any": "All",
+      "ratingAndUp": "{stars}+ stars",
+      "clear": "Clear all"
+    },
+    "card": {
+      "lessons": "{count} lessons"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "detail": {
+      "sectionsTitle": "Course content",
+      "sectionsSummary": "{sections} sections • {lessons} lessons",
+      "purchasedBadge": "Purchased",
+      "buyCta": "Buy course",
+      "continueCta": "Continue course",
+      "freeBadge": "Free",
+      "lockedAria": "Locked",
+      "completedAria": "Completed"
+    },
+    "purchase": {
+      "title": "Buy course",
+      "description": "Choose a payment method to unlock this course",
+      "providerLabel": "Payment method",
+      "providers": {
+        "paylov": "Paylov",
+        "payme": "Payme",
+        "click": "Click",
+        "uzum": "Uzum Bank"
+      },
+      "submit": "Pay",
+      "success": {
+        "title": "Purchase successful",
+        "description": "The course is now available in your lessons",
+        "close": "Continue"
+      },
+      "fail": {
+        "title": "Purchase failed",
+        "retry": "Try again"
+      },
+      "errors": {
+        "generic": "Something went wrong. Please try again"
+      }
+    },
+    "reviews": {
+      "title": "Reviews",
+      "empty": "No reviews yet",
+      "gated": {
+        "title": "Reviews are open to graduates",
+        "description": "Complete this course to leave a review"
+      },
+      "form": {
+        "scoreLabel": "Your rating",
+        "commentLabel": "Comment (optional)",
+        "commentPlaceholder": "Share your thoughts about the course",
+        "submit": "Submit review",
+        "success": "Thanks for your review!"
+      },
+      "validation": {
+        "scoreRequired": "Select a rating",
+        "commentTooLong": "Comment is too long"
+      },
+      "errors": {
+        "generic": "Something went wrong. Please try again"
+      }
+    },
+    "lesson": {
+      "backToCourse": "Back to course",
+      "countdown": "Available in {seconds}s",
+      "completeCta": "Mark as complete",
+      "continueCta": "Continue",
+      "lockedTitle": "This lesson is locked",
+      "lockedDescription": "Buy the course to unlock this lesson",
+      "lockedCta": "Buy course",
+      "notFound": "Lesson not found",
+      "signInRequired": "Sign in to watch this lesson",
+      "errors": {
+        "generic": "Something went wrong. Please try again"
+      },
+      "nextLocked": {
+        "title": "Next lesson locked",
+        "description": "Buy the course to continue to the next lesson",
+        "cta": "Buy course",
+        "close": "Close"
+      }
+    },
+    "certificate": {
+      "title": "Congratulations!",
+      "description": "You've completed the course. Here's your certificate.",
+      "downloadCta": "Download PDF",
+      "printCta": "Print",
+      "notEarnedYetTitle": "Certificate not available yet",
+      "notEarnedYetDescription": "Complete all lessons in this course to earn your certificate",
+      "signInRequiredTitle": "Sign in required",
+      "signInRequiredDescription": "Sign in to view your certificate",
+      "backToCourse": "Back to course"
+    },
+    "certificateVerify": {
+      "title": "Certificate verification",
+      "notFound": "Certificate not found",
+      "student": "Student",
+      "course": "Course",
+      "issuedAt": "Issued on"
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Sign in",

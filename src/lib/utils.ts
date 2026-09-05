@@ -39,3 +39,11 @@ export function formatDayMonth(value: string) {
   const date = new Date(value)
   return `${date.getDate()} ${UZ_MONTHS[date.getMonth()]}`
 }
+
+// "M:SS" style lesson-video duration — course lesson `duration` fields (see
+// /swagger/courses) are plain seconds, no existing formatter for them.
+export function formatDuration(totalSeconds: number) {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = Math.floor(totalSeconds % 60)
+  return `${minutes}:${String(seconds).padStart(2, "0")}`
+}

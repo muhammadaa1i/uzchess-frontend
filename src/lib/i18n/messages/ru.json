@@ -109,6 +109,122 @@
       "next": "Далее"
     }
   },
+  "Courses": {
+    "title": "Курсы",
+    "empty": "Курсы не найдены",
+    "notFound": "Курс не найден",
+    "filters": {
+      "searchPlaceholder": "Поиск по названию",
+      "category": "Категория",
+      "difficulty": "Уровень",
+      "language": "Язык",
+      "rating": "Рейтинг",
+      "any": "Все",
+      "ratingAndUp": "{stars}+ звёзд",
+      "clear": "Очистить"
+    },
+    "card": {
+      "lessons": "{count} уроков"
+    },
+    "pagination": {
+      "previous": "Назад",
+      "next": "Далее"
+    },
+    "detail": {
+      "sectionsTitle": "Программа курса",
+      "sectionsSummary": "{sections} разделов • {lessons} уроков",
+      "purchasedBadge": "Куплено",
+      "buyCta": "Купить курс",
+      "continueCta": "Продолжить курс",
+      "freeBadge": "Бесплатно",
+      "lockedAria": "Закрыто",
+      "completedAria": "Завершено"
+    },
+    "purchase": {
+      "title": "Купить курс",
+      "description": "Выберите способ оплаты, чтобы открыть курс",
+      "providerLabel": "Способ оплаты",
+      "providers": {
+        "paylov": "Paylov",
+        "payme": "Payme",
+        "click": "Click",
+        "uzum": "Uzum Bank"
+      },
+      "submit": "Оплатить",
+      "success": {
+        "title": "Оплата прошла успешно",
+        "description": "Курс теперь доступен в разделе уроков",
+        "close": "Продолжить"
+      },
+      "fail": {
+        "title": "Оплата не прошла",
+        "retry": "Попробовать снова"
+      },
+      "errors": {
+        "generic": "Произошла ошибка. Попробуйте снова"
+      }
+    },
+    "reviews": {
+      "title": "Отзывы",
+      "empty": "Пока нет отзывов",
+      "gated": {
+        "title": "Отзывы доступны только выпускникам",
+        "description": "Завершите курс полностью, чтобы оставить отзыв"
+      },
+      "form": {
+        "scoreLabel": "Ваша оценка",
+        "commentLabel": "Комментарий (необязательно)",
+        "commentPlaceholder": "Поделитесь впечатлением о курсе",
+        "submit": "Отправить отзыв",
+        "success": "Спасибо за ваш отзыв!"
+      },
+      "validation": {
+        "scoreRequired": "Выберите оценку",
+        "commentTooLong": "Комментарий слишком длинный"
+      },
+      "errors": {
+        "generic": "Произошла ошибка. Попробуйте снова"
+      }
+    },
+    "lesson": {
+      "backToCourse": "Назад к курсу",
+      "countdown": "Будет доступно через {seconds}с",
+      "completeCta": "Отметить как пройденный",
+      "continueCta": "Продолжить",
+      "lockedTitle": "Этот урок закрыт",
+      "lockedDescription": "Купите курс, чтобы открыть этот урок",
+      "lockedCta": "Купить курс",
+      "notFound": "Урок не найден",
+      "signInRequired": "Войдите, чтобы посмотреть урок",
+      "errors": {
+        "generic": "Произошла ошибка. Попробуйте снова"
+      },
+      "nextLocked": {
+        "title": "Следующий урок закрыт",
+        "description": "Купите курс, чтобы перейти к следующему уроку",
+        "cta": "Купить курс",
+        "close": "Закрыть"
+      }
+    },
+    "certificate": {
+      "title": "Поздравляем!",
+      "description": "Вы успешно завершили курс. Вот ваш сертификат.",
+      "downloadCta": "Скачать PDF",
+      "printCta": "Печать",
+      "notEarnedYetTitle": "Сертификат пока недоступен",
+      "notEarnedYetDescription": "Завершите все уроки курса, чтобы получить сертификат",
+      "signInRequiredTitle": "Требуется вход",
+      "signInRequiredDescription": "Войдите, чтобы посмотреть сертификат",
+      "backToCourse": "Назад к курсу"
+    },
+    "certificateVerify": {
+      "title": "Проверка сертификата",
+      "notFound": "Сертификат не найден",
+      "student": "Студент",
+      "course": "Курс",
+      "issuedAt": "Дата выдачи"
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Вход",

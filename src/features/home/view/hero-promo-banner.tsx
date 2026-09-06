@@ -25,7 +25,13 @@ function HeroPromoBanner() {
   return (
     <div className="relative flex h-[88px] w-full items-center overflow-hidden rounded-lg bg-[#0B4789]">
       {banner.imageUrl && (
-        <Image src={banner.imageUrl} alt="" fill className="object-cover" />
+        <Image
+          src={banner.imageUrl}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 676px, 100vw"
+          className="object-cover"
+        />
       )}
       <div className="absolute inset-0 bg-gradient-to-r from-[#0B4789] via-[#0B4789]/70 to-transparent" />
       {banner.linkUrl ? (

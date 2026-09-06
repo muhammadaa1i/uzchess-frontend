@@ -16,7 +16,10 @@ import { baseApi } from "@/lib/api/base-api"
 // response is validated through the matching zod schema in home-schemas.ts.
 const homeApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getNews: builder.query<
+    // Named distinctly from news feature's `getNews` — both inject into the
+    // same baseApi reducer, and RTK Query endpoint names must be unique
+    // across the whole slice, not just per feature file.
+    getHomeNews: builder.query<
       z.infer<typeof paginatedNewsSchema>,
       { size?: number } | void
     >({
@@ -66,7 +69,7 @@ const homeApi = baseApi.injectEndpoints({
 })
 
 const {
-  useGetNewsQuery,
+  useGetHomeNewsQuery,
   useGetBannersQuery,
   useGetActiveGameOfDayQuery,
   useGetPlayersRankingQuery,
@@ -77,7 +80,7 @@ const {
 
 export {
   homeApi,
-  useGetNewsQuery,
+  useGetHomeNewsQuery,
   useGetBannersQuery,
   useGetActiveGameOfDayQuery,
   useGetPlayersRankingQuery,

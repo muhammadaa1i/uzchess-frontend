@@ -34,7 +34,7 @@ function NewsCard({ news, className }: NewsCardProps) {
     >
       <div className="relative h-[120px] w-[180px] shrink-0 overflow-hidden rounded-lg bg-dark-2">
         {news.imageUrl && (
-          <Image src={news.imageUrl} alt={news.title} fill className="object-cover" />
+          <Image src={news.imageUrl} alt={news.title} fill sizes="180px" className="object-cover" />
         )}
       </div>
       <div className="flex min-w-0 flex-col gap-2">

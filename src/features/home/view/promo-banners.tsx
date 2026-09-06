@@ -26,7 +26,13 @@ function PromoBanners() {
   return (
     <div className="relative flex h-[192px] w-full flex-col justify-end overflow-hidden rounded-lg bg-[#0B4789] p-5">
       {banner.imageUrl && (
-        <Image src={banner.imageUrl} alt="" fill className="object-cover" />
+        <Image
+          src={banner.imageUrl}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 326px, 100vw"
+          className="object-cover"
+        />
       )}
       <div className="absolute inset-0 bg-gradient-to-r from-[#0B4789] via-[#0B4789]/60 to-transparent" />
       <div className="relative flex flex-col gap-4">

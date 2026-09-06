@@ -23,7 +23,7 @@ There is no test runner configured yet — do not assume Jest/Vitest exist until
 
 ## Current state
 
-App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/[locale]/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`, chess-specific components) live under `src/components/shared/`. Routing/i18n, the Redux store, and RTK Query's base slice are wired (see "Cross-cutting infrastructure" below). Four feature slices exist end-to-end under `src/features/` as reference implementations of the MVVM pattern: `auth` (sign up/sign in modal, email verification), `home`, `ranking`, and `news`. A fifth, `courses`, is scaffolded (model/viewmodel/view files for catalog, detail, lessons, purchase, reviews, and certificates) but not yet committed/verified — treat it as in-progress, not a finished reference. Treat the architectural guidance below as the standard for every feature that lands after these.
+App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/[locale]/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`, chess-specific components) live under `src/components/shared/`. Routing/i18n, the Redux store, and RTK Query's base slice are wired (see "Cross-cutting infrastructure" below). Nine feature slices exist end-to-end under `src/features/` as reference implementations of the MVVM pattern: `auth` (sign up/sign in modal, email verification), `home`, `ranking`, `news`, `courses` (catalog, detail, lessons, purchase, reviews, certificates), `library` (books: catalog, detail, ratings, cart), `contact`, `live`, and `static-page` (About/Terms/Cookie policy). `courses` and `library` have both been driven live against a running backend by the `tester` agent (library against a locally-run instance with seed data; courses against the zero-seed deployed Render instance) — see per-feature status in the Figma to-do list below. Treat the architectural guidance below as the standard for every feature that lands after these.
 
 Everything under `src/app/` lives inside the `[locale]` dynamic segment (`src/app/[locale]/...`) — there is no un-prefixed `src/app/page.tsx`; routes are always locale-prefixed (see i18n below).
 
@@ -121,28 +121,29 @@ Resolved against the live `/swagger/home-json` spec: only "Barchasi" has a real 
 - [x] News single/detail (`GET /news/read/{id}`) — share, related articles, comment thread with replies (**no comments endpoint exists in `/swagger/home` or `/swagger/account`** — flag as a backend gap like the forgot-password one, don't build against it yet)
 - [x] Homepage news section shows latest items only (per design annotation)
 
-### 5. Education / Courses
-- [ ] Catalog (`GET /courses/read`) with filters (`GET /courses/categories/read` for category, `GET /languages/read`/`GET /difficulty/read` from the books group for language/level — confirm these are shared across books+courses or course-specific, rating filter is a query param) + "Tozalash" clear-all
-- [ ] Course detail (`GET /courses/read/{id}`) — pricing, section/lesson list (`GET /courses/sections/read`, `GET /courses/lessons/read`), difficulty tag, purchased badge (`GET /courses/purchased`), video preview, reviews (`GET /courses/reviews/{id}`, submit via `POST /courses/rate/{id}`)
-- [ ] Lesson/tactics answering screen (countdown timer, submit via `POST /courses/lessons/{id}/complete`)
-- [ ] "Next lesson locked" modal when next lesson isn't purchased (`GET /courses/lessons/{id}/next` — per design annotation)
-- [ ] Course completion screen + certificate (`GET /courses/{id}/certificate`, printable, landscape; verification via `GET /certificates/{code}/verify`)
-- [ ] Purchase modal (default / success / fail) — `POST /courses/{id}/purchase`
+### 5. Education / Courses (done — `src/features/courses`)
+- [x] Catalog (`GET /courses/read`) with filters (`GET /courses/categories/read` for category, `GET /languages/read`/`GET /difficulty/read` from the books group for language/level — confirm these are shared across books+courses or course-specific, rating filter is a query param) + "Tozalash" clear-all
+- [x] Course detail (`GET /courses/read/{id}`) — pricing, section/lesson list (`GET /courses/sections/read`, `GET /courses/lessons/read`), difficulty tag, purchased badge (`GET /courses/purchased`), video preview, reviews (`GET /courses/reviews/{id}`, submit via `POST /courses/rate/{id}`)
+- [x] Lesson/tactics answering screen (countdown timer, submit via `POST /courses/lessons/{id}/complete`)
+- [x] "Next lesson locked" modal when next lesson isn't purchased (`GET /courses/lessons/{id}/next` — per design annotation)
+- [x] Course completion screen + certificate (`GET /courses/{id}/certificate`, printable, landscape; verification via `GET /certificates/{code}/verify`)
+- [x] Purchase modal (default / success / fail) — `POST /courses/{id}/purchase`
 - [ ] Review report modal ("Shikoyat qilish", reason dropdown + optional text) — **no report/moderation endpoint found**; flag as a backend gap
-- [ ] Course comments visible only to purchasers who completed the course (per design annotation — backend-enforced via `/courses/reviews/{id}`, but UI should reflect gated state)
-- [ ] Responsive/mobile variants for catalog + detail
+- [x] Course comments visible only to purchasers who completed the course (per design annotation — backend-enforced via `/courses/reviews/{id}`, but UI should reflect gated state)
+- [ ] Responsive/mobile variants for catalog + detail — not yet verified on real narrow-viewport devices (deployed backend currently has zero seeded courses, so no live happy path could be exercised)
 
-### 6. Library (books)
-- [ ] Catalog (`GET /books/read`) with filters (`GET /books/categories/read`, `GET /authors/read`, `GET /difficulty/read`, `GET /languages/read`)
-- [ ] Book detail (`GET /books/read/{id}`) — not-purchased (price, add to cart via `POST /cart/add/{id}`, author, pages, year) and purchased states (cross-check against `GET /orders`); rating via `POST/DELETE /books/rate/{id}`
-- [ ] Responsive variant
+### 6. Library (books) (done — `src/features/library`)
+- [x] Catalog (`GET /books/read`) with filters (`GET /books/categories/read`, `GET /authors/read`, `GET /difficulty/read`, `GET /languages/read`) — schemas verified field-for-field against live `/swagger/books-json`
+- [x] Book detail (`GET /books/read/{id}`) — not-purchased (price, add to cart via `POST /cart/add/{id}`, author, pages, year) and purchased states (cross-check against `GET /orders`); rating via `POST/DELETE /books/rate/{id}`
+- [ ] Responsive variant — not yet verified on real narrow-viewport devices
+- [x] Populated-catalog/pagination, add-to-cart, and rating submit/remove flows — verified end-to-end against a locally-run backend (10 seeded books; `POST /cart/add/{id}`, `POST`/`DELETE /books/rate/{id}`, and purchase-state derivation via `GET /orders` all confirmed with a real registered test user and a real checkout). The deployed Render backend may still have zero seeded books — that's an environment difference, not a code gap.
 
-### 7. Contact ("Bog'lanish")
-- [ ] Full page: map, hours, email, phone, nearest metro, contact form
-- [ ] Short/footer variant
+### 7. Contact ("Bog'lanish") (done — `src/features/contact`)
+- [x] Full page: map (no-key `output=embed` iframe placeholder), hours, email, phone, nearest metro, contact form — a public `POST /contact/create` (`{name, email, message}`) now exists on the backend (added since this was first flagged as a gap) and the form is wired to it for real, with submit/success/error states. No `phone` field on the request — dropped from the form.
+- [x] Short/footer variant — `ContactFooterInfo`, wired into the global `site-footer.tsx`
 
-### 8. Live
-- [ ] Video-stream viewer (play/pause/settings/fullscreen), live badge, game title/round, sidebar course cards + promo. This is a video player, not an interactive board (confirm no playable-board feature is in scope).
+### 8. Live (done — `src/features/live`)
+- [x] Video-stream viewer (play/pause/settings/fullscreen), live badge, game title/round, sidebar course cards + promo — `GET /game-of-day/active` returns a plain YouTube link, not a live-streaming protocol, so the player is a YouTube iframe embed (native play/pause/fullscreen/settings chrome) rather than hand-rolled `<video>` controls. **No `round` number or viewer-count field exists on the backend** — flagged as a gap, header built from what the API actually returns (players, ratings, game type) instead of fabricating one. No `/live/[id]` browse-past-games route built — no public listing endpoint for it. No nav-bar entry added (Figma's header has a fixed 5-item slot list with no Live slot); reached only via the Home page's game-of-day widget.
 
 ### 9. Profile
 
@@ -161,9 +162,9 @@ Same rule as Auth above: styling from Figma, fields/flow from the backend (`/pro
 - [ ] Checkout — shipping/contact form (shipping cost from `GET /delivery-setting`), place order via `POST /orders/checkout`
 - [ ] Order success
 
-### 11. Misc
-- [ ] Static/CMS page template (Terms, About, etc.)
-- [ ] 404 page (decorative chessboard illustration)
+### 11. Misc (done)
+- [x] Static/CMS page template (`src/features/static-page`) — one reusable View wired to `/about`, `/terms`, `/cookie-policy` (matching the footer's existing hrefs/labels), real (non-lorem-ipsum) placeholder copy in all three locales. No backend CMS endpoint exists anywhere — confirmed genuinely static, no gap to flag.
+- [x] 404 page (`src/app/[locale]/not-found.tsx`, decorative `SimpleBoard` + scattered pieces) plus a `src/app/[locale]/[...rest]/page.tsx` catch-all calling `notFound()` — this Next.js version only reaches a segment's `not-found.tsx` when something throws `notFound()`, so an arbitrary unmatched path needs the catch-all to trigger it. Note: this renders as a soft-404 (HTTP 200 with `noindex`), not a true 404 status — getting a hard 404 would require a `proxy.ts`-level check, out of scope here.
 
 ### Ambiguities to clarify before implementation
 - Confirm whether the large English-language admin/social-analytics mockup block found in the file (Inter font, "Promote"/"Engagement" widgets) is a stray moodboard to ignore, not a real UzChess screen.

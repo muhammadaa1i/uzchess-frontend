@@ -1,6 +1,6 @@
 "use client"
 
-import { BellIcon, ChevronDownIcon, LogInIcon, SearchIcon } from "lucide-react"
+import { BellIcon, ChevronDownIcon, LogInIcon, SearchIcon, ShoppingCartIcon } from "lucide-react"
 import Image from "next/image"
 import { useLocale, useTranslations } from "next-intl"
 
@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator"
 import { useLogoutMutation } from "@/features/auth/model/auth-api"
 import type { AuthUser } from "@/features/auth/model/auth-schemas"
 import { authModalOpened, loggedOut } from "@/features/auth/model/auth-slice"
+import { useGetCartQuery } from "@/features/cart/model/cart-api"
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation"
 import type { routing } from "@/lib/i18n/routing"
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks"
@@ -70,6 +71,7 @@ function SiteHeader({ className }: SiteHeaderProps) {
           <Button variant="ghost" size="icon-sm" aria-label={tHeader("notifications")}>
             <BellIcon />
           </Button>
+          <CartLink />
           {user ? (
             <UserMenu user={user} />
           ) : (
@@ -129,6 +131,7 @@ function SiteHeader({ className }: SiteHeaderProps) {
           <Button variant="ghost" size="icon-sm" aria-label={tHeader("notifications")}>
             <BellIcon />
           </Button>
+          <CartLink />
           <Separator orientation="vertical" className="h-6" />
           {user ? (
             <UserMenu user={user} />
@@ -141,6 +144,37 @@ function SiteHeader({ className }: SiteHeaderProps) {
         </div>
       </div>
     </header>
+  )
+}
+
+// Cart icon + item-count badge, shared between the mobile and desktop
+// header layouts — kept out of Cart's own feature folder since the header is
+// a cross-cutting shared component reachable from every route, same
+// precedent as this file already importing `@/features/auth`'s model layer
+// directly for the sign-in/logout bits above. `useGetCartQuery` is skipped
+// entirely when signed out, so no request fires until there's a session.
+function CartLink() {
+  const t = useTranslations("Header")
+  const isAuthenticated = useAppSelector((state) => !!state.auth.accessToken)
+  const { data: items } = useGetCartQuery(undefined, { skip: !isAuthenticated })
+  const count = items?.reduce((sum, item) => sum + item.quantity, 0) ?? 0
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon-sm"
+      aria-label={t("cart")}
+      render={<Link href="/cart" />}
+      nativeButton={false}
+      className="relative"
+    >
+      <ShoppingCartIcon />
+      {count > 0 && (
+        <span className="absolute -top-1 -right-1 flex size-4 items-center justify-center rounded-full bg-primary text-[10px] font-medium text-primary-foreground">
+          {count > 9 ? "9+" : count}
+        </span>
+      )}
+    </Button>
   )
 }
 

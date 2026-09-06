@@ -582,6 +582,17 @@
       "emptyBooks": "No saved products yet"
     }
   },
+  "Search": {
+    "title": "Search",
+    "placeholder": "Search by title",
+    "hint": "Type at least 2 characters to search",
+    "empty": "No results found",
+    "groups": {
+      "news": "News",
+      "course": "Courses",
+      "book": "Books"
+    }
+  },
   "Common": {
     "emptyState": "No data yet",
     "errorState": "Something went wrong. Please try again.",

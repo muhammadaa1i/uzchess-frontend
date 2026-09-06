@@ -582,6 +582,17 @@
       "emptyBooks": "Saqlangan mahsulotlar yo'q"
     }
   },
+  "Search": {
+    "title": "Qidiruv",
+    "placeholder": "Nomi bo'yicha qidiring",
+    "hint": "Qidirish uchun kamida 2 ta belgi kiriting",
+    "empty": "Hech qanday ma'lumot topilmadi",
+    "groups": {
+      "news": "Yangiliklar",
+      "course": "Kurslar",
+      "book": "Kitoblar"
+    }
+  },
   "Common": {
     "emptyState": "Hozircha ma'lumot yo'q",
     "errorState": "Xatolik yuz berdi. Qaytadan urinib ko'ring.",

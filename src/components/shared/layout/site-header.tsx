@@ -196,7 +196,7 @@ function UserMenu({ user }: { user: AuthUser }) {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
-        <DropdownMenuItem>{t("profile")}</DropdownMenuItem>
+        <DropdownMenuItem render={<Link href="/profile" />}>{t("profile")}</DropdownMenuItem>
         <DropdownMenuItem onClick={handleLogout}>{t("logout")}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

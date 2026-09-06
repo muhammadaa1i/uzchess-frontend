@@ -17,7 +17,6 @@ import { useLogoutMutation } from "@/features/auth/model/auth-api"
 import type { AuthUser } from "@/features/auth/model/auth-schemas"
 import { authModalOpened, loggedOut } from "@/features/auth/model/auth-slice"
 import { useGetCartQuery } from "@/features/cart/model/cart-api"
-import { GlobalSearchTrigger } from "@/features/search/view/global-search-trigger"
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation"
 import type { routing } from "@/lib/i18n/routing"
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks"
@@ -66,7 +65,6 @@ function SiteHeader({ className }: SiteHeaderProps) {
           />
         </Link>
         <div className="flex items-center gap-2">
-          <GlobalSearchTrigger />
           <Button variant="ghost" size="icon-sm" aria-label={tHeader("notifications")}>
             <BellIcon />
           </Button>
@@ -124,7 +122,6 @@ function SiteHeader({ className }: SiteHeaderProps) {
         </nav>
 
         <div className="flex items-center gap-5">
-          <GlobalSearchTrigger />
           <Button variant="ghost" size="icon-sm" aria-label={tHeader("notifications")}>
             <BellIcon />
           </Button>

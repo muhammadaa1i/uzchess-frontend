@@ -9,6 +9,7 @@
   "Header": {
     "search": "Qidiruv",
     "notifications": "Bildirishnomalar",
+    "cart": "Savat",
     "signIn": "Kirish",
     "profile": "Profil",
     "logout": "Chiqish"
@@ -17,7 +18,8 @@
     "about": "Biz haqimizda",
     "terms": "Foydalanish qoidalari",
     "cookiePolicy": "Cookie fayllari siyosati",
-    "copyright": "© UzChess. Barcha huquqlar himoyalangan."
+    "copyright": "© UzChess. Barcha huquqlar himoyalangan.",
+    "contactCta": "Biz bilan bog'laning"
   },
   "TestModeBanner": {
     "message": "Sayt test rejimida ishlamoqda",
@@ -225,6 +227,48 @@
       "issuedAt": "Berilgan sana"
     }
   },
+  "Library": {
+    "title": "Kutubxona",
+    "empty": "Kitoblar topilmadi",
+    "notFound": "Kitob topilmadi",
+    "filters": {
+      "searchPlaceholder": "Nomi bo'yicha qidirish",
+      "category": "Toifa",
+      "difficulty": "Daraja",
+      "language": "Til",
+      "rating": "Reyting",
+      "any": "Barchasi",
+      "ratingAndUp": "{stars}+ yulduz",
+      "clear": "Tozalash"
+    },
+    "card": {
+      "pages": "{count} bet"
+    },
+    "pagination": {
+      "previous": "Oldingi",
+      "next": "Keyingi"
+    },
+    "detail": {
+      "byAuthors": "Muallif: {authors}",
+      "pageCount": "{count} bet",
+      "publishedYear": "Nashr yili: {year}",
+      "purchasedBadge": "Sotib olingan",
+      "purchasedNotice": "Siz bu kitobni allaqachon sotib olgansiz",
+      "addToCartCta": "Savatga qo'shish",
+      "addedToCart": "Savatga qo'shildi",
+      "errors": {
+        "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+      },
+      "rating": {
+        "title": "Kitobni baholang",
+        "remove": "Bahomni o'chirish",
+        "success": "Bahoyingiz uchun rahmat!",
+        "errors": {
+          "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+        }
+      }
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Kirish",
@@ -270,10 +314,276 @@
       "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring",
       "invalidCredentials": "Email yoki parol noto'g'ri",
       "codeExpired": "Kod muddati tugagan. Yangi kod so'rang",
-      "codeInvalid": "Kod noto'g'ri"
+      "codeInvalid": "Kod noto'g'ri",
+      "tooManyRequests": "Juda ko'p urinish. {seconds} soniyadan keyin qayta urining"
+    }
+  },
+  "Contact": {
+    "title": "Bog'lanish",
+    "mapTitle": "Manzil xaritasi",
+    "address": "Manzil",
+    "nearestMetro": "Eng yaqin metro",
+    "email": "Email",
+    "phone": "Telefon",
+    "workingHours": "Ish vaqti",
+    "form": {
+      "name": "Ismingiz",
+      "email": "Email",
+      "phone": "Telefon raqam",
+      "message": "Xabar",
+      "messagePlaceholder": "Xabaringizni yozing",
+      "submit": "Yuborish",
+      "unavailableNote": "Hozircha bu forma orqali xabar yuborish imkoniyati mavjud emas — tez orada qo'shiladi. Biz bilan yuqoridagi email yoki telefon orqali bog'laning."
+    },
+    "validation": {
+      "nameRequired": "Ismingizni kiriting",
+      "emailRequired": "Emailni kiriting",
+      "emailInvalid": "Email noto'g'ri",
+      "messageRequired": "Xabar matnini kiriting"
+    }
+  },
+  "NotFound": {
+    "title": "Sahifa topilmadi",
+    "description": "Siz qidirayotgan sahifa mavjud emas yoki ko'chirilgan. Manzilni tekshiring yoki bosh sahifaga qayting.",
+    "cta": "Bosh sahifaga qaytish"
+  },
+  "StaticPage": {
+    "about": {
+      "title": "Biz haqimizda",
+      "sections": [
+        {
+          "heading": "UzChess platformasi",
+          "body": "UzChess — O'zbekistonda shaxmat sportini rivojlantirish uchun yaratilgan onlayn platforma. Bu yerda siz o'yinchilar reytingini kuzatishingiz, shaxmat kurslarini o'rganishingiz, kutubxonadan kitoblar sotib olishingiz va jonli translyatsiyalarni tomosha qilishingiz mumkin."
+        },
+        {
+          "heading": "Bizning maqsadimiz",
+          "body": "Har qanday darajadagi o'yinchi uchun sifatli ta'lim materiallari va shaffof reyting tizimini taqdim etish orqali shaxmatni yoshlar orasida ommalashtirish va milliy shaxmat maktabini rivojlantirish bizning asosiy maqsadimizdir."
+        },
+        {
+          "heading": "Nima taklif qilamiz",
+          "body": "Video darslar va interaktiv mashqlardan iborat kurslar, shaxmat bo'yicha kitoblar kutubxonasi, o'yinchilar reytingi, so'nggi yangiliklar va jonli o'yinlar translyatsiyasi — barchasi bitta platformada."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Foydalanish qoidalari",
+      "sections": [
+        {
+          "heading": "Umumiy qoidalar",
+          "body": "UzChess platformasidan foydalanish orqali siz ushbu qoidalarga rozilik bildirasiz. Platformadan faqat qonuniy maqsadlarda va boshqa foydalanuvchilar huquqlarini hurmat qilgan holda foydalaning."
+        },
+        {
+          "heading": "Hisob qaydnomasi",
+          "body": "Ro'yxatdan o'tishda ko'rsatilgan ma'lumotlar aniq bo'lishi kerak. Hisobingiz xavfsizligi va undan foydalanish uchun to'liq javobgarlik foydalanuvchining o'zida bo'ladi."
+        },
+        {
+          "heading": "To'lovlar va buyurtmalar",
+          "body": "Kurslar va kitoblar uchun to'lovlar amalga oshirilgandan so'ng, ular tegishli bo'limlarda darhol mavjud bo'ladi. Raqamli mahsulotlar tabiatiga ko'ra, sotib olingan kurs va kitoblar qaytarib berilmaydi, agar qonun hujjatlarida boshqacha tartib nazarda tutilmagan bo'lsa."
+        },
+        {
+          "heading": "Intellektual mulk",
+          "body": "Platformadagi barcha video darslar, matnlar, rasmlar va boshqa materiallar UzChess yoki mualliflik huquqi egalariga tegishli bo'lib, ruxsatsiz ko'chirish yoki tarqatish taqiqlanadi."
+        },
+        {
+          "heading": "Javobgarlikni cheklash",
+          "body": "UzChess platforma orqali taqdim etilgan ma'lumotlarning uzluksizligi va xatolardan holi bo'lishi uchun harakat qiladi, biroq texnik nosozliklar yoki uchinchi tomon xizmatlaridagi uzilishlar uchun javobgar emas."
+        }
+      ]
+    },
+    "cookiePolicy": {
+      "title": "Cookie fayllari siyosati",
+      "sections": [
+        {
+          "heading": "Cookie fayli nima",
+          "body": "Cookie — bu sayt tomonidan brauzeringizga saqlanadigan kichik matn fayli bo'lib, saytning to'g'ri va qulay ishlashini ta'minlashga yordam beradi."
+        },
+        {
+          "heading": "Biz cookie fayllaridan qanday foydalanamiz",
+          "body": "UzChess cookie fayllaridan tizimga kirish sessiyasini saqlash, til va boshqa sozlamalaringizni eslab qolish hamda saytdan foydalanish statistikasini yig'ish uchun foydalanadi."
+        },
+        {
+          "heading": "Cookie fayllarini boshqarish",
+          "body": "Siz brauzeringiz sozlamalari orqali cookie fayllarini istalgan vaqtda bloklashingiz yoki o'chirib tashlashingiz mumkin, biroq bu holda saytning ba'zi funksiyalari to'liq ishlamasligi mumkin."
+        }
+      ]
+    }
+  },
+  "Live": {
+    "liveBadge": "Jonli efir",
+    "title": "{white} va {black}",
+    "vs": "va",
+    "empty": "Hozirda jonli o'yin yo'q",
+    "sidebarCourses": {
+      "title": "Top kurslar"
+    },
+    "sidebarPromo": {
+      "cta": "Batafsil"
+    }
+  },
+  "Cart": {
+    "title": "Savat",
+    "empty": "Savatingiz bo'sh",
+    "signInRequired": "Savatni ko'rish uchun tizimga kiring",
+    "signInCta": "Kirish",
+    "errors": {
+      "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+    },
+    "coupon": {
+      "label": "Promokod",
+      "placeholder": "Promokodni kiriting",
+      "apply": "Qo'llash",
+      "invalid": "Promokod noto'g'ri yoki muddati o'tgan"
+    },
+    "summary": {
+      "title": "Buyurtma xulosasi",
+      "subtotal": "Oraliq summa",
+      "itemDiscount": "Mahsulot chegirmasi",
+      "couponDiscount": "Promokod ({code})",
+      "deliveryFee": "Yetkazib berish narxi",
+      "total": "Jami"
+    },
+    "checkoutCta": "Buyurtma berish",
+    "item": {
+      "increase": "Miqdorni oshirish",
+      "decrease": "Miqdorni kamaytirish",
+      "remove": "Mahsulotni o'chirish"
+    }
+  },
+  "Checkout": {
+    "title": "Buyurtmani rasmiylashtirish",
+    "signInRequired": "Buyurtma berish uchun tizimga kiring",
+    "signInCta": "Kirish",
+    "empty": "Savatingiz bo'sh",
+    "goToCart": "Savatga o'tish",
+    "form": {
+      "fullName": "To'liq ism",
+      "phone": "Telefon raqami",
+      "email": "Elektron pochta",
+      "submit": "Buyurtma berish"
+    },
+    "summary": {
+      "title": "Buyurtma xulosasi",
+      "subtotal": "Oraliq summa",
+      "itemDiscount": "Mahsulot chegirmasi",
+      "couponDiscount": "Promokod ({code})",
+      "deliveryFee": "Yetkazib berish narxi",
+      "total": "Jami"
+    },
+    "success": {
+      "title": "Buyurtma qabul qilindi",
+      "description": "Rahmat! Buyurtmangiz muvaffaqiyatli qabul qilindi",
+      "orderNumber": "Buyurtma raqami",
+      "backHome": "Bosh sahifaga"
+    },
+    "fail": {
+      "title": "Buyurtma amalga oshmadi",
+      "retry": "Qaytadan urinib ko'ring"
+    },
+    "errors": {
+      "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+    },
+    "validation": {
+      "fullNameRequired": "To'liq ismni kiriting",
+      "phoneRequired": "Telefon raqamini kiriting",
+      "phoneInvalid": "9 xonali to'g'ri raqam kiriting",
+      "emailRequired": "Elektron pochtani kiriting",
+      "emailInvalid": "To'g'ri elektron pochta manzilini kiriting"
+    }
+  },
+  "Profile": {
+    "signInRequired": "Profilni ko'rish uchun tizimga kiring",
+    "notFound": "Profil topilmadi",
+    "header": {
+      "verified": "Email tasdiqlangan",
+      "unverified": "Email tasdiqlanmagan",
+      "changeAvatarAria": "Profil rasmini o'zgartirish"
+    },
+    "nav": {
+      "general": "Umumiy sozlamalar",
+      "purchasedCourses": "Sotib olingan kurslar",
+      "orders": "Buyurtmalar",
+      "saved": "Saqlangan mahsulotlar"
+    },
+    "general": {
+      "profile": {
+        "title": "Shaxsiy ma'lumotlar",
+        "firstName": "Ism",
+        "lastName": "Familiya",
+        "birthDate": "Tug'ilgan sana",
+        "submit": "O'zgarishlarni saqlash",
+        "success": "Profil muvaffaqiyatli yangilandi",
+        "errors": {
+          "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+        }
+      },
+      "password": {
+        "title": "Parolni o'zgartirish",
+        "currentPassword": "Joriy parol",
+        "newPassword": "Yangi parol",
+        "confirmNewPassword": "Yangi parolni tasdiqlang",
+        "submit": "Parolni o'zgartirish",
+        "success": "Parol muvaffaqiyatli o'zgartirildi",
+        "errors": {
+          "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring"
+        }
+      },
+      "email": {
+        "title": "Emailni o'zgartirish",
+        "currentEmailLabel": "Joriy email",
+        "currentPassword": "Joriy parol",
+        "newEmail": "Yangi email",
+        "submit": "Tasdiqlash kodini yuborish",
+        "codeDescription": "{email} manziliga yuborilgan kodni kiriting",
+        "codeLabel": "Tasdiqlash kodi",
+        "confirmSubmit": "Tasdiqlash",
+        "resend": "Kodni qayta yuborish",
+        "resendCooldown": "Qayta yuborish ({seconds}s)",
+        "cancel": "Bekor qilish",
+        "success": "Email muvaffaqiyatli yangilandi",
+        "errors": {
+          "generic": "Xatolik yuz berdi. Qaytadan urinib ko'ring",
+          "codeExpired": "Kod muddati tugagan, yangisini so'rang"
+        }
+      },
+      "validation": {
+        "firstNameRequired": "Ismingizni kiriting",
+        "lastNameRequired": "Familiyangizni kiriting",
+        "currentPasswordRequired": "Joriy parolni kiriting",
+        "newPasswordRequired": "Yangi parolni kiriting",
+        "confirmNewPasswordRequired": "Yangi parolni tasdiqlang",
+        "passwordMismatch": "Parollar mos kelmadi",
+        "newEmailRequired": "Yangi emailni kiriting",
+        "newEmailInvalid": "Email noto'g'ri",
+        "codeRequired": "6 xonali kodni kiriting"
+      }
+    },
+    "purchasedCourses": {
+      "empty": "Siz hali birorta kurs sotib olmagansiz",
+      "browseCta": "Kurslarni ko'rish"
+    },
+    "orders": {
+      "empty": "Sizda hali buyurtmalar yo'q",
+      "browseCta": "Kutubxonaga o'tish",
+      "orderNumber": "Buyurtma #{id}",
+      "itemsLabel": "{count} ta mahsulot",
+      "status": {
+        "processing": "Jarayonda",
+        "delivered": "Yetkazildi",
+        "cancelled": "Bekor qilindi"
+      }
+    },
+    "saved": {
+      "tabs": {
+        "courses": "Kurslar",
+        "books": "Mahsulotlar"
+      },
+      "emptyCourses": "Saqlangan kurslar yo'q",
+      "emptyBooks": "Saqlangan mahsulotlar yo'q"
     }
   },
   "Common": {
-    "emptyState": "Hozircha ma'lumot yo'q"
+    "emptyState": "Hozircha ma'lumot yo'q",
+    "errorState": "Xatolik yuz berdi. Qaytadan urinib ko'ring.",
+    "retry": "Qaytadan urinish"
   }
 }

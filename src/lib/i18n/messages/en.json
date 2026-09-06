@@ -9,6 +9,7 @@
   "Header": {
     "search": "Search",
     "notifications": "Notifications",
+    "cart": "Cart",
     "signIn": "Sign in",
     "profile": "Profile",
     "logout": "Log out"
@@ -17,7 +18,8 @@
     "about": "About us",
     "terms": "Terms of use",
     "cookiePolicy": "Cookie policy",
-    "copyright": "© UzChess. All rights reserved."
+    "copyright": "© UzChess. All rights reserved.",
+    "contactCta": "Contact us"
   },
   "TestModeBanner": {
     "message": "The site is running in test mode",
@@ -225,6 +227,48 @@
       "issuedAt": "Issued on"
     }
   },
+  "Library": {
+    "title": "Library",
+    "empty": "No books found",
+    "notFound": "Book not found",
+    "filters": {
+      "searchPlaceholder": "Search by title",
+      "category": "Category",
+      "difficulty": "Difficulty",
+      "language": "Language",
+      "rating": "Rating",
+      "any": "All",
+      "ratingAndUp": "{stars}+ stars",
+      "clear": "Clear all"
+    },
+    "card": {
+      "pages": "{count} pages"
+    },
+    "pagination": {
+      "previous": "Previous",
+      "next": "Next"
+    },
+    "detail": {
+      "byAuthors": "By {authors}",
+      "pageCount": "{count} pages",
+      "publishedYear": "Published {year}",
+      "purchasedBadge": "Purchased",
+      "purchasedNotice": "You already own this book",
+      "addToCartCta": "Add to cart",
+      "addedToCart": "Added to cart",
+      "errors": {
+        "generic": "Something went wrong. Please try again"
+      },
+      "rating": {
+        "title": "Rate this book",
+        "remove": "Remove my rating",
+        "success": "Thanks for your rating!",
+        "errors": {
+          "generic": "Something went wrong. Please try again"
+        }
+      }
+    }
+  },
   "Auth": {
     "signIn": {
       "title": "Sign in",
@@ -270,10 +314,276 @@
       "generic": "Something went wrong. Please try again",
       "invalidCredentials": "Invalid email or password",
       "codeExpired": "The code has expired. Request a new one",
-      "codeInvalid": "Invalid code"
+      "codeInvalid": "Invalid code",
+      "tooManyRequests": "Too many attempts. Try again in {seconds}s"
+    }
+  },
+  "Contact": {
+    "title": "Contact",
+    "mapTitle": "Location map",
+    "address": "Address",
+    "nearestMetro": "Nearest metro",
+    "email": "Email",
+    "phone": "Phone",
+    "workingHours": "Working hours",
+    "form": {
+      "name": "Your name",
+      "email": "Email",
+      "phone": "Phone number",
+      "message": "Message",
+      "messagePlaceholder": "Write your message",
+      "submit": "Send",
+      "unavailableNote": "Sending messages through this form isn't available yet — coming soon. Reach us via the email or phone above in the meantime."
+    },
+    "validation": {
+      "nameRequired": "Enter your name",
+      "emailRequired": "Enter your email",
+      "emailInvalid": "Invalid email",
+      "messageRequired": "Enter a message"
+    }
+  },
+  "NotFound": {
+    "title": "Page not found",
+    "description": "The page you're looking for doesn't exist or has been moved. Check the address or return to the home page.",
+    "cta": "Back to home"
+  },
+  "StaticPage": {
+    "about": {
+      "title": "About us",
+      "sections": [
+        {
+          "heading": "The UzChess platform",
+          "body": "UzChess is an online platform built to develop chess in Uzbekistan. Here you can track the player ranking, take chess courses, buy books from the library, and watch live game broadcasts."
+        },
+        {
+          "heading": "Our mission",
+          "body": "Our mission is to popularize chess among young people and grow the national chess school by offering quality learning materials and a transparent ranking system for players of every level."
+        },
+        {
+          "heading": "What we offer",
+          "body": "Courses with video lessons and interactive exercises, a library of chess books, a player ranking, the latest news, and live game broadcasts — all in one platform."
+        }
+      ]
+    },
+    "terms": {
+      "title": "Terms of use",
+      "sections": [
+        {
+          "heading": "General provisions",
+          "body": "By using the UzChess platform you agree to these terms. Use the platform only for lawful purposes and respect the rights of other users."
+        },
+        {
+          "heading": "Your account",
+          "body": "The information you provide when registering must be accurate. You are fully responsible for keeping your account secure and for how it's used."
+        },
+        {
+          "heading": "Payments and orders",
+          "body": "Once payment is completed, courses and books become available in the relevant section immediately. Because these are digital goods, purchased courses and books are non-refundable unless required otherwise by law."
+        },
+        {
+          "heading": "Intellectual property",
+          "body": "All video lessons, text, images, and other materials on the platform belong to UzChess or its content rights holders; copying or distributing them without permission is prohibited."
+        },
+        {
+          "heading": "Limitation of liability",
+          "body": "UzChess works to keep the platform running smoothly and accurately, but is not liable for technical failures or interruptions in third-party services."
+        }
+      ]
+    },
+    "cookiePolicy": {
+      "title": "Cookie policy",
+      "sections": [
+        {
+          "heading": "What cookies are",
+          "body": "A cookie is a small text file the site stores in your browser to help it work correctly and conveniently."
+        },
+        {
+          "heading": "How we use cookies",
+          "body": "UzChess uses cookies to keep you signed in, remember your language and other preferences, and collect usage statistics for the site."
+        },
+        {
+          "heading": "Managing cookies",
+          "body": "You can block or delete cookies at any time in your browser settings, though some site features may not work correctly as a result."
+        }
+      ]
+    }
+  },
+  "Live": {
+    "liveBadge": "Live",
+    "title": "{white} vs {black}",
+    "vs": "vs",
+    "empty": "No live game right now",
+    "sidebarCourses": {
+      "title": "Top courses"
+    },
+    "sidebarPromo": {
+      "cta": "Learn more"
+    }
+  },
+  "Cart": {
+    "title": "Cart",
+    "empty": "Your cart is empty",
+    "signInRequired": "Sign in to see your cart",
+    "signInCta": "Sign in",
+    "errors": {
+      "generic": "Something went wrong. Please try again"
+    },
+    "coupon": {
+      "label": "Coupon code",
+      "placeholder": "Enter a coupon code",
+      "apply": "Apply",
+      "invalid": "This coupon code is invalid or expired"
+    },
+    "summary": {
+      "title": "Order summary",
+      "subtotal": "Subtotal",
+      "itemDiscount": "Item discount",
+      "couponDiscount": "Coupon ({code})",
+      "deliveryFee": "Delivery fee",
+      "total": "Total"
+    },
+    "checkoutCta": "Proceed to checkout",
+    "item": {
+      "increase": "Increase quantity",
+      "decrease": "Decrease quantity",
+      "remove": "Remove item"
+    }
+  },
+  "Checkout": {
+    "title": "Checkout",
+    "signInRequired": "Sign in to place an order",
+    "signInCta": "Sign in",
+    "empty": "Your cart is empty",
+    "goToCart": "Go to cart",
+    "form": {
+      "fullName": "Full name",
+      "phone": "Phone number",
+      "email": "Email",
+      "submit": "Place order"
+    },
+    "summary": {
+      "title": "Order summary",
+      "subtotal": "Subtotal",
+      "itemDiscount": "Item discount",
+      "couponDiscount": "Coupon ({code})",
+      "deliveryFee": "Delivery fee",
+      "total": "Total"
+    },
+    "success": {
+      "title": "Order placed",
+      "description": "Thank you! Your order has been placed successfully",
+      "orderNumber": "Order number",
+      "backHome": "Back to home"
+    },
+    "fail": {
+      "title": "Order failed",
+      "retry": "Try again"
+    },
+    "errors": {
+      "generic": "Something went wrong. Please try again"
+    },
+    "validation": {
+      "fullNameRequired": "Full name is required",
+      "phoneRequired": "Phone number is required",
+      "phoneInvalid": "Enter a valid 9-digit phone number",
+      "emailRequired": "Email is required",
+      "emailInvalid": "Enter a valid email address"
+    }
+  },
+  "Profile": {
+    "signInRequired": "Sign in to view your profile",
+    "notFound": "Profile not found",
+    "header": {
+      "verified": "Email verified",
+      "unverified": "Email not verified",
+      "changeAvatarAria": "Change profile photo"
+    },
+    "nav": {
+      "general": "General settings",
+      "purchasedCourses": "Purchased courses",
+      "orders": "Orders",
+      "saved": "Saved items"
+    },
+    "general": {
+      "profile": {
+        "title": "Personal info",
+        "firstName": "First name",
+        "lastName": "Last name",
+        "birthDate": "Date of birth",
+        "submit": "Save changes",
+        "success": "Profile updated successfully",
+        "errors": {
+          "generic": "Something went wrong. Please try again"
+        }
+      },
+      "password": {
+        "title": "Change password",
+        "currentPassword": "Current password",
+        "newPassword": "New password",
+        "confirmNewPassword": "Confirm new password",
+        "submit": "Change password",
+        "success": "Password changed successfully",
+        "errors": {
+          "generic": "Something went wrong. Please try again"
+        }
+      },
+      "email": {
+        "title": "Change email",
+        "currentEmailLabel": "Current email",
+        "currentPassword": "Current password",
+        "newEmail": "New email",
+        "submit": "Send confirmation code",
+        "codeDescription": "Enter the code sent to {email}",
+        "codeLabel": "Confirmation code",
+        "confirmSubmit": "Confirm",
+        "resend": "Resend code",
+        "resendCooldown": "Resend ({seconds}s)",
+        "cancel": "Cancel",
+        "success": "Email updated successfully",
+        "errors": {
+          "generic": "Something went wrong. Please try again",
+          "codeExpired": "Code expired, request a new one"
+        }
+      },
+      "validation": {
+        "firstNameRequired": "Enter your first name",
+        "lastNameRequired": "Enter your last name",
+        "currentPasswordRequired": "Enter your current password",
+        "newPasswordRequired": "Enter a new password",
+        "confirmNewPasswordRequired": "Confirm your new password",
+        "passwordMismatch": "Passwords don't match",
+        "newEmailRequired": "Enter your new email",
+        "newEmailInvalid": "Invalid email",
+        "codeRequired": "Enter the 6-digit code"
+      }
+    },
+    "purchasedCourses": {
+      "empty": "You haven't purchased any courses yet",
+      "browseCta": "Browse courses"
+    },
+    "orders": {
+      "empty": "You don't have any orders yet",
+      "browseCta": "Browse library",
+      "orderNumber": "Order #{id}",
+      "itemsLabel": "{count} items",
+      "status": {
+        "processing": "Processing",
+        "delivered": "Delivered",
+        "cancelled": "Cancelled"
+      }
+    },
+    "saved": {
+      "tabs": {
+        "courses": "Courses",
+        "books": "Products"
+      },
+      "emptyCourses": "No saved courses yet",
+      "emptyBooks": "No saved products yet"
     }
   },
   "Common": {
-    "emptyState": "No data yet"
+    "emptyState": "No data yet",
+    "errorState": "Something went wrong. Please try again.",
+    "retry": "Try again"
   }
 }

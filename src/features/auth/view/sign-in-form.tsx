@@ -11,7 +11,7 @@ import { useSignIn } from "@/features/auth/viewmodel/use-sign-in"
 function SignInForm() {
   const t = useTranslations("Auth.signIn")
   const { open } = useAuthModal()
-  const { form, onSubmit, isLoading, formError } = useSignIn()
+  const { form, onSubmit, isDisabled, formError } = useSignIn()
 
   return (
     <div className="flex flex-col gap-4">
@@ -32,7 +32,7 @@ function SignInForm() {
           {...form.register("password")}
         />
         {formError && <p className="text-sm text-destructive">{formError}</p>}
-        <Button type="submit" disabled={isLoading} className="mt-2">
+        <Button type="submit" disabled={isDisabled} className="mt-2">
           {t("submit")}
         </Button>
       </form>

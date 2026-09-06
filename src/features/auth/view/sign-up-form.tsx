@@ -14,7 +14,7 @@ import { useSignUp } from "@/features/auth/viewmodel/use-sign-up"
 function SignUpForm() {
   const t = useTranslations("Auth.signUp")
   const { open } = useAuthModal()
-  const { form, onSubmit, isLoading, formError } = useSignUp()
+  const { form, onSubmit, isDisabled, formError } = useSignUp()
 
   return (
     <div className="flex flex-col gap-4">
@@ -73,7 +73,7 @@ function SignUpForm() {
           )}
         />
         {formError && <p className="text-sm text-destructive">{formError}</p>}
-        <Button type="submit" disabled={isLoading} className="mt-2">
+        <Button type="submit" disabled={isDisabled} className="mt-2">
           {t("submit")}
         </Button>
       </form>

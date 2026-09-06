@@ -4,12 +4,16 @@ import { useState } from "react"
 import { useForm } from "react-hook-form"
 
 import { useRegisterMutation } from "@/features/auth/model/auth-api"
-import { getAuthErrorMessage } from "@/features/auth/model/auth-error"
+import { getAuthErrorMessage, isThrottled } from "@/features/auth/model/auth-error"
 import {
   createSignUpFormSchema,
   type SignUpFormValues,
 } from "@/features/auth/model/auth-form-schemas"
 import { authModalOpened, credentialsSet } from "@/features/auth/model/auth-slice"
+import {
+  THROTTLE_COOLDOWN_SECONDS,
+  useThrottleCooldown,
+} from "@/features/auth/viewmodel/use-throttle-cooldown"
 import { useAppDispatch } from "@/lib/store/hooks"
 
 function useSignUp() {
@@ -18,6 +22,7 @@ function useSignUp() {
   const tValidation = useTranslations("Auth.validation")
   const [register, { isLoading }] = useRegisterMutation()
   const [formError, setFormError] = useState<string | null>(null)
+  const [cooldown, setCooldown] = useThrottleCooldown()
 
   const form = useForm<SignUpFormValues>({
     resolver: zodResolver(createSignUpFormSchema(tValidation)),
@@ -56,7 +61,11 @@ function useSignUp() {
       // verification prompt comes next, it doesn't gate anything.
       dispatch(authModalOpened("verify-email"))
     } catch (error) {
-      setFormError(getAuthErrorMessage(error, t("generic")))
+      if (isThrottled(error)) {
+        setCooldown(THROTTLE_COOLDOWN_SECONDS)
+      } else {
+        setFormError(getAuthErrorMessage(error, t("generic")))
+      }
     }
   }
 
@@ -64,7 +73,8 @@ function useSignUp() {
     form,
     onSubmit: form.handleSubmit(onSubmit),
     isLoading,
-    formError,
+    formError: cooldown > 0 ? t("tooManyRequests", { seconds: cooldown }) : formError,
+    isDisabled: isLoading || cooldown > 0,
   }
 }
 

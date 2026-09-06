@@ -22,4 +22,13 @@ function getAuthErrorMessage(error: unknown, fallback: string): string {
   return fallback
 }
 
-export { getAuthErrorMessage }
+// Backend rate-limits auth endpoints (NestJS `ThrottlerException`, HTTP 429)
+// — callers use this to switch to a disabled-button + countdown state
+// instead of showing the raw exception text and letting the user hammer
+// the button, which only extends the throttle window.
+function isThrottled(error: unknown): boolean {
+  if (typeof error !== "object" || error === null) return false
+  return (error as { status?: unknown }).status === 429
+}
+
+export { getAuthErrorMessage, isThrottled }

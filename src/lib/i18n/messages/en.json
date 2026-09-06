@@ -329,11 +329,12 @@
     "form": {
       "name": "Your name",
       "email": "Email",
-      "phone": "Phone number",
       "message": "Message",
       "messagePlaceholder": "Write your message",
       "submit": "Send",
-      "unavailableNote": "Sending messages through this form isn't available yet — coming soon. Reach us via the email or phone above in the meantime."
+      "sending": "Sending...",
+      "success": "Your message has been sent. We'll get back to you soon.",
+      "error": "Couldn't send the message. Please try again shortly."
     },
     "validation": {
       "nameRequired": "Enter your name",

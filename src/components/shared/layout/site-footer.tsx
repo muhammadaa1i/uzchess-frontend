@@ -1,6 +1,7 @@
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 
+import { ContactFooterInfo } from "@/components/shared/contact-footer-info"
 import { Link } from "@/lib/i18n/navigation"
 
 const SOCIAL_LINKS = [
@@ -43,6 +44,7 @@ function SiteFooter() {
             </Link>
           ))}
         </nav>
+        <ContactFooterInfo />
         <div className="flex items-center gap-3">
           {SOCIAL_LINKS.map((social) => (
             <a

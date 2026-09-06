@@ -329,11 +329,12 @@
     "form": {
       "name": "Ismingiz",
       "email": "Email",
-      "phone": "Telefon raqam",
       "message": "Xabar",
       "messagePlaceholder": "Xabaringizni yozing",
       "submit": "Yuborish",
-      "unavailableNote": "Hozircha bu forma orqali xabar yuborish imkoniyati mavjud emas — tez orada qo'shiladi. Biz bilan yuqoridagi email yoki telefon orqali bog'laning."
+      "sending": "Yuborilmoqda...",
+      "success": "Xabaringiz yuborildi. Tez orada siz bilan bog'lanamiz.",
+      "error": "Xabarni yuborib bo'lmadi. Birozdan so'ng qayta urinib ko'ring."
     },
     "validation": {
       "nameRequired": "Ismingizni kiriting",

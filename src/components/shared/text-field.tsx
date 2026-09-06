@@ -38,7 +38,7 @@ function TextField({
   const [showPassword, setShowPassword] = React.useState(false)
   const generatedId = React.useId()
   const fieldId = id ?? generatedId
-  const isInvalid = Boolean(errors?.length)
+  const isInvalid = Boolean(errors?.some((error) => error?.message))
 
   const inputType =
     variant === "password"

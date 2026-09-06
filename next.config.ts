@@ -2,6 +2,13 @@ import type { NextConfig } from "next";
 import createNextIntlPlugin from "next-intl/plugin";
 
 const nextConfig: NextConfig = {
+  // Next.js walks up from this file looking for a lockfile to infer the
+  // Turbopack workspace root, and stops at a stray package-lock.json in
+  // C:\Users\muham (outside this repo) before reaching this project's own —
+  // pin the root explicitly instead of relying on that inference.
+  turbopack: {
+    root: __dirname,
+  },
   images: {
     remotePatterns: [
       {

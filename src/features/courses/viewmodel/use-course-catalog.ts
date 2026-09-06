@@ -43,7 +43,13 @@ function useCourseCatalog() {
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
   const [page, setPage] = useState(1)
 
-  const { data, isLoading, isFetching, isError } = useGetCoursesQuery({
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = useGetCoursesQuery({
     page,
     size: CATALOG_PAGE_SIZE,
     search: filters.search.trim() || undefined,
@@ -78,6 +84,7 @@ function useCourseCatalog() {
     courses: data?.data ?? [],
     isLoading: isLoading || isFetching,
     isError,
+    refetch,
     page,
     setPage,
     totalPages: data?.totalPages ?? 0,

@@ -24,22 +24,34 @@ function useRanking() {
   const [page, setPage] = useState(1)
   const [country, setCountry] = useState(ALL_COUNTRIES)
 
-  const { data, isLoading, isFetching, isError } = useGetRankingQuery({
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isError,
+    refetch: refetchRanking,
+  } = useGetRankingQuery({
     page,
     size: PAGE_SIZE,
     country: country === ALL_COUNTRIES ? undefined : country,
   })
-  const { data: filters } = useGetRankingFiltersQuery()
+  const { data: filters, refetch: refetchFilters } = useGetRankingFiltersQuery()
 
   function handleCountryChange(nextCountry: string) {
     setCountry(nextCountry)
     setPage(1)
   }
 
+  function refetch() {
+    refetchRanking()
+    refetchFilters()
+  }
+
   return {
     rows: data?.data ?? [],
     isLoading: isLoading || isFetching,
     isError,
+    refetch,
     page,
     setPage,
     totalPages: data?.totalPages ?? 0,

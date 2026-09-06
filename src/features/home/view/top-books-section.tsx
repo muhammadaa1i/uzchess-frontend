@@ -4,6 +4,7 @@ import { StarIcon } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { BookSummary } from "@/features/home/model/home-schemas"
 import { EmptyState } from "@/features/home/view/empty-state"
@@ -17,7 +18,7 @@ import { formatPrice } from "@/lib/utils"
 // faithfully even though it reads as a design inconsistency.
 function TopBooksSection() {
   const t = useTranslations("Home.topBooks")
-  const { books, isLoading, isError } = useTopBooks()
+  const { books, isLoading, isError, refetch } = useTopBooks()
 
   return (
     <section className="flex flex-col rounded-lg bg-[#1A1D1F] p-4">
@@ -33,7 +34,9 @@ function TopBooksSection() {
             <Skeleton key={index} className="h-20 w-full rounded-xl" />
           ))}
         </div>
-      ) : isError || books.length === 0 ? (
+      ) : isError ? (
+        <ErrorState className="mt-4" onRetry={refetch} />
+      ) : books.length === 0 ? (
         <EmptyState className="mt-4" message={t("empty")} />
       ) : (
         <div className="mt-2 flex flex-col divide-y divide-[#272B30]">
@@ -50,7 +53,7 @@ function BookRow({ book }: { book: BookSummary }) {
   return (
     <article className="flex items-center gap-4 py-3">
       <div className="relative h-20 w-[54px] shrink-0 overflow-hidden rounded-lg bg-dark-2">
-        <Image src={book.cover} alt={book.title} fill className="object-cover" />
+        <Image src={book.cover} alt={book.title} fill sizes="54px" className="object-cover" />
       </div>
       <div className="flex min-w-0 flex-col gap-1.5">
         <h3 className="line-clamp-2 text-sm font-medium text-brand-white">{book.title}</h3>

@@ -4,6 +4,7 @@ import { LockIcon } from "lucide-react"
 import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useLesson } from "@/features/courses/viewmodel/use-lesson"
@@ -36,6 +37,7 @@ function LessonView({ courseId, lessonId }: LessonViewProps) {
     lesson,
     isLoading,
     isError,
+    refetch,
     isAuthenticated,
     countdown,
     canComplete,
@@ -64,7 +66,15 @@ function LessonView({ courseId, lessonId }: LessonViewProps) {
     )
   }
 
-  if (isError || !lesson) {
+  if (isError) {
+    return (
+      <div className="mx-auto flex max-w-[900px] flex-col items-center gap-4 px-4 py-16 text-center">
+        <ErrorState onRetry={refetch} />
+      </div>
+    )
+  }
+
+  if (!lesson) {
     return (
       <div className="mx-auto flex max-w-[900px] flex-col items-center gap-4 px-4 py-16 text-center">
         <p className="text-sm text-brand-secondary-low">{t("notFound")}</p>

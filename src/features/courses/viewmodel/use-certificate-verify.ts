@@ -1,12 +1,13 @@
 import { useVerifyCertificateQuery } from "@/features/courses/model/certificate-api"
 
 function useCertificateVerify(code: string) {
-  const { data, isLoading, isError } = useVerifyCertificateQuery(code, { skip: !code })
+  const { data, isLoading, isError, refetch } = useVerifyCertificateQuery(code, { skip: !code })
 
   return {
     certificate: data,
     isLoading,
-    isError: isError || !code,
+    isError,
+    refetch,
   }
 }
 

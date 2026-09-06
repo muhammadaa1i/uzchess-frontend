@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl"
 import type { MouseEvent } from "react"
 import { Controller } from "react-hook-form"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Field, FieldError, FieldLabel } from "@/components/ui/field"
@@ -31,6 +32,7 @@ function CourseReviewsSection({ courseId, canReview }: CourseReviewsSectionProps
     reviews,
     isLoading,
     isError,
+    refetch,
     page,
     setPage,
     totalPages,
@@ -114,7 +116,9 @@ function CourseReviewsSection({ courseId, canReview }: CourseReviewsSectionProps
             <Skeleton key={index} className="h-20 w-full rounded-lg" />
           ))}
         </div>
-      ) : isError || reviews.length === 0 ? (
+      ) : isError ? (
+        <ErrorState onRetry={refetch} />
+      ) : reviews.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
           {t("empty")}
         </div>

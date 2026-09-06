@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl"
 import { useRef } from "react"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useCertificate } from "@/features/courses/viewmodel/use-certificate"
@@ -23,7 +24,8 @@ interface CertificateViewProps {
 function CertificateView({ courseId }: CertificateViewProps) {
   const t = useTranslations("Courses.certificate")
   const iframeRef = useRef<HTMLIFrameElement>(null)
-  const { objectUrl, isLoading, isError, notEarnedYet, isAuthenticated } = useCertificate(courseId)
+  const { objectUrl, isLoading, isError, notEarnedYet, isAuthenticated, refetch } =
+    useCertificate(courseId)
 
   if (!isAuthenticated) {
     return (
@@ -54,7 +56,15 @@ function CertificateView({ courseId }: CertificateViewProps) {
     )
   }
 
-  if (isError || !objectUrl) {
+  if (isError) {
+    return (
+      <div className="mx-auto flex max-w-[900px] flex-col items-center gap-3 px-4 py-16 text-center">
+        <ErrorState onRetry={refetch} />
+      </div>
+    )
+  }
+
+  if (!objectUrl) {
     return (
       <div className="mx-auto flex max-w-[900px] flex-col items-center gap-3 px-4 py-16 text-center">
         <p className="text-sm text-brand-secondary-low">{t("notEarnedYetDescription")}</p>

@@ -1,7 +1,7 @@
 import { useGetNewsByIdQuery } from "@/features/news/model/news-api"
 
 function useNewsDetail(newsId: number) {
-  const { data, isLoading, isError } = useGetNewsByIdQuery(newsId, {
+  const { data, isLoading, isError, refetch } = useGetNewsByIdQuery(newsId, {
     skip: !Number.isFinite(newsId),
   })
 
@@ -9,7 +9,8 @@ function useNewsDetail(newsId: number) {
     news: data,
     relatedNews: data?.relatedNews ?? [],
     isLoading,
-    isError: isError || !Number.isFinite(newsId),
+    isError,
+    refetch,
   }
 }
 

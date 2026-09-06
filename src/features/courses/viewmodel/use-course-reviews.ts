@@ -26,7 +26,13 @@ function useCourseReviews(courseId: number, canReview: boolean) {
   const [formError, setFormError] = useState<string | null>(null)
   const [justSubmitted, setJustSubmitted] = useState(false)
 
-  const { data, isLoading, isFetching, isError } = useGetCourseReviewsQuery(
+  const {
+    data,
+    isLoading,
+    isFetching,
+    isError,
+    refetch,
+  } = useGetCourseReviewsQuery(
     { courseId, page, size: REVIEWS_PAGE_SIZE },
     { skip: !Number.isFinite(courseId) }
   )
@@ -52,6 +58,7 @@ function useCourseReviews(courseId: number, canReview: boolean) {
     reviews: data?.data ?? [],
     isLoading: isLoading || isFetching,
     isError,
+    refetch,
     page,
     setPage,
     totalPages: data?.totalPages ?? 0,

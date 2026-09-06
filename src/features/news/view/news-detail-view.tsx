@@ -5,6 +5,7 @@ import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { useState } from "react"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { NewsCard } from "@/components/shared/news-card"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -22,13 +23,21 @@ interface NewsDetailViewProps {
 // forgot-password endpoint, so it isn't built here.
 function NewsDetailView({ newsId }: NewsDetailViewProps) {
   const t = useTranslations("News")
-  const { news, relatedNews, isLoading, isError } = useNewsDetail(newsId)
+  const { news, relatedNews, isLoading, isError, refetch } = useNewsDetail(newsId)
 
   if (isLoading) {
     return <NewsDetailSkeleton />
   }
 
-  if (isError || !news) {
+  if (isError) {
+    return (
+      <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
+        <ErrorState onRetry={refetch} />
+      </div>
+    )
+  }
+
+  if (!news) {
     return (
       <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
         <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
@@ -43,7 +52,13 @@ function NewsDetailView({ newsId }: NewsDetailViewProps) {
       <article className="flex flex-col gap-4">
         {news.imageUrl && (
           <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-dark-2">
-            <Image src={news.imageUrl} alt={news.title} fill className="object-cover" />
+            <Image
+              src={news.imageUrl}
+              alt={news.title}
+              fill
+              sizes="(min-width: 1024px) 1328px, 100vw"
+              className="object-cover"
+            />
           </div>
         )}
 

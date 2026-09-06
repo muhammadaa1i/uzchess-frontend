@@ -4,6 +4,7 @@ import { StarIcon } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { CourseSummary } from "@/features/home/model/home-schemas"
 import { EmptyState } from "@/features/home/view/empty-state"
@@ -15,7 +16,7 @@ import { cn, formatPrice } from "@/lib/utils"
 // doesn't exist yet — see SectionHeading's placeholder CTA.
 function TopCoursesSection() {
   const t = useTranslations("Home.topCourses")
-  const { courses, isLoading, isError } = useTopCourses()
+  const { courses, isLoading, isError, refetch } = useTopCourses()
 
   return (
     <section className="flex flex-col rounded-lg bg-[#1A1D1F] p-4">
@@ -26,7 +27,9 @@ function TopCoursesSection() {
             <Skeleton key={index} className="h-20 w-full rounded-xl" />
           ))}
         </div>
-      ) : isError || courses.length === 0 ? (
+      ) : isError ? (
+        <ErrorState className="mt-4" onRetry={refetch} />
+      ) : courses.length === 0 ? (
         <EmptyState className="mt-4" message={t("empty")} />
       ) : (
         <div className="mt-2 flex flex-col divide-y divide-[#272B30]">
@@ -43,7 +46,7 @@ function CourseRow({ course }: { course: CourseSummary }) {
   return (
     <article className={cn("flex items-center gap-4 py-3")}>
       <div className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-dark-2">
-        <Image src={course.cover} alt={course.title} fill className="object-cover" />
+        <Image src={course.cover} alt={course.title} fill sizes="80px" className="object-cover" />
       </div>
       <div className="flex min-w-0 flex-col gap-1.5">
         <h3 className="line-clamp-2 text-sm font-medium text-brand-white">{course.title}</h3>

@@ -11,7 +11,7 @@ const PAGE_SIZE = 12
 function useNewsList() {
   const [page, setPage] = useState(1)
 
-  const { data, isLoading, isFetching, isError } = useGetNewsQuery({
+  const { data, isLoading, isFetching, isError, refetch } = useGetNewsQuery({
     page,
     size: PAGE_SIZE,
   })
@@ -20,6 +20,7 @@ function useNewsList() {
     news: data?.data ?? [],
     isLoading: isLoading || isFetching,
     isError,
+    refetch,
     page,
     setPage,
     totalPages: data?.totalPages ?? 0,

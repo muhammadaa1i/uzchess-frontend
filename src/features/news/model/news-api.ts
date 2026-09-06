@@ -14,7 +14,7 @@ interface GetNewsParams {
 
 // News feature's own RTK Query endpoints, injected into the shared
 // endpoint-less `baseApi` (see CLAUDE.md's code-splitting mandate) — kept
-// separate from home's identically-shaped `getNews` endpoint in
+// separate from home's identically-shaped `getHomeNews` endpoint in
 // home-api.ts, since endpoints for one feature must not live in another
 // feature's model file, even against the same backend route.
 const newsApi = baseApi.injectEndpoints({

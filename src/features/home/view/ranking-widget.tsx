@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { RankingTable } from "@/components/shared/ranking-table"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EmptyState } from "@/features/home/view/empty-state"
@@ -15,7 +16,7 @@ import { useTopRanking } from "@/features/home/viewmodel/use-top-ranking"
 // code-splitting mandate).
 function RankingWidget() {
   const t = useTranslations("Home.ranking")
-  const { players, isLoading, isError } = useTopRanking()
+  const { players, isLoading, isError, refetch } = useTopRanking()
 
   return (
     <section className="flex flex-col rounded-xl border border-[#1F272A] bg-[#1A1D1F]">
@@ -31,7 +32,11 @@ function RankingWidget() {
             <Skeleton key={index} className="h-[62px] w-full rounded-lg" />
           ))}
         </div>
-      ) : isError || players.length === 0 ? (
+      ) : isError ? (
+        <div className="px-4 pb-4">
+          <ErrorState onRetry={refetch} />
+        </div>
+      ) : players.length === 0 ? (
         <div className="px-4 pb-4">
           <EmptyState message={t("empty")} />
         </div>

@@ -37,6 +37,7 @@ function useCourseDetail(courseId: number) {
     data: course,
     isLoading: isCourseLoading,
     isError: isCourseError,
+    refetch: refetchCourse,
   } = useGetCourseByIdQuery(courseId, { skip: !Number.isFinite(courseId) })
 
   // Both skipped when signed out — GET /courses/purchased and
@@ -96,6 +97,7 @@ function useCourseDetail(courseId: number) {
     sections,
     isLoading: isCourseLoading,
     isError: isCourseError,
+    refetch: refetchCourse,
     isAuthenticated,
     isPurchased,
     isCompleted,

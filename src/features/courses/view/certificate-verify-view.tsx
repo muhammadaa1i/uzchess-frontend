@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useCertificateVerify } from "@/features/courses/viewmodel/use-certificate-verify"
 import { formatDate } from "@/lib/utils"
@@ -17,7 +18,7 @@ interface CertificateVerifyViewProps {
 // certificate-api.ts).
 function CertificateVerifyView({ code }: CertificateVerifyViewProps) {
   const t = useTranslations("Courses.certificateVerify")
-  const { certificate, isLoading, isError } = useCertificateVerify(code)
+  const { certificate, isLoading, isError, refetch } = useCertificateVerify(code)
 
   return (
     <div className="mx-auto flex max-w-[600px] flex-col gap-4 px-4 py-16">
@@ -25,7 +26,9 @@ function CertificateVerifyView({ code }: CertificateVerifyViewProps) {
 
       {isLoading ? (
         <Skeleton className="h-40 w-full rounded-xl" />
-      ) : isError || !certificate ? (
+      ) : isError ? (
+        <ErrorState onRetry={refetch} />
+      ) : !certificate ? (
         <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
           {t("notFound")}
         </div>

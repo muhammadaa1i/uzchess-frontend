@@ -6,6 +6,7 @@ import Image from "next/image"
 import { useTranslations } from "next-intl"
 import { useState } from "react"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
@@ -44,6 +45,7 @@ function CourseDetailView({ courseId }: CourseDetailViewProps) {
     sections,
     isLoading,
     isError,
+    refetch,
     isAuthenticated,
     isPurchased,
     isCompleted,
@@ -54,7 +56,15 @@ function CourseDetailView({ courseId }: CourseDetailViewProps) {
     return <CourseDetailSkeleton />
   }
 
-  if (isError || !course) {
+  if (isError) {
+    return (
+      <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
+        <ErrorState onRetry={refetch} />
+      </div>
+    )
+  }
+
+  if (!course) {
     return (
       <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
         <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
@@ -83,7 +93,14 @@ function CourseDetailView({ courseId }: CourseDetailViewProps) {
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-[1fr_360px]">
         <div className="flex flex-col gap-4">
           <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-dark-2">
-            <Image src={course.cover} alt={course.title} fill className="object-cover" priority />
+            <Image
+              src={course.cover}
+              alt={course.title}
+              fill
+              sizes="(min-width: 1024px) 1000px, 100vw"
+              className="object-cover"
+              priority
+            />
           </div>
 
           <div className="flex flex-wrap items-center gap-2">

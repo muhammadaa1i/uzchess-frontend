@@ -15,6 +15,7 @@ function useCertificate(courseId: number) {
     isFetching,
     isError,
     error,
+    refetch,
   } = useDownloadCertificateQuery(courseId, {
     skip: !isAuthenticated || !Number.isFinite(courseId),
   })
@@ -38,6 +39,7 @@ function useCertificate(courseId: number) {
     isError: isError && !notEarnedYet,
     notEarnedYet,
     isAuthenticated,
+    refetch,
   }
 }
 

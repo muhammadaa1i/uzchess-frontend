@@ -33,6 +33,7 @@ function useLesson(courseId: number, lessonId: number) {
     data: progress,
     isLoading,
     isError,
+    refetch,
   } = useGetCourseLessonsProgressQuery(courseId, {
     skip: !isAuthenticated || !Number.isFinite(courseId),
   })
@@ -106,6 +107,7 @@ function useLesson(courseId: number, lessonId: number) {
     lesson,
     isLoading: isLoading && isAuthenticated,
     isError,
+    refetch,
     isAuthenticated,
     countdown: effectiveCountdown,
     canComplete: effectiveCountdown <= 0,

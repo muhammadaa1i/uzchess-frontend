@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl"
 
 import { TimeControlTag } from "@/components/shared/chess/time-control-tag"
+import { ErrorState } from "@/components/shared/error-state"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { CompletedGame } from "@/features/home/model/home-schemas"
 import { EmptyState } from "@/features/home/view/empty-state"
@@ -16,7 +17,7 @@ const GRID_COLS = "grid-cols-[1fr_64px_128px_88px_88px]"
 // which doesn't exist yet — see SectionHeading's placeholder CTA.
 function CompletedGamesSection() {
   const t = useTranslations("Home.completedGames")
-  const { games, isLoading, isError } = useCompletedGames()
+  const { games, isLoading, isError, refetch } = useCompletedGames()
 
   const columnLabels = [
     { label: t("players"), className: "" },
@@ -40,7 +41,11 @@ function CompletedGamesSection() {
             <Skeleton key={index} className="h-[72px] w-full rounded-lg" />
           ))}
         </div>
-      ) : isError || games.length === 0 ? (
+      ) : isError ? (
+        <div className="px-4 pb-4">
+          <ErrorState onRetry={refetch} />
+        </div>
+      ) : games.length === 0 ? (
         <div className="px-4 pb-4">
           <EmptyState message={t("empty")} />
         </div>

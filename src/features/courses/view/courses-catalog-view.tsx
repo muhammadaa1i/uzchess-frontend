@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl"
 import type { MouseEvent } from "react"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { TextField } from "@/components/shared/text-field"
 import { Button } from "@/components/ui/button"
 import {
@@ -33,6 +34,7 @@ function CoursesCatalogView() {
     courses,
     isLoading,
     isError,
+    refetch,
     page,
     setPage,
     totalPages,
@@ -53,6 +55,29 @@ function CoursesCatalogView() {
 
   const categoryById = new Map(categories.map((category) => [category.id, category]))
   const difficultyById = new Map(difficulties.map((difficulty) => [difficulty.id, difficulty]))
+  const languageById = new Map(languages.map((language) => [language.id, language]))
+
+  // base-ui's Select.Value renders the raw `value` string (e.g. the "any"
+  // sentinel or a numeric id) unless told how to turn a value into a label —
+  // it does not read the matching SelectItem's children. Each trigger below
+  // passes one of these instead of a bare placeholder so it shows the actual
+  // translated/localized label rather than "any" or "3".
+  function categoryLabel(value: string) {
+    if (value === anyCategory) return t("filters.any")
+    return categoryById.get(Number(value))?.title ?? t("filters.category")
+  }
+  function difficultyLabel(value: string) {
+    if (value === anyDifficulty) return t("filters.any")
+    return difficultyById.get(Number(value))?.degree ?? t("filters.difficulty")
+  }
+  function languageLabel(value: string) {
+    if (value === anyLanguage) return t("filters.any")
+    return languageById.get(Number(value))?.title ?? t("filters.language")
+  }
+  function ratingLabel(value: string) {
+    if (value === anyRating) return t("filters.any")
+    return t("filters.ratingAndUp", { stars: Number(value) })
+  }
 
   return (
     <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
@@ -71,7 +96,7 @@ function CoursesCatalogView() {
             onValueChange={(value) => value && updateFilter("categoryId", value)}
           >
             <SelectTrigger className="lg:w-44">
-              <SelectValue placeholder={t("filters.category")} />
+              <SelectValue placeholder={t("filters.category")}>{categoryLabel}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={anyCategory}>{t("filters.any")}</SelectItem>
@@ -87,7 +112,7 @@ function CoursesCatalogView() {
             onValueChange={(value) => value && updateFilter("difficultyId", value)}
           >
             <SelectTrigger className="lg:w-44">
-              <SelectValue placeholder={t("filters.difficulty")} />
+              <SelectValue placeholder={t("filters.difficulty")}>{difficultyLabel}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={anyDifficulty}>{t("filters.any")}</SelectItem>
@@ -103,7 +128,7 @@ function CoursesCatalogView() {
             onValueChange={(value) => value && updateFilter("languageId", value)}
           >
             <SelectTrigger className="lg:w-40">
-              <SelectValue placeholder={t("filters.language")} />
+              <SelectValue placeholder={t("filters.language")}>{languageLabel}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={anyLanguage}>{t("filters.any")}</SelectItem>
@@ -119,7 +144,7 @@ function CoursesCatalogView() {
             onValueChange={(value) => value && updateFilter("minRating", value)}
           >
             <SelectTrigger className="lg:w-36">
-              <SelectValue placeholder={t("filters.rating")} />
+              <SelectValue placeholder={t("filters.rating")}>{ratingLabel}</SelectValue>
             </SelectTrigger>
             <SelectContent>
               <SelectItem value={anyRating}>{t("filters.any")}</SelectItem>
@@ -143,7 +168,9 @@ function CoursesCatalogView() {
               <Skeleton key={index} className="aspect-[3/4] w-full rounded-xl" />
             ))}
           </div>
-        ) : isError || courses.length === 0 ? (
+        ) : isError ? (
+          <ErrorState onRetry={refetch} />
+        ) : courses.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
             {t("empty")}
           </div>

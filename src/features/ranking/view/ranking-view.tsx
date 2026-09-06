@@ -4,6 +4,7 @@ import { useTranslations } from "next-intl"
 import type { MouseEvent } from "react"
 
 import { CountrySelect } from "@/components/shared/country-select"
+import { ErrorState } from "@/components/shared/error-state"
 import { RankingTable } from "@/components/shared/ranking-table"
 import {
   Pagination,
@@ -37,6 +38,7 @@ function RankingView() {
     rows,
     isLoading,
     isError,
+    refetch,
     page,
     setPage,
     totalPages,
@@ -81,7 +83,9 @@ function RankingView() {
               <Skeleton key={index} className="h-[62px] w-full rounded-lg" />
             ))}
           </div>
-        ) : isError || rows.length === 0 ? (
+        ) : isError ? (
+          <ErrorState onRetry={refetch} />
+        ) : rows.length === 0 ? (
           <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
             {t("empty")}
           </div>

@@ -2,6 +2,7 @@
 
 import { useTranslations } from "next-intl"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { NewsCard } from "@/components/shared/news-card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { EmptyState } from "@/features/home/view/empty-state"
@@ -16,7 +17,7 @@ import { useNewsList } from "@/features/home/viewmodel/use-news-list"
 // vertical list, not a carousel.
 function NewsList() {
   const t = useTranslations("Home.news")
-  const { news, isLoading, isError } = useNewsList()
+  const { news, isLoading, isError, refetch } = useNewsList()
 
   return (
     <section className="flex flex-col gap-4">
@@ -27,7 +28,9 @@ function NewsList() {
             <Skeleton key={index} className="my-3 h-[120px] w-full rounded-lg" />
           ))}
         </div>
-      ) : isError || news.length === 0 ? (
+      ) : isError ? (
+        <ErrorState onRetry={refetch} />
+      ) : news.length === 0 ? (
         <EmptyState message={t("empty")} />
       ) : (
         <div className="flex flex-col divide-y divide-[#272B30]">

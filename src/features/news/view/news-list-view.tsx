@@ -3,6 +3,7 @@
 import { useTranslations } from "next-intl"
 import type { MouseEvent } from "react"
 
+import { ErrorState } from "@/components/shared/error-state"
 import { NewsCard } from "@/components/shared/news-card"
 import {
   Pagination,
@@ -24,6 +25,7 @@ function NewsListView() {
     news,
     isLoading,
     isError,
+    refetch,
     page,
     setPage,
     totalPages,
@@ -41,7 +43,9 @@ function NewsListView() {
             <Skeleton key={index} className="my-3 h-[120px] w-full rounded-lg" />
           ))}
         </div>
-      ) : isError || news.length === 0 ? (
+      ) : isError ? (
+        <ErrorState onRetry={refetch} />
+      ) : news.length === 0 ? (
         <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
           {t("empty")}
         </div>

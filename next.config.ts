@@ -19,6 +19,23 @@ const nextConfig: NextConfig = {
         hostname: "pub-83d44d477896463e9c27188da6d489de.r2.dev",
         pathname: "/**"
       },
+      {
+        // YouTube's static thumbnail CDN — see
+        // src/features/home/model/home-schemas.ts's toYoutubeThumbnailUrl,
+        // used as a reliable poster image for the Game of the Day widget.
+        protocol: "https",
+        hostname: "i.ytimg.com",
+        pathname: "/vi/**"
+      },
+      {
+        // Lorem Picsum — local-dev-only placeholder photo service used by
+        // ../backend/seed-local.js for news/banner/course/book imagery so
+        // local seed data has real, distinct images instead of one reused
+        // broken R2 URL. Not used by any production data path.
+        protocol: "https",
+        hostname: "picsum.photos",
+        pathname: "/**"
+      },
     ],
   },
 };

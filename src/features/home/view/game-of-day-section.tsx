@@ -3,21 +3,29 @@
 import { PlayIcon } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
+import { useState } from "react"
 
 import { TimeControlTag } from "@/components/shared/chess/time-control-tag"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
+import { resolveGameOfDayThumbnail, toYoutubeEmbedUrl } from "@/features/home/model/home-schemas"
+import { GameOfDayPlayerLoader } from "@/features/home/view/game-of-day-player-loader"
 import { SectionHeading } from "@/features/home/view/section-heading"
 import { useGameOfDay } from "@/features/home/viewmodel/use-game-of-day"
-import { Link } from "@/lib/i18n/navigation"
 import { cn } from "@/lib/utils"
 
-// Links to the single-game Live page (src/app/[locale]/live) — same
-// GET /game-of-day/active resource, refetched independently there per the
-// Live feature's own code-splitting boundary (see src/features/live/model/live-api.ts).
+// The header's "Смотреть/Ko'rish" link still goes to the single-game Live
+// page (src/app/[locale]/live) — same GET /game-of-day/active resource,
+// refetched independently there per the Live feature's own code-splitting
+// boundary (see src/features/live/model/live-api.ts). The thumbnail itself
+// now plays the game's real video inline: clicking it swaps the poster
+// image for a YouTube iframe embed (view-local `isPlaying` state — purely
+// ephemeral UI state, not a candidate for Redux) instead of only linking
+// away to /live.
 function GameOfDaySection() {
   const t = useTranslations("Home.gameOfDay")
   const { gameOfDay, isLoading, isError } = useGameOfDay()
+  const [isPlaying, setIsPlaying] = useState(false)
 
   if (isLoading) {
     return (
@@ -44,25 +52,34 @@ function GameOfDaySection() {
         className="h-[58px] px-4"
       />
       <div className="relative aspect-[326/183] w-full">
-        <Image
-          src={gameOfDay.thumbnailUrl}
-          alt=""
-          fill
-          sizes="(min-width: 1024px) 326px, 100vw"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-black/60" />
-        <Button
-          size="icon-lg"
-          nativeButton={false}
-          render={<Link href="/live" aria-label={t("watchAria")} />}
-          className="absolute inset-0 m-auto size-14 rounded-full"
-        >
-          <PlayIcon className="fill-current" />
-        </Button>
-        <div className="absolute inset-x-0 bottom-0 flex h-11 items-center justify-end gap-3 border-t border-white/20 bg-dark/40 px-3 backdrop-blur-sm">
-          <TimeControlTag control={gameOfDay.gameType} />
-        </div>
+        {isPlaying ? (
+          <GameOfDayPlayerLoader
+            embedUrl={toYoutubeEmbedUrl(gameOfDay.videoUrl)}
+            title={t("watchAria")}
+          />
+        ) : (
+          <>
+            <Image
+              src={resolveGameOfDayThumbnail(gameOfDay.thumbnailUrl, gameOfDay.videoUrl)}
+              alt=""
+              fill
+              sizes="(min-width: 1024px) 326px, 100vw"
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-black/60" />
+            <Button
+              size="icon-lg"
+              onClick={() => setIsPlaying(true)}
+              aria-label={t("watchAria")}
+              className="absolute inset-0 m-auto size-14 rounded-full"
+            >
+              <PlayIcon className="fill-current" />
+            </Button>
+            <div className="absolute inset-x-0 bottom-0 flex h-11 items-center justify-end gap-3 border-t border-white/20 bg-dark/40 px-3 backdrop-blur-sm">
+              <TimeControlTag control={gameOfDay.gameType} />
+            </div>
+          </>
+        )}
       </div>
       <div className="flex h-[68px] items-center justify-between gap-4 bg-dark px-4">
         <PlayerChip name={gameOfDay.whitePlayerName} colorClassName="bg-brand-green" />

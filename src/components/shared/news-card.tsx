@@ -1,5 +1,6 @@
 "use client"
 
+import { ImageIcon } from "lucide-react"
 import Image from "next/image"
 
 import { Link } from "@/lib/i18n/navigation"
@@ -32,9 +33,14 @@ function NewsCard({ news, className }: NewsCardProps) {
       href={`/news/${news.id}`}
       className={cn("flex items-center gap-4 py-4", className)}
     >
-      <div className="relative h-[120px] w-[180px] shrink-0 overflow-hidden rounded-lg bg-dark-2">
-        {news.imageUrl && (
+      <div className="relative flex h-[120px] w-[180px] shrink-0 items-center justify-center overflow-hidden rounded-lg bg-dark-2">
+        {news.imageUrl ? (
           <Image src={news.imageUrl} alt={news.title} fill sizes="180px" className="object-cover" />
+        ) : (
+          // No imageUrl from the backend for this item — a neutral "no
+          // image" glyph instead of an empty black box, same pattern as any
+          // missing-image state (not fabricated content, just an affordance).
+          <ImageIcon className="size-8 text-brand-secondary" aria-hidden />
         )}
       </div>
       <div className="flex min-w-0 flex-col gap-2">

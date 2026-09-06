@@ -9,10 +9,12 @@ import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { SectionHeading } from "@/features/home/view/section-heading"
 import { useGameOfDay } from "@/features/home/viewmodel/use-game-of-day"
+import { Link } from "@/lib/i18n/navigation"
 import { cn } from "@/lib/utils"
 
-// Links to the single-game Live page, which doesn't exist yet — the play
-// button is a disabled placeholder rather than a broken route.
+// Links to the single-game Live page (src/app/[locale]/live) — same
+// GET /game-of-day/active resource, refetched independently there per the
+// Live feature's own code-splitting boundary (see src/features/live/model/live-api.ts).
 function GameOfDaySection() {
   const t = useTranslations("Home.gameOfDay")
   const { gameOfDay, isLoading, isError } = useGameOfDay()
@@ -37,16 +39,23 @@ function GameOfDaySection() {
         title={t("title")}
         actionLabel={t("watch")}
         actionIcon
+        href="/live"
         actionClassName="text-brand-secondary-low"
         className="h-[58px] px-4"
       />
       <div className="relative aspect-[326/183] w-full">
-        <Image src={gameOfDay.thumbnailUrl} alt="" fill className="object-cover" />
+        <Image
+          src={gameOfDay.thumbnailUrl}
+          alt=""
+          fill
+          sizes="(min-width: 1024px) 326px, 100vw"
+          className="object-cover"
+        />
         <div className="absolute inset-0 bg-black/60" />
         <Button
           size="icon-lg"
-          disabled
-          aria-label={t("watchAria")}
+          nativeButton={false}
+          render={<Link href="/live" aria-label={t("watchAria")} />}
           className="absolute inset-0 m-auto size-14 rounded-full"
         >
           <PlayIcon className="fill-current" />

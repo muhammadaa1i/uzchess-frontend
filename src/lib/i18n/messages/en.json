@@ -116,17 +116,23 @@
     "empty": "No courses found",
     "notFound": "Course not found",
     "filters": {
+      "heading": "Filter",
       "searchPlaceholder": "Search by title",
       "category": "Category",
+      "categoryLabel": "Category:",
       "difficulty": "Difficulty",
+      "difficultyLabel": "Select difficulty:",
       "language": "Language",
+      "languageLabel": "Course language:",
       "rating": "Rating",
+      "ratingLabel": "Rating:",
       "any": "All",
       "ratingAndUp": "{stars}+ stars",
       "clear": "Clear all"
     },
     "card": {
-      "lessons": "{count} lessons"
+      "lessons": "{count} lessons",
+      "free": "Free course"
     },
     "pagination": {
       "previous": "Previous",
@@ -232,17 +238,23 @@
     "empty": "No books found",
     "notFound": "Book not found",
     "filters": {
+      "heading": "Filter",
       "searchPlaceholder": "Search by title",
       "category": "Category",
+      "categoryLabel": "Category:",
       "difficulty": "Difficulty",
+      "difficultyLabel": "Select difficulty:",
       "language": "Language",
+      "languageLabel": "Select language:",
       "rating": "Rating",
+      "ratingLabel": "Rating:",
       "any": "All",
       "ratingAndUp": "{stars}+ stars",
       "clear": "Clear all"
     },
     "card": {
-      "pages": "{count} pages"
+      "pages": "{count} pages",
+      "free": "Free"
     },
     "pagination": {
       "previous": "Previous",

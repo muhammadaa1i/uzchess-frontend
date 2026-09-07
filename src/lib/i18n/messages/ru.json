@@ -116,17 +116,23 @@
     "empty": "Курсы не найдены",
     "notFound": "Курс не найден",
     "filters": {
+      "heading": "Фильтр",
       "searchPlaceholder": "Поиск по названию",
       "category": "Категория",
+      "categoryLabel": "Категория:",
       "difficulty": "Уровень",
+      "difficultyLabel": "Выберите уровень:",
       "language": "Язык",
+      "languageLabel": "Язык курса:",
       "rating": "Рейтинг",
+      "ratingLabel": "Рейтинг:",
       "any": "Все",
       "ratingAndUp": "{stars}+ звёзд",
       "clear": "Очистить"
     },
     "card": {
-      "lessons": "{count} уроков"
+      "lessons": "{count} уроков",
+      "free": "Бесплатный курс"
     },
     "pagination": {
       "previous": "Назад",
@@ -232,17 +238,23 @@
     "empty": "Книги не найдены",
     "notFound": "Книга не найдена",
     "filters": {
+      "heading": "Фильтр",
       "searchPlaceholder": "Поиск по названию",
       "category": "Категория",
+      "categoryLabel": "Категория:",
       "difficulty": "Уровень",
+      "difficultyLabel": "Выберите уровень:",
       "language": "Язык",
+      "languageLabel": "Выберите язык:",
       "rating": "Рейтинг",
+      "ratingLabel": "Рейтинг:",
       "any": "Все",
       "ratingAndUp": "{stars}+ звёзд",
       "clear": "Очистить"
     },
     "card": {
-      "pages": "{count} стр."
+      "pages": "{count} стр.",
+      "free": "Бесплатно"
     },
     "pagination": {
       "previous": "Назад",

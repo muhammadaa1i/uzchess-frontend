@@ -116,17 +116,23 @@
     "empty": "Hech qanday kurs topilmadi",
     "notFound": "Kurs topilmadi",
     "filters": {
+      "heading": "Filter",
       "searchPlaceholder": "Nomi bo'yicha qidirish",
       "category": "Kategoriya",
+      "categoryLabel": "Kategoriya:",
       "difficulty": "Daraja",
+      "difficultyLabel": "Darajani tanlang:",
       "language": "Til",
+      "languageLabel": "Darslik tili:",
       "rating": "Reyting",
+      "ratingLabel": "Reyting:",
       "any": "Barchasi",
       "ratingAndUp": "{stars}+ yulduz",
       "clear": "Tozalash"
     },
     "card": {
-      "lessons": "{count} ta dars"
+      "lessons": "{count} ta dars",
+      "free": "Bepul kurs"
     },
     "pagination": {
       "previous": "Oldingi",
@@ -232,17 +238,23 @@
     "empty": "Kitoblar topilmadi",
     "notFound": "Kitob topilmadi",
     "filters": {
+      "heading": "Filter",
       "searchPlaceholder": "Nomi bo'yicha qidirish",
       "category": "Toifa",
+      "categoryLabel": "Kategoriya:",
       "difficulty": "Daraja",
+      "difficultyLabel": "Darajani tanlang:",
       "language": "Til",
+      "languageLabel": "Tilni tanlang:",
       "rating": "Reyting",
+      "ratingLabel": "Reyting:",
       "any": "Barchasi",
       "ratingAndUp": "{stars}+ yulduz",
       "clear": "Tozalash"
     },
     "card": {
-      "pages": "{count} bet"
+      "pages": "{count} bet",
+      "free": "Bepul"
     },
     "pagination": {
       "previous": "Oldingi",

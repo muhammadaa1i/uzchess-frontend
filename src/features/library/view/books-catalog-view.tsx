@@ -1,10 +1,19 @@
 "use client"
 
+import { HomeIcon, LibraryIcon, SearchIcon, StarIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
-import type { MouseEvent } from "react"
+import type { MouseEvent, ReactNode } from "react"
 
 import { ErrorState } from "@/components/shared/error-state"
 import { TextField } from "@/components/shared/text-field"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
 import {
   Pagination,
@@ -23,13 +32,16 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { BookCard } from "@/features/library/view/book-card"
+import { BookListCard } from "@/features/library/view/book-list-card"
 import { useBookCatalog } from "@/features/library/viewmodel/use-book-catalog"
+import { Link } from "@/lib/i18n/navigation"
+import { cn } from "@/lib/utils"
 
 const RATING_OPTIONS = [5, 4, 3, 2, 1]
 
 function BooksCatalogView() {
   const t = useTranslations("Library")
+  const tNav = useTranslations("Nav")
   const {
     books,
     isLoading,
@@ -41,6 +53,8 @@ function BooksCatalogView() {
     hasNext,
     hasPrevious,
     filters,
+    searchInput,
+    updateSearch,
     updateFilter,
     clearFilters,
     hasActiveFilters,
@@ -76,133 +90,223 @@ function BooksCatalogView() {
     if (value === anyLanguage) return t("filters.any")
     return languageById.get(Number(value))?.title ?? t("filters.language")
   }
-  function ratingLabel(value: string) {
-    if (value === anyRating) return t("filters.any")
-    return t("filters.ratingAndUp", { stars: Number(value) })
-  }
 
   return (
     <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
-      <h1 className="text-2xl font-medium text-brand-white">{t("title")}</h1>
+      <Breadcrumb>
+        <BreadcrumbList>
+          <BreadcrumbItem>
+            <BreadcrumbLink render={<Link href="/" />} className="flex items-center gap-1.5">
+              <HomeIcon className="size-4" />
+              {tNav("home")}
+            </BreadcrumbLink>
+          </BreadcrumbItem>
+          <BreadcrumbSeparator />
+          <BreadcrumbItem>
+            <BreadcrumbPage>{t("title")}</BreadcrumbPage>
+          </BreadcrumbItem>
+        </BreadcrumbList>
+      </Breadcrumb>
 
-      <div className="flex flex-col gap-4 rounded-xl border border-[#1F272A] bg-[#1A1D1F] p-4">
-        <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-center">
-          <TextField
-            placeholder={t("filters.searchPlaceholder")}
-            value={filters.search}
-            onChange={(event) => updateFilter("search", event.target.value)}
-            className="lg:w-64"
-          />
-          <Select
-            value={filters.categoryId}
-            onValueChange={(value) => value && updateFilter("categoryId", value)}
-          >
-            <SelectTrigger className="lg:w-44">
-              <SelectValue placeholder={t("filters.category")}>{categoryLabel}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={anyCategory}>{t("filters.any")}</SelectItem>
-              {categories.map((category) => (
-                <SelectItem key={category.id} value={String(category.id)}>
-                  {category.title}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select
-            value={filters.difficultyId}
-            onValueChange={(value) => value && updateFilter("difficultyId", value)}
-          >
-            <SelectTrigger className="lg:w-44">
-              <SelectValue placeholder={t("filters.difficulty")}>{difficultyLabel}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={anyDifficulty}>{t("filters.any")}</SelectItem>
-              {difficulties.map((difficulty) => (
-                <SelectItem key={difficulty.id} value={String(difficulty.id)}>
-                  {difficulty.degree}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select
-            value={filters.languageId}
-            onValueChange={(value) => value && updateFilter("languageId", value)}
-          >
-            <SelectTrigger className="lg:w-40">
-              <SelectValue placeholder={t("filters.language")}>{languageLabel}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={anyLanguage}>{t("filters.any")}</SelectItem>
-              {languages.map((language) => (
-                <SelectItem key={language.id} value={String(language.id)}>
-                  {language.title}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          <Select
-            value={filters.minRating}
-            onValueChange={(value) => value && updateFilter("minRating", value)}
-          >
-            <SelectTrigger className="lg:w-36">
-              <SelectValue placeholder={t("filters.rating")}>{ratingLabel}</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value={anyRating}>{t("filters.any")}</SelectItem>
-              {RATING_OPTIONS.map((stars) => (
-                <SelectItem key={stars} value={String(stars)}>
-                  {t("filters.ratingAndUp", { stars })}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select>
-          {hasActiveFilters && (
-            <Button variant="ghost" size="sm" onClick={clearFilters} className="lg:ml-auto">
-              {t("filters.clear")}
-            </Button>
-          )}
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-start">
+        <div className="flex w-full shrink-0 items-center justify-center gap-3 rounded-lg border border-[#1F272A] bg-dark px-6 py-5 lg:w-[326px]">
+          <LibraryIcon aria-hidden className="size-11 shrink-0 text-brand-white" />
+          <h1 className="text-[32px] leading-tight font-bold text-brand-white">{t("title")}</h1>
         </div>
 
-        {isLoading ? (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-            {Array.from({ length: 8 }).map((_, index) => (
-              <Skeleton key={index} className="aspect-[3/4] w-full rounded-xl" />
-            ))}
+        <div className="relative flex h-[52px] w-full items-center rounded-lg border border-[#232627] bg-[#15181A] px-4">
+          <SearchIcon aria-hidden className="pointer-events-none absolute left-4 size-5 text-brand-white/40" />
+          <TextField
+            placeholder={t("filters.searchPlaceholder")}
+            value={searchInput}
+            onChange={(event) => updateSearch(event.target.value)}
+            className="h-full border-none bg-transparent pl-8 text-sm text-brand-white shadow-none placeholder:text-brand-white/40 focus-visible:ring-0"
+          />
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
+        <aside className="flex w-full shrink-0 flex-col gap-6 rounded-lg border border-[#1F272A] bg-dark p-5 lg:w-[326px]">
+          <div className="flex items-center justify-between">
+            <span className="text-lg font-medium text-brand-white">{t("filters.heading")}</span>
+            {hasActiveFilters && (
+              <Button
+                variant="link"
+                size="sm"
+                onClick={clearFilters}
+                className="h-auto p-0 text-brand-blue"
+              >
+                {t("filters.clear")}
+              </Button>
+            )}
           </div>
-        ) : isError ? (
-          <ErrorState onRetry={refetch} />
-        ) : books.length === 0 ? (
-          <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
-            {t("empty")}
-          </div>
-        ) : (
-          <>
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-              {books.map((book) => (
-                <BookCard
-                  key={book.id}
-                  book={book}
-                  category={categoryById.get(book.categoryId)}
-                  authors={book.authorIds.flatMap((id) => {
-                    const author = authorsById.get(id)
-                    return author ? [author] : []
-                  })}
-                />
+
+          <CatalogFilterGroup label={t("filters.languageLabel")}>
+            <Select
+              value={filters.languageId}
+              onValueChange={(value) => value && updateFilter("languageId", value)}
+            >
+              <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
+                <SelectValue placeholder={t("filters.language")}>{languageLabel}</SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={anyLanguage}>{t("filters.any")}</SelectItem>
+                {languages.map((language) => (
+                  <SelectItem key={language.id} value={String(language.id)}>
+                    {language.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </CatalogFilterGroup>
+
+          <CatalogFilterGroup label={t("filters.difficultyLabel")}>
+            <Select
+              value={filters.difficultyId}
+              onValueChange={(value) => value && updateFilter("difficultyId", value)}
+            >
+              <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
+                <SelectValue placeholder={t("filters.difficulty")}>{difficultyLabel}</SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={anyDifficulty}>{t("filters.any")}</SelectItem>
+                {difficulties.map((difficulty) => (
+                  <SelectItem key={difficulty.id} value={String(difficulty.id)}>
+                    {difficulty.degree}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </CatalogFilterGroup>
+
+          <CatalogFilterGroup label={t("filters.categoryLabel")}>
+            <Select
+              value={filters.categoryId}
+              onValueChange={(value) => value && updateFilter("categoryId", value)}
+            >
+              <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
+                <SelectValue placeholder={t("filters.category")}>{categoryLabel}</SelectValue>
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value={anyCategory}>{t("filters.any")}</SelectItem>
+                {categories.map((category) => (
+                  <SelectItem key={category.id} value={String(category.id)}>
+                    {category.title}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </CatalogFilterGroup>
+
+          <CatalogFilterGroup label={t("filters.ratingLabel")}>
+            <RatingStarFilter
+              value={filters.minRating}
+              anyRating={anyRating}
+              onChange={(value) => updateFilter("minRating", value)}
+            />
+          </CatalogFilterGroup>
+        </aside>
+
+        <div className="flex min-w-0 flex-1 flex-col gap-6">
+          {isLoading ? (
+            <div className="flex flex-col gap-5">
+              {Array.from({ length: 6 }).map((_, index) => (
+                <Skeleton key={index} className="h-[141px] w-full rounded-lg" />
               ))}
             </div>
-            {totalPages > 1 && (
-              <CatalogPagination
-                page={page}
-                totalPages={totalPages}
-                hasNext={hasNext}
-                hasPrevious={hasPrevious}
-                onPageChange={setPage}
-              />
-            )}
-          </>
-        )}
+          ) : isError ? (
+            <ErrorState onRetry={refetch} />
+          ) : books.length === 0 ? (
+            <div className="rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center text-sm text-brand-secondary-low">
+              {t("empty")}
+            </div>
+          ) : (
+            <>
+              <div className="flex flex-col gap-5">
+                {books.map((book) => (
+                  <BookListCard
+                    key={book.id}
+                    book={book}
+                    category={categoryById.get(book.categoryId)}
+                    difficulty={difficultyById.get(book.difficultyId)}
+                    language={languageById.get(book.languageId)}
+                    authors={book.authorIds.flatMap((id) => {
+                      const author = authorsById.get(id)
+                      return author ? [author] : []
+                    })}
+                  />
+                ))}
+              </div>
+              {totalPages > 1 && (
+                <CatalogPagination
+                  page={page}
+                  totalPages={totalPages}
+                  hasNext={hasNext}
+                  hasPrevious={hasPrevious}
+                  onPageChange={setPage}
+                />
+              )}
+            </>
+          )}
+        </div>
       </div>
+    </div>
+  )
+}
+
+interface CatalogFilterGroupProps {
+  label: string
+  children: ReactNode
+}
+
+function CatalogFilterGroup({ label, children }: CatalogFilterGroupProps) {
+  return (
+    <div className="flex flex-col gap-2">
+      <span className="text-xs font-medium tracking-wide text-brand-secondary-low uppercase">
+        {label}
+      </span>
+      {children}
+    </div>
+  )
+}
+
+interface RatingStarFilterProps {
+  value: string
+  anyRating: string
+  onChange: (value: string) => void
+}
+
+// Figma shows the rating filter as 5 literal stars rather than a text
+// dropdown — clicking star N sets `minRating` to N, clicking the
+// already-active star again toggles it back to the "any" sentinel, same
+// semantics the old Select-based rating filter used.
+function RatingStarFilter({ value, anyRating, onChange }: RatingStarFilterProps) {
+  const t = useTranslations("Library.filters")
+  const selected = value === anyRating ? 0 : Number(value)
+
+  return (
+    <div className="flex items-center gap-1.5 rounded-lg border border-[#232627] bg-[#15181A] px-4 py-4">
+      {RATING_OPTIONS.slice()
+        .reverse()
+        .map((star) => (
+          <button
+            key={star}
+            type="button"
+            aria-pressed={star <= selected}
+            aria-label={t("ratingAndUp", { stars: star })}
+            onClick={() => onChange(star === selected ? anyRating : String(star))}
+            className="p-0.5"
+          >
+            <StarIcon
+              className={cn(
+                "size-5 transition-colors",
+                star <= selected
+                  ? "fill-brand-accent text-brand-accent"
+                  : "text-brand-secondary-low"
+              )}
+            />
+          </button>
+        ))}
     </div>
   )
 }

@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl"
 import type { MouseEvent } from "react"
 
 import { ErrorState } from "@/components/shared/error-state"
-import { NewsCard } from "@/components/shared/news-card"
+import { NewsGridCard } from "@/components/shared/news-grid-card"
 import {
   Pagination,
   PaginationContent,
@@ -38,9 +38,9 @@ function NewsListView() {
       <h1 className="text-2xl font-medium text-brand-white">{t("title")}</h1>
 
       {isLoading ? (
-        <div className="flex flex-col divide-y divide-[#272B30]">
+        <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {Array.from({ length: NEWS_PAGE_SIZE }).map((_, index) => (
-            <Skeleton key={index} className="my-3 h-[120px] w-full rounded-lg" />
+            <Skeleton key={index} className="h-[251px] w-full rounded-lg" />
           ))}
         </div>
       ) : isError ? (
@@ -51,9 +51,9 @@ function NewsListView() {
         </div>
       ) : (
         <>
-          <div className="flex flex-col divide-y divide-[#272B30]">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {news.map((item) => (
-              <NewsCard key={item.id} news={item} />
+              <NewsGridCard key={item.id} news={item} />
             ))}
           </div>
           {totalPages > 1 && (

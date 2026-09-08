@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { useState } from "react"
 
 import { ErrorState } from "@/components/shared/error-state"
-import { NewsCard } from "@/components/shared/news-card"
+import { NewsGridCard } from "@/components/shared/news-grid-card"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useNewsDetail } from "@/features/news/viewmodel/use-news-detail"
@@ -80,9 +80,9 @@ function NewsDetailView({ newsId }: NewsDetailViewProps) {
       {relatedNews.length > 0 && (
         <section className="flex flex-col gap-4">
           <h2 className="text-xl font-medium text-brand-white">{t("related")}</h2>
-          <div className="flex flex-col divide-y divide-[#272B30]">
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {relatedNews.map((item) => (
-              <NewsCard key={item.id} news={item} />
+              <NewsGridCard key={item.id} news={item} />
             ))}
           </div>
         </section>

@@ -23,7 +23,7 @@ There is no test runner configured yet — do not assume Jest/Vitest exist until
 
 ## Current state
 
-App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/[locale]/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`, chess-specific components) live under `src/components/shared/`. Routing/i18n, the Redux store, and RTK Query's base slice are wired (see "Cross-cutting infrastructure" below). Nine feature slices exist end-to-end under `src/features/` as reference implementations of the MVVM pattern: `auth` (sign up/sign in modal, email verification), `home`, `ranking`, `news`, `courses` (catalog, detail, lessons, purchase, reviews, certificates), `library` (books: catalog, detail, ratings, cart), `contact`, `live`, and `static-page` (About/Terms/Cookie policy). `courses` and `library` have both been driven live against a running backend by the `tester` agent (library against a locally-run instance with seed data; courses against the zero-seed deployed Render instance) — see per-feature status in the Figma to-do list below. Treat the architectural guidance below as the standard for every feature that lands after these.
+App Router, TypeScript, Tailwind CSS v4 via `@tailwindcss/postcss`. Path alias `@/*` maps to `./src/*` (see `tsconfig.json`). Foundations are done: shadcn/ui is initialized (`components.json`, style `base-nova`, built on `@base-ui/react`) with the Figma color palette wired into shadcn's semantic CSS variables in `src/app/globals.css` (dark theme only, no light mode), Poppins wired via `next/font` in `src/app/[locale]/layout.tsx`, the core shadcn primitives are installed under `src/components/ui/`, and cross-feature wrapper components (`TextField` with default/password/phone variants, `CountrySelect`, chess-specific components) live under `src/components/shared/`. Routing/i18n, the Redux store, and RTK Query's base slice are wired (see "Cross-cutting infrastructure" below). Twelve feature slices exist end-to-end under `src/features/` as reference implementations of the MVVM pattern: `auth` (sign up/sign in modal, email verification), `home`, `ranking`, `news`, `courses` (catalog, detail, lessons, purchase, reviews, certificates), `library` (books: catalog, detail, ratings, cart), `contact`, `live`, `profile` (dashboard, edit profile/password/email, purchased/saved lists), `cart`, `checkout`, and `static-page` (About/Terms/Cookie policy). `courses` and `library` have both been driven live against a running backend by the `tester` agent (library against a locally-run instance with seed data; courses against the zero-seed deployed Render instance) — see per-feature status in the Figma to-do list below. Treat the architectural guidance below as the standard for every feature that lands after these.
 
 Everything under `src/app/` lives inside the `[locale]` dynamic segment (`src/app/[locale]/...`) — there is no un-prefixed `src/app/page.tsx`; routes are always locale-prefixed (see i18n below).
 
@@ -83,32 +83,32 @@ Deployed backend + Swagger: `https://uzchess.onrender.com`. Same rule as Auth/Pr
 
 **Terminology note**: Figma's "Sotib olingan/Saqlangan mahsulotlar" (purchased/saved *products*) in Profile means **books**, bought via `/cart` → `/orders/checkout` (not a separate "product" entity) — distinct from "kurslar" (courses), which are purchased directly via `/courses/{id}/purchase`. Map "mahsulotlar" lists to the Book Cart/Favourite/Order endpoints, "kurslar" lists to Course Purchase/Favourite endpoints.
 
-### 0. Foundations (do first — everything else depends on these)
+### 0. Foundations (done — do first, everything else depends on these)
 
-- [ ] Tailwind theme tokens — colors: `Main bg #111315`, `Dark #1A1D1F`, `Dark 2 #13181C`, `White #F7F9FA`, `Blue #1C92E0`, `Lighter blue #32ACFC`, `Secondary #6C6F70`, `secondary low #9DA1A3`, `Grey #ABABAF`, `Yellow #E0B531`, accent `#FFDF00`, `Green #82CC27`, `Red #DC2D2D`.
-- [ ] Font: Poppins (Regular/Medium/Bold, 12–28px) as the primary typeface via `next/font`.
-- [ ] shadcn primitives / wrappers for the recurring component set: Button (variants `type` Main/Secondary × `size` Small/Medium/Large × icon left/right/on-off), Field (Default/Phone number/Password, with focus/hover states), Tab, Checkbox, Radio, Switch/Toggle, Avatar, Dropdown, Pagination, Divider, Breadcrumb, Country-flag picker.
-- [ ] Chess-specific components: `Simple board` (static/decorative board grid), `Chess Pieces`, `Chess Symbols`, `Difficulty level` badge (Beginner/Professional/Amateur), `Time management` tag (Bullet/Blitz/Rapid), `Victory`/`Game info` row (avatars, result, game type, date, move count).
-- [ ] Layout shell: desktop top `Header`/`Top bar` + `Footer` (social icons: Instagram/Telegram/YouTube/Twitter/Facebook); mobile `TabBar` bottom nav + `HomeIndicator` (separate nav paradigm from desktop, not a responsive collapse of the header).
-- [ ] Global "site in test mode" banner (UZ/RU/EN).
+- [x] Tailwind theme tokens — colors: `Main bg #111315`, `Dark #1A1D1F`, `Dark 2 #13181C`, `White #F7F9FA`, `Blue #1C92E0`, `Lighter blue #32ACFC`, `Secondary #6C6F70`, `secondary low #9DA1A3`, `Grey #ABABAF`, `Yellow #E0B531`, accent `#FFDF00`, `Green #82CC27`, `Red #DC2D2D`.
+- [x] Font: Poppins (Regular/Medium/Bold, 12–28px) as the primary typeface via `next/font`.
+- [x] shadcn primitives / wrappers for the recurring component set: Button (variants `type` Main/Secondary × `size` Small/Medium/Large × icon left/right/on-off), Field (Default/Phone number/Password, with focus/hover states), Tab, Checkbox, Radio, Switch/Toggle, Avatar, Dropdown, Pagination, Divider, Breadcrumb, Country-flag picker.
+- [x] Chess-specific components: `Simple board` (static/decorative board grid), `Chess Pieces`, `Chess Symbols`, `Difficulty level` badge (Beginner/Professional/Amateur), `Time management` tag (Bullet/Blitz/Rapid), `Victory`/`Game info` row (avatars, result, game type, date, move count).
+- [x] Layout shell: desktop top `Header`/`Top bar` + `Footer` (social icons: Instagram/Telegram/YouTube/Twitter/Facebook); mobile `TabBar` bottom nav (separate nav paradigm from desktop, not a responsive collapse of the header) — `src/components/shared/layout/`.
+- [x] Global "site in test mode" banner (UZ/RU/EN) — `test-mode-banner.tsx`.
 
 ### 1. Home
 - [x] Base layout: hero/news carousel (`GET /news/read`, latest N), donation banner, promo `Banners` (`GET /banners/read`), "Game of the day" video block (`GET /game-of-day/active`, → links to Live single-game page; thumbnail click now plays the real YouTube video inline via a code-split `next/dynamic(ssr:false)` player instead of only linking away), Top-5 ranking widget (`GET /players/ranking`, sliced to 5, → "Barchasi" links to full Ranking page), Top-4 courses (`GET /courses/top-rated`, → links to catalog), Top books (`GET /books/top-rated`), footer.
 - [x] Header states — logged-out (Kirish/Ro'yxatdan o'tish), logged-in w/ avatar dropdown, language-switcher-open are implemented in `src/components/shared/layout/site-header.tsx`. **No search icon in the header** — per Figma's actual per-page search box pattern (see Global search below), the header intentionally has no search trigger, overriding the header-icon shown in some Figma frames. `notifications-open` stays decorative — **no notifications endpoint exists in any `/swagger/{group}-json`**, same backend-gap pattern as elsewhere in this list. `scroll-compacted` (header shrinking on scroll) was not built — pure visual polish, no backend dependency, low priority.
-- [ ] Global search — matches on title only (per design annotation). Figma places this as a per-page "Izlash" search box on News/Courses/Library (not a global header modal) — each page's own catalog `search` query param (`GET /news/read`, `/courses/read`, `/books/read`) drives its own box. Courses/Library now have this as a standalone, debounced (700ms), Figma-positioned search box (see section 5/6); News still needs one added.
+- [x] Global search — matches on title only (per design annotation). Figma places this as a per-page "Izlash" search box on News/Courses/Library (not a global header modal) — each page's own catalog `search` query param (`GET /news/read`, `/courses/read`, `/books/read`) drives its own box. News/Courses/Library all now have this as a standalone, debounced (700ms), Figma-positioned search box (see section 4/5/6).
 
-### 2. Auth (modal/overlay flow over dimmed home background, not standalone routes — confirm before building)
+### 2. Auth (done — `src/features/auth`; modal/overlay flow over dimmed home background, dispatched via `authModalOpened`, not standalone routes)
 
 Figma's auth flow (phone/email tabs, phone OTP, "forgot password") is confusing and doesn't match what the backend (`uzchess/backend`, NestJS + CQRS, see `POST /auth/*` and `/profile/*` in its Swagger/controllers) actually implements. **Take visual styling/layout from Figma (Field/Button/OTP-input components, spacing, colors) but drive the screens/flow/fields from the backend API below — do not build the phone tabs or forgot-password frames as designed.**
 
 Backend reality (`src/features/auth` in the backend repo):
 - **No phone auth exists** — `User` entity has no phone column; `RegisterRequest`/`LoginRequest` are email+password only. Drop the Phone number / Email tab split and the "yoki" divider entirely — build a single email+password form for sign up and sign in.
 - **No public forgot/reset-password endpoint exists yet.** `PATCH /profile/password` requires an authenticated session and `currentPassword` — it's a "change password" form, not "forgot password". Do **not** build the Figma "Forgot password" (phone/email confirmation + create-new-password) frames — flag this as a backend gap and skip it until an endpoint is added.
-- [ ] **Sign up** — `POST /auth/register` `{firstName, lastName, email, password, confirmPassword}`. Response includes the user plus `accessToken`/`refreshToken` — registration logs the user in immediately (no separate login step after signup).
-- [ ] **Sign in** — `POST /auth/login` `{email, password}` → `{accessToken, refreshToken}`.
-- [ ] **Session/token handling** — store `accessToken`/`refreshToken` in Redux (+ persist); silent refresh via `POST /auth/refresh` `{refreshToken}`; `POST /auth/logout` (authenticated, bearer token) to invalidate.
-- [ ] **Email verification (post-signup, non-blocking)** — since register already returns a session, show a "verify your email" prompt (reuse Figma's OTP-typing/error visuals for a **6-digit numeric code**, with resend cooldown) backed by `POST /profile/verify-email/resend` and `POST /profile/verify-email/confirm {code}`. Codes expire (`GoneException` → "request a new code" state) — surface that as the OTP error state.
-- [ ] Terms checkbox on sign up — no backend field for it; treat as client-only gating before enabling the submit button (confirm with product whether this needs a backend flag later).
+- [x] **Sign up** — `POST /auth/register` `{firstName, lastName, email, password, confirmPassword}`. Response includes the user plus `accessToken`/`refreshToken` — registration logs the user in immediately (no separate login step after signup).
+- [x] **Sign in** — `POST /auth/login` `{email, password}` → `{accessToken, refreshToken}`.
+- [x] **Session/token handling** — `accessToken`/`refreshToken` stored in Redux + `redux-persist` (`auth` slice); silent refresh via `POST /auth/refresh` `{refreshToken}` centralized in `base-api.ts`'s `baseQueryWithReauth`; `POST /auth/logout` (authenticated, bearer token) wired to the header's logout action.
+- [x] **Email verification (post-signup, non-blocking)** — `verify-email-prompt.tsx`, 6-digit OTP visuals, resend cooldown (`use-throttle-cooldown.ts`) backed by `POST /profile/verify-email/resend` and `POST /profile/verify-email/confirm {code}`; expired-code (`GoneException`) surfaced as a "request a new code" OTP error state.
+- [x] Terms checkbox on sign up — client-only gating (no backend field), disables submit until checked.
 
 ### 3. Ranking (done — `src/features/ranking`, shared table also used by the Home widget)
 - [x] Ranking table component (shared with home widget) — `GET /players/ranking`
@@ -117,9 +117,9 @@ Backend reality (`src/features/auth` in the backend repo):
 Resolved against the live `/swagger/home-json` spec: only "Barchasi" has a real backend mapping — `GET /players/ranking` (`page`/`size`/`country`/`title`/`sortBy=classical|rapid|blitz`) plus `GET /players/ranking/filters` (`{countries, titles}`) for the country-flag filter. **"Tamomlangan o'yinlar" / "Barcha o'yinlar" are a backend gap, same pattern as forgot-password/news-comments**: `GET /games/list` and `GET /games/read` both return two-player game *records* (`whitePlayerId`/`blackPlayerId`/scores/moves), not per-player ranking rows — a different entity shape from the ranking table entirely — and every item from either endpoint already has final `whiteScore`/`blackScore`/`movesCount`, i.e. there's no field distinguishing "completed" games from "all" games. Building those two tabs would mean guessing a distinction the API doesn't expose, so they're rendered as disabled tabs (Figma-faithful labels, no fabricated data) pending either a real "all/ongoing games" endpoint or product clarification on what those tabs are meant to show.
 
 ### 4. News (done — `src/features/news`, shared card also used by the Home widget)
-- [x] News list (`GET /news/read`, incl. empty state: "Hech qanday ma'lumot topilmadi")
-- [x] News single/detail (`GET /news/read/{id}`) — share, related articles, comment thread with replies (**no comments endpoint exists in `/swagger/home` or `/swagger/account`** — flag as a backend gap like the forgot-password one, don't build against it yet)
-- [x] Homepage news section shows latest items only (per design annotation)
+- [x] News list (`GET /news/read`, incl. empty state: "Hech qanday ma'lumot topilmadi") — Figma-accurate 3-column image-grid card layout (`NewsGridCard`, Figma frame #718:87748/#713:29422), standalone debounced (700ms) title-search box positioned per Figma (title left, search box right)
+- [x] News single/detail (`GET /news/read/{id}`) — share, related articles (same `NewsGridCard` grid as the list page), comment thread with replies (**no comments endpoint exists in `/swagger/home` or `/swagger/account`** — flag as a backend gap like the forgot-password one, don't build against it yet)
+- [x] Homepage news section shows latest items only (per design annotation) — uses the distinct horizontal `NewsCard` row, not the grid card (Figma's Home annotation explicitly calls this out as a plain list)
 
 ### 5. Education / Courses (done — `src/features/courses`)
 - [x] Catalog (`GET /courses/read`) with filters (`GET /courses/categories/read` for category, `GET /languages/read`/`GET /difficulty/read` from the books group for language/level — confirm these are shared across books+courses or course-specific, rating filter is a query param) + "Tozalash" clear-all. Layout matches Figma: breadcrumb, title box, standalone debounced (700ms) search box, left sidebar Filter panel (star-click rating control instead of a dropdown), vertical row-card list (`course-list-card.tsx` — the grid `course-card.tsx` is kept as-is for Home's widgets). Verified end-to-end in a real browser against local seed data.
@@ -145,22 +145,22 @@ Resolved against the live `/swagger/home-json` spec: only "Barchasi" has a real 
 ### 8. Live (done — `src/features/live`)
 - [x] Video-stream viewer (play/pause/settings/fullscreen), live badge, game title/round, sidebar course cards + promo — `GET /game-of-day/active` returns a plain YouTube link, not a live-streaming protocol, so the player is a YouTube iframe embed (native play/pause/fullscreen/settings chrome) rather than hand-rolled `<video>` controls. **No `round` number or viewer-count field exists on the backend** — flagged as a gap, header built from what the API actually returns (players, ratings, game type) instead of fabricating one. No `/live/[id]` browse-past-games route built — no public listing endpoint for it. No nav-bar entry added (Figma's header has a fixed 5-item slot list with no Live slot); reached only via the Home page's game-of-day widget.
 
-### 9. Profile
+### 9. Profile (done — `src/features/profile`)
 
-Same rule as Auth above: styling from Figma, fields/flow from the backend (`/profile` endpoints). No phone field exists on the backend `User` entity — drop "edit phone number" entirely.
+Same rule as Auth above: styling from Figma, fields/flow from the backend (`/profile` endpoints). No phone field exists on the backend `User` entity — "edit phone number" dropped entirely.
 
-- [ ] Dashboard shell with left-nav tabs: general settings, purchased courses, orders, saved items
-- [ ] `GET /profile` → `{id, firstName, lastName, avatar, email, isEmailVerified, birthDate}` — drives the dashboard header + edit form defaults.
-- [ ] Edit profile — `PATCH /profile` (multipart/form-data) `{firstName?, lastName?, birthDate?, avatar?}`.
-- [ ] Change password — `PATCH /profile/password` `{currentPassword, newPassword, confirmNewPassword}` (authenticated; this is the only "password reset" surface that currently exists — see Auth section note on the missing forgot-password endpoint).
-- [ ] Edit email (no "edit phone") — `PATCH /profile/email` `{currentPassword, newEmail}` sends a 6-digit code to the new address, then `POST /profile/email/confirm {code}` finalizes it (same OTP visual as email verification, separate cache/endpoint from signup verification).
-- [ ] Purchased products (books, `GET /orders`), purchased courses (`GET /courses/purchased`) lists
-- [ ] Saved courses (`GET /courses/favourites`) / saved products (books, `GET /favourites/read`) — Figma's "saved books" is the same list as "saved products" (see terminology note above), not a third endpoint
+- [x] Dashboard shell with left-nav tabs: general settings, purchased courses, orders, saved items (`profile-view.tsx`)
+- [x] `GET /profile` → `{id, firstName, lastName, avatar, email, isEmailVerified, birthDate}` — drives the dashboard header + edit form defaults.
+- [x] Edit profile — `PATCH /profile` (multipart/form-data) `{firstName?, lastName?, birthDate?, avatar?}`.
+- [x] Change password — `PATCH /profile/password` `{currentPassword, newPassword, confirmNewPassword}` (authenticated; this is the only "password reset" surface that currently exists — see Auth section note on the missing forgot-password endpoint).
+- [x] Edit email (no "edit phone") — `PATCH /profile/email` `{currentPassword, newEmail}` sends a 6-digit code to the new address, then `POST /profile/email/confirm {code}` finalizes it (same OTP visual as email verification, separate cache/endpoint from signup verification).
+- [x] Purchased products (books, `GET /orders`), purchased courses (`GET /courses/purchased`) lists
+- [x] Saved courses (`GET /courses/favourites`) / saved products (books, `GET /favourites/read`) — Figma's "saved books" is the same list as "saved products" (see terminology note above), not a third endpoint
 
-### 10. Cart / Checkout
-- [ ] Cart (`GET /cart/read`, `GET /cart/summary`) — line items, quantity picker (`PATCH /cart/update/{id}`, `DELETE /cart/remove/{id}`), totals, discount, coupon (`GET /coupons/read` for validation — confirm exact apply-coupon contract against `/orders/checkout` payload)
-- [ ] Checkout — shipping/contact form (shipping cost from `GET /delivery-setting`), place order via `POST /orders/checkout`
-- [ ] Order success
+### 10. Cart / Checkout (done — `src/features/cart`, `src/features/checkout`)
+- [x] Cart (`GET /cart/read`, `GET /cart/summary`) — line items, quantity picker (`PATCH /cart/update/{id}`, `DELETE /cart/remove/{id}`), totals, discount, coupon (`GET /coupons/read`)
+- [x] Checkout — shipping/contact form (shipping cost from `GET /delivery-setting`), place order via `POST /orders/checkout`
+- [x] Order success
 
 ### 11. Misc (done)
 - [x] Static/CMS page template (`src/features/static-page`) — one reusable View wired to `/about`, `/terms`, `/cookie-policy` (matching the footer's existing hrefs/labels), real (non-lorem-ipsum) placeholder copy in all three locales. No backend CMS endpoint exists anywhere — confirmed genuinely static, no gap to flag.
@@ -168,7 +168,6 @@ Same rule as Auth above: styling from Figma, fields/flow from the backend (`/pro
 
 ### Ambiguities to clarify before implementation
 - Confirm whether the large English-language admin/social-analytics mockup block found in the file (Inter font, "Promote"/"Engagement" widgets) is a stray moodboard to ignore, not a real UzChess screen.
-- Confirm auth is intended as a modal/overlay over the home page (not `/login`, `/register` routes) — the Figma frames imply this.
 - Confirm which of the near-duplicate frames per flow (courses detail, profile, sign-in) represent real states (loading/empty/error) vs. leftover design iterations.
 - Confirm the production country list for the Ranking filter (curated federation list vs. full FIDE list) — a content decision, not a design one.
 - Confirm no interactive/playable chessboard feature is in scope for this phase (only decorative/static board usage found in the design).

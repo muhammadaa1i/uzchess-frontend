@@ -36,8 +36,8 @@ function ContactView() {
           </div>
 
           <div className="flex flex-col gap-4 rounded-xl border border-[#1F272A] bg-[#1A1D1F] p-5">
-            <InfoRow icon={MapPinIcon} label={t("address")} value={CONTACT_INFO.address} />
-            <InfoRow icon={TrainFrontIcon} label={t("nearestMetro")} value={CONTACT_INFO.nearestMetro} />
+            <InfoRow icon={MapPinIcon} label={t("address")} value={t("info.address")} />
+            <InfoRow icon={TrainFrontIcon} label={t("nearestMetro")} value={t("info.nearestMetro")} />
             <InfoRow
               icon={MailIcon}
               label={t("email")}
@@ -52,8 +52,8 @@ function ContactView() {
             />
             <div className="flex flex-col gap-1 pl-8 text-sm text-brand-secondary-low">
               <span className="text-sm font-medium text-brand-white">{t("workingHours")}</span>
-              <span>{CONTACT_INFO.workingHours.weekdays}</span>
-              <span>{CONTACT_INFO.workingHours.weekend}</span>
+              <span>{t("info.workingHoursWeekdays")}</span>
+              <span>{t("info.workingHoursWeekend")}</span>
             </div>
           </div>
         </div>

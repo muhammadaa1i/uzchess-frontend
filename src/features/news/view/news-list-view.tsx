@@ -1,10 +1,12 @@
 "use client"
 
+import { SearchIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import type { MouseEvent } from "react"
 
 import { ErrorState } from "@/components/shared/error-state"
 import { NewsGridCard } from "@/components/shared/news-grid-card"
+import { TextField } from "@/components/shared/text-field"
 import {
   Pagination,
   PaginationContent,
@@ -31,11 +33,25 @@ function NewsListView() {
     totalPages,
     hasNext,
     hasPrevious,
+    searchInput,
+    updateSearch,
   } = useNewsList()
 
   return (
     <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
-      <h1 className="text-2xl font-medium text-brand-white">{t("title")}</h1>
+      <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+        <h1 className="text-2xl font-medium text-brand-white">{t("title")}</h1>
+
+        <div className="relative flex h-[52px] w-full items-center rounded-lg border border-[#232627] bg-[#15181A] px-4 sm:w-[326px]">
+          <SearchIcon aria-hidden className="pointer-events-none absolute left-4 size-5 text-brand-white/40" />
+          <TextField
+            placeholder={t("searchPlaceholder")}
+            value={searchInput}
+            onChange={(event) => updateSearch(event.target.value)}
+            className="h-full border-none bg-transparent pl-8 text-sm text-brand-white shadow-none placeholder:text-brand-white/40 focus-visible:ring-0"
+          />
+        </div>
+      </div>
 
       {isLoading ? (
         <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">

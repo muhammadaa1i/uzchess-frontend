@@ -98,6 +98,7 @@
   },
   "News": {
     "title": "News",
+    "searchPlaceholder": "Search by title",
     "empty": "No results found",
     "notFound": "News article not found",
     "related": "Related news",

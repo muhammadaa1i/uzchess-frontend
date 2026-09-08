@@ -98,6 +98,7 @@
   },
   "News": {
     "title": "Yangiliklar",
+    "searchPlaceholder": "Nomi bo'yicha qidirish",
     "empty": "Hech qanday ma'lumot topilmadi",
     "notFound": "Yangilik topilmadi",
     "related": "O'xshash yangiliklar",

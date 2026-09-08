@@ -115,6 +115,20 @@
     "title": "Courses",
     "empty": "No courses found",
     "notFound": "Course not found",
+    "difficultyLevels": {
+      "Beginner": "Beginner",
+      "Intermediate": "Intermediate",
+      "Advanced": "Advanced"
+    },
+    "categoryLabels": {
+      "Debyut nazariyasi": "Opening Theory",
+      "Mittelshpil": "Middlegame",
+      "Taktika": "Tactics",
+      "Endshpil": "Endgame",
+      "Shaxmat tarixi": "Chess History",
+      "Buyuk chempionlar": "Great Champions",
+      "Bolalar uchun shaxmat": "Chess for Kids"
+    },
     "filters": {
       "heading": "Filter",
       "searchPlaceholder": "Search by title",
@@ -144,6 +158,7 @@
       "purchasedBadge": "Purchased",
       "buyCta": "Buy course",
       "continueCta": "Continue course",
+      "noLessonsYet": "No lessons available yet",
       "freeBadge": "Free",
       "lockedAria": "Locked",
       "completedAria": "Completed"
@@ -237,6 +252,18 @@
     "title": "Library",
     "empty": "No books found",
     "notFound": "Book not found",
+    "difficultyLevels": {
+      "Beginner": "Beginner",
+      "Intermediate": "Intermediate",
+      "Advanced": "Advanced"
+    },
+    "categoryLabels": {
+      "Strategiya": "Strategy",
+      "Hujum qilish": "Attack",
+      "Himoyalanish": "Defense",
+      "Qoidalar": "Rules",
+      "Mot qilish": "Checkmating"
+    },
     "filters": {
       "heading": "Filter",
       "searchPlaceholder": "Search by title",
@@ -338,6 +365,12 @@
     "email": "Email",
     "phone": "Phone",
     "workingHours": "Working hours",
+    "info": {
+      "address": "Tashkent, Yunusobod district, Amir Temur Avenue 1",
+      "nearestMetro": "Amir Temur Square",
+      "workingHoursWeekdays": "Monday – Friday: 09:00 – 18:00",
+      "workingHoursWeekend": "Saturday – Sunday: day off"
+    },
     "form": {
       "name": "Your name",
       "email": "Email",

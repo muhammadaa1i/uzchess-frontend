@@ -9,6 +9,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { authModalOpened } from "@/features/auth/model/auth-slice"
+import { translateCategoryTitle, translateDifficultyDegree } from "@/features/library/model/book-schemas"
 import { BookRatingWidget } from "@/features/library/view/book-rating-widget"
 import { useBookDetail } from "@/features/library/viewmodel/use-book-detail"
 import { useAppDispatch } from "@/lib/store/hooks"
@@ -21,6 +22,12 @@ interface BookDetailViewProps {
 function BookDetailView({ bookId }: BookDetailViewProps) {
   const t = useTranslations("Library.detail")
   const tLibrary = useTranslations("Library")
+  const difficultyLabels = (tLibrary.raw as (key: string) => Record<string, string>)(
+    "difficultyLevels"
+  )
+  const categoryLabels = (tLibrary.raw as (key: string) => Record<string, string>)(
+    "categoryLabels"
+  )
   const dispatch = useAppDispatch()
   const {
     book,
@@ -84,11 +91,15 @@ function BookDetailView({ bookId }: BookDetailViewProps) {
 
         <div className="flex flex-col gap-4">
           <div className="flex flex-wrap items-center gap-2">
-            {category && <Badge variant="secondary">{category.title}</Badge>}
+            {category && (
+              <Badge variant="secondary">
+                {translateCategoryTitle(categoryLabels, category.title)}
+              </Badge>
+            )}
             {difficulty && (
               <Badge variant="secondary" className="gap-1.5">
                 <Image src={difficulty.icon} alt="" width={14} height={14} className="rounded-full" />
-                {difficulty.degree}
+                {translateDifficultyDegree(difficultyLabels, difficulty.degree)}
               </Badge>
             )}
             {isPurchased && <Badge>{t("purchasedBadge")}</Badge>}

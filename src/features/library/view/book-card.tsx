@@ -4,7 +4,12 @@ import { StarIcon } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 
-import type { BookAuthor, BookCategory, BookListItem } from "@/features/library/model/book-schemas"
+import {
+  type BookAuthor,
+  type BookCategory,
+  type BookListItem,
+  translateCategoryTitle,
+} from "@/features/library/model/book-schemas"
 import { Link } from "@/lib/i18n/navigation"
 import { formatPrice } from "@/lib/utils"
 
@@ -19,6 +24,10 @@ interface BookCardProps {
 // feature's own /library route, matching CLAUDE.md's code-splitting mandate.
 function BookCard({ book, category, authors }: BookCardProps) {
   const t = useTranslations("Library.card")
+  const tLibrary = useTranslations("Library")
+  const categoryLabels = (tLibrary.raw as (key: string) => Record<string, string>)(
+    "categoryLabels"
+  )
 
   return (
     <Link
@@ -35,7 +44,11 @@ function BookCard({ book, category, authors }: BookCardProps) {
         />
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3">
-        {category && <span className="text-xs text-brand-secondary-low">{category.title}</span>}
+        {category && (
+          <span className="text-xs text-brand-secondary-low">
+            {translateCategoryTitle(categoryLabels, category.title)}
+          </span>
+        )}
         <h3 className="line-clamp-2 text-sm font-medium text-brand-white">{book.title}</h3>
         {authors.length > 0 && (
           <p className="line-clamp-1 text-xs text-brand-secondary-low">

@@ -5,12 +5,14 @@ import Image from "next/image"
 import { useTranslations } from "next-intl"
 
 import { Badge } from "@/components/ui/badge"
-import type {
-  BookAuthor,
-  BookCategory,
-  BookDifficulty,
-  BookLanguage,
-  BookListItem,
+import {
+  type BookAuthor,
+  type BookCategory,
+  type BookDifficulty,
+  type BookLanguage,
+  type BookListItem,
+  translateCategoryTitle,
+  translateDifficultyDegree,
 } from "@/features/library/model/book-schemas"
 import { Link } from "@/lib/i18n/navigation"
 import { formatPrice } from "@/lib/utils"
@@ -29,6 +31,13 @@ interface BookListCardProps {
 // per CLAUDE.md's code-splitting mandate.
 function BookListCard({ book, category, difficulty, language, authors }: BookListCardProps) {
   const t = useTranslations("Library.card")
+  const tLibrary = useTranslations("Library")
+  const difficultyLabels = (tLibrary.raw as (key: string) => Record<string, string>)(
+    "difficultyLevels"
+  )
+  const categoryLabels = (tLibrary.raw as (key: string) => Record<string, string>)(
+    "categoryLabels"
+  )
   const isFree = book.price === 0
 
   return (
@@ -80,7 +89,7 @@ function BookListCard({ book, category, difficulty, language, authors }: BookLis
           {difficulty && (
             <Badge variant="secondary" className="gap-1.5">
               <Image src={difficulty.icon} alt="" width={14} height={14} className="rounded-full" />
-              {difficulty.degree}
+              {translateDifficultyDegree(difficultyLabels, difficulty.degree)}
             </Badge>
           )}
           <span aria-hidden className="h-3 w-px bg-brand-secondary/60" />
@@ -88,7 +97,7 @@ function BookListCard({ book, category, difficulty, language, authors }: BookLis
           {category && (
             <>
               <span aria-hidden className="h-3 w-px bg-brand-secondary/60" />
-              <Badge variant="outline">{category.title}</Badge>
+              <Badge variant="outline">{translateCategoryTitle(categoryLabels, category.title)}</Badge>
             </>
           )}
         </div>

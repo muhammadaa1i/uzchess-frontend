@@ -50,6 +50,15 @@ const bookCategorySchema = z.object({
   title: z.string(),
 })
 
+// Same rationale as Courses' identical helper (duplicated rather than
+// imported per CLAUDE.md's code-splitting mandate): `title` is free-text
+// admin-entered content, drawn in practice from a small, stable set (e.g.
+// "Strategiya") — translated via Library.categoryLabels in the message
+// files, with a fallback to the raw value for anything outside that set.
+function translateCategoryTitle(labels: Record<string, string>, title: string): string {
+  return labels[title] ?? title
+}
+
 // GET /authors/read — GetAuthorsResponse.
 const bookAuthorSchema = z.object({
   id: z.number(),
@@ -64,6 +73,15 @@ const bookDifficultySchema = z.object({
   degree: z.string(),
   icon: z.string(),
 })
+
+// Same rationale as Courses' identical helper (duplicated rather than
+// imported per CLAUDE.md's code-splitting mandate): the admin-entered
+// values are drawn from a small, stable set, translated via
+// Library.difficultyLevels in the message files, with a fallback to the raw
+// value for anything outside that set.
+function translateDifficultyDegree(labels: Record<string, string>, degree: string): string {
+  return labels[degree] ?? degree
+}
 
 // GET /languages/read — GetLanguagesResponse.
 const bookLanguageSchema = z.object({
@@ -138,6 +156,8 @@ export {
   orderSchema,
   paginatedBooksSchema,
   paginatedSchema,
+  translateCategoryTitle,
+  translateDifficultyDegree,
 }
 export type {
   BookAuthor,

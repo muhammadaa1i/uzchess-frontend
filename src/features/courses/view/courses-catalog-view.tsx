@@ -32,6 +32,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
+import { translateCategoryTitle, translateDifficultyDegree } from "@/features/courses/model/course-schemas"
 import { CourseListCard } from "@/features/courses/view/course-list-card"
 import { useCourseCatalog } from "@/features/courses/viewmodel/use-course-catalog"
 import { Link } from "@/lib/i18n/navigation"
@@ -42,6 +43,8 @@ const RATING_OPTIONS = [5, 4, 3, 2, 1]
 function CoursesCatalogView() {
   const t = useTranslations("Courses")
   const tNav = useTranslations("Nav")
+  const difficultyLabels = (t.raw as (key: string) => Record<string, string>)("difficultyLevels")
+  const categoryLabels = (t.raw as (key: string) => Record<string, string>)("categoryLabels")
   const {
     courses,
     isLoading,
@@ -78,11 +81,13 @@ function CoursesCatalogView() {
   // translated/localized label rather than "any" or "3".
   function categoryLabel(value: string) {
     if (value === anyCategory) return t("filters.any")
-    return categoryById.get(Number(value))?.title ?? t("filters.category")
+    const title = categoryById.get(Number(value))?.title
+    return title ? translateCategoryTitle(categoryLabels, title) : t("filters.category")
   }
   function difficultyLabel(value: string) {
     if (value === anyDifficulty) return t("filters.any")
-    return difficultyById.get(Number(value))?.degree ?? t("filters.difficulty")
+    const degree = difficultyById.get(Number(value))?.degree
+    return degree ? translateDifficultyDegree(difficultyLabels, degree) : t("filters.difficulty")
   }
   function languageLabel(value: string) {
     if (value === anyLanguage) return t("filters.any")
@@ -151,7 +156,7 @@ function CoursesCatalogView() {
                 <SelectItem value={anyDifficulty}>{t("filters.any")}</SelectItem>
                 {difficulties.map((difficulty) => (
                   <SelectItem key={difficulty.id} value={String(difficulty.id)}>
-                    {difficulty.degree}
+                    {translateDifficultyDegree(difficultyLabels, difficulty.degree)}
                   </SelectItem>
                 ))}
               </SelectContent>
@@ -170,7 +175,7 @@ function CoursesCatalogView() {
                 <SelectItem value={anyCategory}>{t("filters.any")}</SelectItem>
                 {categories.map((category) => (
                   <SelectItem key={category.id} value={String(category.id)}>
-                    {category.title}
+                    {translateCategoryTitle(categoryLabels, category.title)}
                   </SelectItem>
                 ))}
               </SelectContent>

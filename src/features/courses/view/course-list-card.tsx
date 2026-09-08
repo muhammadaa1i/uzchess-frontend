@@ -10,6 +10,7 @@ import {
   type CourseDifficulty,
   type CourseLanguage,
   type CourseListItem,
+  translateCategoryTitle,
   translateDifficultyDegree,
 } from "@/features/courses/model/course-schemas"
 import { Link } from "@/lib/i18n/navigation"
@@ -31,8 +32,13 @@ interface CourseListCardProps {
 // hook, so (unlike the Library row card) no byline is rendered here.
 function CourseListCard({ course, category, difficulty, language }: CourseListCardProps) {
   const t = useTranslations("Courses.card")
-  const tDifficulty = useTranslations("Courses")
-  const difficultyLabels = tDifficulty.raw("difficultyLevels") as Record<string, string>
+  const tCourses = useTranslations("Courses")
+  const difficultyLabels = (tCourses.raw as (key: string) => Record<string, string>)(
+    "difficultyLevels"
+  )
+  const categoryLabels = (tCourses.raw as (key: string) => Record<string, string>)(
+    "categoryLabels"
+  )
   const isFree = course.price === 0
 
   return (
@@ -92,7 +98,7 @@ function CourseListCard({ course, category, difficulty, language }: CourseListCa
           {category && (
             <>
               <span aria-hidden className="h-3 w-px bg-brand-secondary/60" />
-              <Badge variant="outline">{category.title}</Badge>
+              <Badge variant="outline">{translateCategoryTitle(categoryLabels, category.title)}</Badge>
             </>
           )}
         </div>

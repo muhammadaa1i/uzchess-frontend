@@ -115,6 +115,20 @@
     "title": "Kurslar",
     "empty": "Hech qanday kurs topilmadi",
     "notFound": "Kurs topilmadi",
+    "difficultyLevels": {
+      "Beginner": "Boshlang'ich",
+      "Intermediate": "O'rta",
+      "Advanced": "Professional"
+    },
+    "categoryLabels": {
+      "Debyut nazariyasi": "Debyut nazariyasi",
+      "Mittelshpil": "Mittelshpil",
+      "Taktika": "Taktika",
+      "Endshpil": "Endshpil",
+      "Shaxmat tarixi": "Shaxmat tarixi",
+      "Buyuk chempionlar": "Buyuk chempionlar",
+      "Bolalar uchun shaxmat": "Bolalar uchun shaxmat"
+    },
     "filters": {
       "heading": "Filter",
       "searchPlaceholder": "Nomi bo'yicha qidirish",
@@ -144,6 +158,7 @@
       "purchasedBadge": "Sotib olingan",
       "buyCta": "Kursni sotib olish",
       "continueCta": "Kursni davom ettirish",
+      "noLessonsYet": "Darslar hali mavjud emas",
       "freeBadge": "Bepul",
       "lockedAria": "Yopiq",
       "completedAria": "Yakunlangan"
@@ -237,6 +252,18 @@
     "title": "Kutubxona",
     "empty": "Kitoblar topilmadi",
     "notFound": "Kitob topilmadi",
+    "difficultyLevels": {
+      "Beginner": "Boshlang'ich",
+      "Intermediate": "O'rta",
+      "Advanced": "Professional"
+    },
+    "categoryLabels": {
+      "Strategiya": "Strategiya",
+      "Hujum qilish": "Hujum qilish",
+      "Himoyalanish": "Himoyalanish",
+      "Qoidalar": "Qoidalar",
+      "Mot qilish": "Mot qilish"
+    },
     "filters": {
       "heading": "Filter",
       "searchPlaceholder": "Nomi bo'yicha qidirish",
@@ -338,6 +365,12 @@
     "email": "Email",
     "phone": "Telefon",
     "workingHours": "Ish vaqti",
+    "info": {
+      "address": "Toshkent sh., Yunusobod tumani, Amir Temur shoh ko'chasi 1",
+      "nearestMetro": "Amir Temur xiyoboni",
+      "workingHoursWeekdays": "Dushanba – Juma: 09:00 – 18:00",
+      "workingHoursWeekend": "Shanba – Yakshanba: dam olish kuni"
+    },
     "form": {
       "name": "Ismingiz",
       "email": "Email",

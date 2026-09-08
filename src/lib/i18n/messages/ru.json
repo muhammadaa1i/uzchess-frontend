@@ -115,6 +115,20 @@
     "title": "Курсы",
     "empty": "Курсы не найдены",
     "notFound": "Курс не найден",
+    "difficultyLevels": {
+      "Beginner": "Начинающий",
+      "Intermediate": "Средний",
+      "Advanced": "Продвинутый"
+    },
+    "categoryLabels": {
+      "Debyut nazariyasi": "Теория дебютов",
+      "Mittelshpil": "Миттельшпиль",
+      "Taktika": "Тактика",
+      "Endshpil": "Эндшпиль",
+      "Shaxmat tarixi": "История шахмат",
+      "Buyuk chempionlar": "Великие чемпионы",
+      "Bolalar uchun shaxmat": "Шахматы для детей"
+    },
     "filters": {
       "heading": "Фильтр",
       "searchPlaceholder": "Поиск по названию",
@@ -144,6 +158,7 @@
       "purchasedBadge": "Куплено",
       "buyCta": "Купить курс",
       "continueCta": "Продолжить курс",
+      "noLessonsYet": "Уроки пока недоступны",
       "freeBadge": "Бесплатно",
       "lockedAria": "Закрыто",
       "completedAria": "Завершено"
@@ -237,6 +252,18 @@
     "title": "Библиотека",
     "empty": "Книги не найдены",
     "notFound": "Книга не найдена",
+    "difficultyLevels": {
+      "Beginner": "Начинающий",
+      "Intermediate": "Средний",
+      "Advanced": "Продвинутый"
+    },
+    "categoryLabels": {
+      "Strategiya": "Стратегия",
+      "Hujum qilish": "Атака",
+      "Himoyalanish": "Защита",
+      "Qoidalar": "Правила",
+      "Mot qilish": "Постановка мата"
+    },
     "filters": {
       "heading": "Фильтр",
       "searchPlaceholder": "Поиск по названию",
@@ -338,6 +365,12 @@
     "email": "Email",
     "phone": "Телефон",
     "workingHours": "Часы работы",
+    "info": {
+      "address": "г. Ташкент, Юнусабадский район, проспект Амира Темура, 1",
+      "nearestMetro": "Сквер Амира Темура",
+      "workingHoursWeekdays": "Понедельник – Пятница: 09:00 – 18:00",
+      "workingHoursWeekend": "Суббота – Воскресенье: выходной"
+    },
     "form": {
       "name": "Ваше имя",
       "email": "Email",

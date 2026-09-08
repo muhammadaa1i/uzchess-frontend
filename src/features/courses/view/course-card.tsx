@@ -4,10 +4,12 @@ import { StarIcon } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 
-import type {
-  CourseCategory,
-  CourseDifficulty,
-  CourseListItem,
+import {
+  type CourseCategory,
+  type CourseDifficulty,
+  type CourseListItem,
+  translateCategoryTitle,
+  translateDifficultyDegree,
 } from "@/features/courses/model/course-schemas"
 import { Link } from "@/lib/i18n/navigation"
 import { formatPrice } from "@/lib/utils"
@@ -23,6 +25,13 @@ interface CourseCardProps {
 // feature's own /courses route, matching CLAUDE.md's code-splitting mandate.
 function CourseCard({ course, category, difficulty }: CourseCardProps) {
   const t = useTranslations("Courses.card")
+  const tCourses = useTranslations("Courses")
+  const difficultyLabels = (tCourses.raw as (key: string) => Record<string, string>)(
+    "difficultyLevels"
+  )
+  const categoryLabels = (tCourses.raw as (key: string) => Record<string, string>)(
+    "categoryLabels"
+  )
 
   return (
     <Link
@@ -40,12 +49,16 @@ function CourseCard({ course, category, difficulty }: CourseCardProps) {
         {difficulty && (
           <span className="absolute top-2 left-2 flex items-center gap-1 rounded-full bg-dark/80 px-2 py-1 text-xs font-medium text-brand-white backdrop-blur-sm">
             <Image src={difficulty.icon} alt="" width={14} height={14} className="rounded-full" />
-            {difficulty.degree}
+            {translateDifficultyDegree(difficultyLabels, difficulty.degree)}
           </span>
         )}
       </div>
       <div className="flex flex-1 flex-col gap-2 p-3">
-        {category && <span className="text-xs text-brand-secondary-low">{category.title}</span>}
+        {category && (
+          <span className="text-xs text-brand-secondary-low">
+            {translateCategoryTitle(categoryLabels, category.title)}
+          </span>
+        )}
         <h3 className="line-clamp-2 text-sm font-medium text-brand-white">{course.title}</h3>
         <div className="flex items-center gap-1 text-xs text-brand-secondary-low">
           <StarIcon className="size-3.5 fill-brand-yellow text-brand-yellow" />

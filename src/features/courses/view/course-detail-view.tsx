@@ -11,6 +11,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { authModalOpened } from "@/features/auth/model/auth-slice"
+import { translateCategoryTitle, translateDifficultyDegree } from "@/features/courses/model/course-schemas"
 import { CourseReviewsSection } from "@/features/courses/view/course-reviews-section"
 import { CourseSectionsList } from "@/features/courses/view/course-sections-list"
 import { useCourseDetail } from "@/features/courses/viewmodel/use-course-detail"
@@ -36,6 +37,12 @@ interface CourseDetailViewProps {
 function CourseDetailView({ courseId }: CourseDetailViewProps) {
   const t = useTranslations("Courses.detail")
   const tCourses = useTranslations("Courses")
+  const difficultyLabels = (tCourses.raw as (key: string) => Record<string, string>)(
+    "difficultyLevels"
+  )
+  const categoryLabels = (tCourses.raw as (key: string) => Record<string, string>)(
+    "categoryLabels"
+  )
   const dispatch = useAppDispatch()
   const [purchaseOpen, setPurchaseOpen] = useState(false)
   const {
@@ -104,11 +111,15 @@ function CourseDetailView({ courseId }: CourseDetailViewProps) {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
-            {category && <Badge variant="secondary">{category.title}</Badge>}
+            {category && (
+              <Badge variant="secondary">
+                {translateCategoryTitle(categoryLabels, category.title)}
+              </Badge>
+            )}
             {difficulty && (
               <Badge variant="secondary" className="gap-1.5">
                 <Image src={difficulty.icon} alt="" width={14} height={14} className="rounded-full" />
-                {difficulty.degree}
+                {translateDifficultyDegree(difficultyLabels, difficulty.degree)}
               </Badge>
             )}
             {isPurchased && <Badge>{t("purchasedBadge")}</Badge>}
@@ -158,13 +169,16 @@ function CourseDetailView({ courseId }: CourseDetailViewProps) {
           </div>
 
           {isPurchased || isFree ? (
-            <Button
-              render={<Link href={`/courses/${course.id}/lessons/${continueLessonId}`} />}
-              nativeButton={false}
-              disabled={!continueLessonId}
-            >
-              {t("continueCta")}
-            </Button>
+            continueLessonId ? (
+              <Button
+                render={<Link href={`/courses/${course.id}/lessons/${continueLessonId}`} />}
+                nativeButton={false}
+              >
+                {t("continueCta")}
+              </Button>
+            ) : (
+              <Button disabled>{t("noLessonsYet")}</Button>
+            )
           ) : (
             <Button onClick={handleBuyClick}>{t("buyCta")}</Button>
           )}

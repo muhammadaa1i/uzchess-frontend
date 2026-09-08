@@ -1,6 +1,6 @@
 "use client"
 
-import { GraduationCapIcon, HomeIcon, SearchIcon, StarIcon } from "lucide-react"
+import { FilterIcon, GraduationCapIcon, HomeIcon, SearchIcon, StarIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import type { MouseEvent, ReactNode } from "react"
 
@@ -15,6 +15,14 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/breadcrumb"
 import { Button } from "@/components/ui/button"
+import {
+  Dialog,
+  DialogClose,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
 import {
   Pagination,
   PaginationContent,
@@ -32,7 +40,13 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
-import { translateCategoryTitle, translateDifficultyDegree } from "@/features/courses/model/course-schemas"
+import {
+  type CourseCategory,
+  type CourseDifficulty,
+  type CourseLanguage,
+  translateCategoryTitle,
+  translateDifficultyDegree,
+} from "@/features/courses/model/course-schemas"
 import { CourseListCard } from "@/features/courses/view/course-list-card"
 import { useCourseCatalog } from "@/features/courses/viewmodel/use-course-catalog"
 import { Link } from "@/lib/i18n/navigation"
@@ -129,7 +143,14 @@ function CoursesCatalogView() {
       </div>
 
       <div className="flex flex-col gap-6 lg:flex-row lg:items-start">
-        <aside className="flex w-full shrink-0 flex-col gap-6 rounded-lg border border-[#1F272A] bg-dark p-5 lg:w-[326px]">
+        {/* Desktop/tablet sidebar — inline, always visible from `lg` up. No
+            mobile Figma frame existed for this exact catalog screen when this
+            was originally built, but the file does contain a literal
+            "filter(responsive)" frame (a modal with the same fields, a
+            "Tozalash"/clear link, and a "Filterni qo'llash" apply button) —
+            so below `lg` the same fields render inside a Dialog instead of
+            this pushed-down inline panel (see the trigger button below). */}
+        <aside className="hidden w-full shrink-0 flex-col gap-6 rounded-lg border border-[#1F272A] bg-dark p-5 lg:flex lg:w-[326px]">
           <div className="flex items-center justify-between">
             <span className="text-lg font-medium text-brand-white">{t("filters.heading")}</span>
             {hasActiveFilters && (
@@ -144,71 +165,76 @@ function CoursesCatalogView() {
             )}
           </div>
 
-          <CatalogFilterGroup label={t("filters.difficultyLabel")}>
-            <Select
-              value={filters.difficultyId}
-              onValueChange={(value) => value && updateFilter("difficultyId", value)}
-            >
-              <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
-                <SelectValue placeholder={t("filters.difficulty")}>{difficultyLabel}</SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={anyDifficulty}>{t("filters.any")}</SelectItem>
-                {difficulties.map((difficulty) => (
-                  <SelectItem key={difficulty.id} value={String(difficulty.id)}>
-                    {translateDifficultyDegree(difficultyLabels, difficulty.degree)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </CatalogFilterGroup>
-
-          <CatalogFilterGroup label={t("filters.categoryLabel")}>
-            <Select
-              value={filters.categoryId}
-              onValueChange={(value) => value && updateFilter("categoryId", value)}
-            >
-              <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
-                <SelectValue placeholder={t("filters.category")}>{categoryLabel}</SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={anyCategory}>{t("filters.any")}</SelectItem>
-                {categories.map((category) => (
-                  <SelectItem key={category.id} value={String(category.id)}>
-                    {translateCategoryTitle(categoryLabels, category.title)}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </CatalogFilterGroup>
-
-          <CatalogFilterGroup label={t("filters.languageLabel")}>
-            <Select
-              value={filters.languageId}
-              onValueChange={(value) => value && updateFilter("languageId", value)}
-            >
-              <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
-                <SelectValue placeholder={t("filters.language")}>{languageLabel}</SelectValue>
-              </SelectTrigger>
-              <SelectContent>
-                <SelectItem value={anyLanguage}>{t("filters.any")}</SelectItem>
-                {languages.map((language) => (
-                  <SelectItem key={language.id} value={String(language.id)}>
-                    {language.title}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </CatalogFilterGroup>
-
-          <CatalogFilterGroup label={t("filters.ratingLabel")}>
-            <RatingStarFilter
-              value={filters.minRating}
-              anyRating={anyRating}
-              onChange={(value) => updateFilter("minRating", value)}
-            />
-          </CatalogFilterGroup>
+          <CatalogFilterFields
+            filters={filters}
+            updateFilter={updateFilter}
+            difficulties={difficulties}
+            categories={categories}
+            languages={languages}
+            anyDifficulty={anyDifficulty}
+            anyCategory={anyCategory}
+            anyLanguage={anyLanguage}
+            anyRating={anyRating}
+            difficultyLabel={difficultyLabel}
+            categoryLabel={categoryLabel}
+            languageLabel={languageLabel}
+            difficultyLabels={difficultyLabels}
+            categoryLabels={categoryLabels}
+            t={t}
+          />
         </aside>
+
+        <Dialog>
+          <DialogTrigger
+            render={
+              <Button
+                variant="outline"
+                className="flex w-full items-center justify-center gap-2 rounded-lg border border-[#232627] bg-[#15181A] px-4 py-3 text-sm font-medium text-brand-white lg:hidden"
+              />
+            }
+          >
+            <FilterIcon className="size-4" />
+            {t("filters.heading")}
+            {hasActiveFilters && (
+              <span aria-hidden className="size-1.5 rounded-full bg-brand-blue" />
+            )}
+          </DialogTrigger>
+          <DialogContent className="max-h-[85vh] gap-4 overflow-y-auto lg:hidden">
+            <DialogHeader className="flex-row items-center justify-between pr-6">
+              <DialogTitle>{t("filters.heading")}</DialogTitle>
+              {hasActiveFilters && (
+                <Button
+                  variant="link"
+                  size="sm"
+                  onClick={clearFilters}
+                  className="h-auto p-0 text-brand-blue"
+                >
+                  {t("filters.clear")}
+                </Button>
+              )}
+            </DialogHeader>
+
+            <CatalogFilterFields
+              filters={filters}
+              updateFilter={updateFilter}
+              difficulties={difficulties}
+              categories={categories}
+              languages={languages}
+              anyDifficulty={anyDifficulty}
+              anyCategory={anyCategory}
+              anyLanguage={anyLanguage}
+              anyRating={anyRating}
+              difficultyLabel={difficultyLabel}
+              categoryLabel={categoryLabel}
+              languageLabel={languageLabel}
+              difficultyLabels={difficultyLabels}
+              categoryLabels={categoryLabels}
+              t={t}
+            />
+
+            <DialogClose render={<Button className="w-full" />}>{t("filters.apply")}</DialogClose>
+          </DialogContent>
+        </Dialog>
 
         <div className="flex min-w-0 flex-1 flex-col gap-6">
           {isLoading ? (
@@ -266,6 +292,121 @@ function CatalogFilterGroup({ label, children }: CatalogFilterGroupProps) {
       </span>
       {children}
     </div>
+  )
+}
+
+interface CatalogFilterValues {
+  categoryId: string
+  difficultyId: string
+  languageId: string
+  minRating: string
+}
+
+interface CatalogFilterFieldsProps {
+  filters: CatalogFilterValues
+  updateFilter: (key: keyof CatalogFilterValues, value: string) => void
+  difficulties: CourseDifficulty[]
+  categories: CourseCategory[]
+  languages: CourseLanguage[]
+  anyDifficulty: string
+  anyCategory: string
+  anyLanguage: string
+  anyRating: string
+  difficultyLabel: (value: string) => string
+  categoryLabel: (value: string) => string
+  languageLabel: (value: string) => string
+  difficultyLabels: Record<string, string>
+  categoryLabels: Record<string, string>
+  t: ReturnType<typeof useTranslations>
+}
+
+// The field set shared by the desktop inline sidebar and the mobile Dialog
+// (see the "filter(responsive)" Figma frame) — kept as one component so the
+// two surfaces can never drift out of sync with each other.
+function CatalogFilterFields({
+  filters,
+  updateFilter,
+  difficulties,
+  categories,
+  languages,
+  anyDifficulty,
+  anyCategory,
+  anyLanguage,
+  anyRating,
+  difficultyLabel,
+  categoryLabel,
+  languageLabel,
+  difficultyLabels,
+  categoryLabels,
+  t,
+}: CatalogFilterFieldsProps) {
+  return (
+    <>
+      <CatalogFilterGroup label={t("filters.difficultyLabel")}>
+        <Select
+          value={filters.difficultyId}
+          onValueChange={(value) => value && updateFilter("difficultyId", value)}
+        >
+          <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
+            <SelectValue placeholder={t("filters.difficulty")}>{difficultyLabel}</SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={anyDifficulty}>{t("filters.any")}</SelectItem>
+            {difficulties.map((difficulty) => (
+              <SelectItem key={difficulty.id} value={String(difficulty.id)}>
+                {translateDifficultyDegree(difficultyLabels, difficulty.degree)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </CatalogFilterGroup>
+
+      <CatalogFilterGroup label={t("filters.categoryLabel")}>
+        <Select
+          value={filters.categoryId}
+          onValueChange={(value) => value && updateFilter("categoryId", value)}
+        >
+          <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
+            <SelectValue placeholder={t("filters.category")}>{categoryLabel}</SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={anyCategory}>{t("filters.any")}</SelectItem>
+            {categories.map((category) => (
+              <SelectItem key={category.id} value={String(category.id)}>
+                {translateCategoryTitle(categoryLabels, category.title)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </CatalogFilterGroup>
+
+      <CatalogFilterGroup label={t("filters.languageLabel")}>
+        <Select
+          value={filters.languageId}
+          onValueChange={(value) => value && updateFilter("languageId", value)}
+        >
+          <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
+            <SelectValue placeholder={t("filters.language")}>{languageLabel}</SelectValue>
+          </SelectTrigger>
+          <SelectContent>
+            <SelectItem value={anyLanguage}>{t("filters.any")}</SelectItem>
+            {languages.map((language) => (
+              <SelectItem key={language.id} value={String(language.id)}>
+                {language.title}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </CatalogFilterGroup>
+
+      <CatalogFilterGroup label={t("filters.ratingLabel")}>
+        <RatingStarFilter
+          value={filters.minRating}
+          anyRating={anyRating}
+          onChange={(value) => updateFilter("minRating", value)}
+        />
+      </CatalogFilterGroup>
+    </>
   )
 }
 

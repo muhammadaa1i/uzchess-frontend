@@ -143,7 +143,8 @@
       "ratingLabel": "Rating:",
       "any": "All",
       "ratingAndUp": "{stars}+ stars",
-      "clear": "Clear all"
+      "clear": "Clear all",
+      "apply": "Apply filters"
     },
     "card": {
       "lessons": "{count} lessons",
@@ -278,7 +279,8 @@
       "ratingLabel": "Rating:",
       "any": "All",
       "ratingAndUp": "{stars}+ stars",
-      "clear": "Clear all"
+      "clear": "Clear all",
+      "apply": "Apply filters"
     },
     "card": {
       "pages": "{count} pages",

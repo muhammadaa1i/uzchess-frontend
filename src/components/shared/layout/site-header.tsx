@@ -151,7 +151,7 @@ function CartLink() {
   const t = useTranslations("Header")
   const isAuthenticated = useAppSelector((state) => !!state.auth.accessToken)
   const { data: items } = useGetCartQuery(undefined, { skip: !isAuthenticated })
-  const count = items?.reduce((sum, item) => sum + item.quantity, 0) ?? 0
+  const count = items?.length ?? 0
 
   return (
     <Button

@@ -1,14 +1,13 @@
 "use client"
 
-import { EyeIcon, Share2Icon } from "lucide-react"
+import { EyeIcon } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
-import { useState } from "react"
 
-import { ErrorState } from "@/components/shared/error-state"
+import { ErrorState } from "@/components/shared/error/error-state"
 import { NewsGridCard } from "@/components/shared/news/news-grid-card"
-import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
+import { NewsDetailSkeleton } from "@/features/news/view/news-detail-skeleton"
+import { NewsShareButton } from "@/features/news/view/news-share-button"
 import { useNewsDetail } from "@/features/news/viewmodel/use-news-detail"
 import { formatDate } from "@/lib/utils"
 
@@ -70,7 +69,7 @@ function NewsDetailView({ newsId }: NewsDetailViewProps) {
               {t("views", { count: news.viewsCount })}
             </span>
           </div>
-          <ShareButton title={news.title} />
+          <NewsShareButton title={news.title} />
         </div>
 
         <h1 className="text-2xl font-medium text-brand-white">{news.title}</h1>
@@ -88,53 +87,6 @@ function NewsDetailView({ newsId }: NewsDetailViewProps) {
         </section>
       )}
     </div>
-  )
-}
-
-function NewsDetailSkeleton() {
-  return (
-    <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
-      <Skeleton className="aspect-video w-full rounded-xl" />
-      <Skeleton className="h-8 w-2/3 rounded-lg" />
-      <div className="flex flex-col gap-2">
-        {Array.from({ length: 4 }).map((_, index) => (
-          <Skeleton key={index} className="h-4 w-full rounded" />
-        ))}
-      </div>
-    </div>
-  )
-}
-
-// Uses the Web Share API where available (mobile browsers), falling back to
-// copying the URL to the clipboard with a brief "copied" confirmation —
-// `copied` is purely ephemeral view-local UI state (CLAUDE.md's
-// dropdown-open/close-style exception to the Redux Toolkit mandate).
-function ShareButton({ title }: { title: string }) {
-  const t = useTranslations("News.share")
-  const [copied, setCopied] = useState(false)
-
-  async function handleShare() {
-    const url = window.location.href
-
-    if (navigator.share) {
-      try {
-        await navigator.share({ title, url })
-      } catch {
-        // User dismissed the native share sheet — nothing to do.
-      }
-      return
-    }
-
-    await navigator.clipboard.writeText(url)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
-  return (
-    <Button variant="ghost" size="sm" className="text-brand-blue-light" onClick={handleShare}>
-      <Share2Icon />
-      {copied ? t("copied") : t("label")}
-    </Button>
   )
 }
 

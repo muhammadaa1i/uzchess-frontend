@@ -4,7 +4,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { cn } from "@/lib/utils"
 
 // Purely presentational player-ranking table, shared between the Home page's
-// top-5 widget (src/features/home/view/ranking-widget.tsx) and the full
+// top-5 widget (src/features/top-ranking/view/ranking-widget.tsx) and the full
 // Ranking page (src/features/ranking/view/ranking-view.tsx) — see CLAUDE.md's
 // code-splitting mandate: since neither feature may import the other's
 // model/view files, this row shape is defined locally here rather than

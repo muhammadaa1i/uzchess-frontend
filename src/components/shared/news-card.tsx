@@ -7,7 +7,7 @@ import { Link } from "@/lib/i18n/navigation"
 import { cn, formatDate } from "@/lib/utils"
 
 // Purely presentational news row, shared between the Home page's news
-// widget (src/features/home/view/news-list.tsx) and the full News list page
+// widget (src/features/latest-news/view/news-list.tsx) and the full News list page
 // (src/features/news/view/news-list-view.tsx) — see CLAUDE.md's
 // code-splitting mandate: since neither feature may import the other's
 // model/view files, this row shape is defined locally here rather than

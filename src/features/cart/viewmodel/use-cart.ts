@@ -73,6 +73,8 @@ function useCart() {
     setAppliedCode(code.trim())
   }
 
+  const checkoutHref = appliedCode ? `/checkout?code=${encodeURIComponent(appliedCode)}` : "/checkout"
+
   return {
     isAuthenticated,
     items: items ?? [],
@@ -81,6 +83,7 @@ function useCart() {
     summary,
     isSummaryLoading,
     appliedCode,
+    checkoutHref,
     couponError,
     applyCoupon,
     changeQuantity,

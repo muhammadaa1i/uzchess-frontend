@@ -3,7 +3,6 @@
 import { useTranslations } from "next-intl"
 import { useEffect } from "react"
 
-import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { authModalOpened } from "@/features/auth/model/auth-slice"
 import { ProfileGeneralSection } from "@/features/profile/view/profile-general-section"
@@ -11,6 +10,7 @@ import { ProfileHeader } from "@/features/profile/view/profile-header"
 import { ProfileOrdersSection } from "@/features/profile/view/profile-orders-section"
 import { ProfilePurchasedCoursesSection } from "@/features/profile/view/profile-purchased-courses-section"
 import { ProfileSavedItemsSection } from "@/features/profile/view/profile-saved-items-section"
+import { ProfileSkeleton } from "@/features/profile/view/profile-skeleton"
 import { useProfile } from "@/features/profile/viewmodel/use-profile"
 import { useAppDispatch } from "@/lib/store/hooks"
 
@@ -81,18 +81,6 @@ function ProfileView() {
           <ProfileSavedItemsSection />
         </TabsContent>
       </Tabs>
-    </div>
-  )
-}
-
-function ProfileSkeleton() {
-  return (
-    <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
-      <Skeleton className="h-20 w-full rounded-xl" />
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[256px_1fr]">
-        <Skeleton className="h-40 w-full rounded-xl" />
-        <Skeleton className="h-96 w-full rounded-xl" />
-      </div>
     </div>
   )
 }

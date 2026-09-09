@@ -4,13 +4,13 @@ import { useTranslations } from "next-intl"
 
 import { TimeControlTag } from "@/components/shared/chess/time-control-tag"
 import { ErrorState } from "@/components/shared/error-state"
+import { YoutubeEmbedPlayerLoader } from "@/components/shared/youtube-embed-player-loader"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { LiveGame } from "@/features/live/model/live-schemas"
 import { LiveSidebarCourses } from "@/features/live/view/live-sidebar-courses"
 import { LiveSidebarPromo } from "@/features/live/view/live-sidebar-promo"
-import { LiveVideoPlayerLoader } from "@/features/live/view/live-video-player-loader"
 import { useLiveGame } from "@/features/live/viewmodel/use-live-game"
 
 // Single active game (GET /game-of-day/active) — this is the destination of
@@ -71,7 +71,7 @@ function LiveView() {
           </div>
 
           <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-dark-2">
-            <LiveVideoPlayerLoader
+            <YoutubeEmbedPlayerLoader
               embedUrl={embedUrl}
               title={t("title", { white: game.whitePlayerName, black: game.blackPlayerName })}
             />

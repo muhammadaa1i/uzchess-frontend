@@ -4,9 +4,9 @@ import { useTranslations } from "next-intl"
 
 import { Skeleton } from "@/components/ui/skeleton"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { ProfileBookCard } from "@/features/profile/view/profile-book-card"
-import { ProfileCourseCard } from "@/features/profile/view/profile-course-card"
-import { useSavedItems } from "@/features/profile/viewmodel/use-saved-items"
+import { ProfileBookCard } from "@/features/saved-items/view/profile-book-card"
+import { ProfileCourseCard } from "@/features/saved-items/view/profile-course-card"
+import { useSavedItems } from "@/features/saved-items/viewmodel/use-saved-items"
 
 // "Saved items" tab. Per CLAUDE.md's terminology note, Figma's distinct
 // "saved courses" / "saved products" labels map to two different backend

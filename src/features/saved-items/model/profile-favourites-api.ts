@@ -3,13 +3,16 @@ import { z } from "zod"
 import {
   profileBookItemSchema,
   profileCourseItemSchema,
-} from "@/features/profile/model/profile-schemas"
+} from "@/features/saved-items/model/profile-saved-items-schemas"
 import { baseApi } from "@/lib/api/base-api"
 
-// "Saved items" endpoints. Per CLAUDE.md's terminology note, Figma's
-// "saved books"/"saved products" labels both map to this same
-// GET /favourites/read (books) list — not two separate endpoints — while
-// "saved courses" is the genuinely distinct GET /courses/favourites.
+// "Saved items" endpoints, pulled out of Profile into their own top-level
+// feature per the tab's own data-fetching concern (same pattern as Library
+// splitting into book-catalog/book-detail/book-rating). Per CLAUDE.md's
+// terminology note, Figma's "saved books"/"saved products" labels both map
+// to this same GET /favourites/read (books) list — not two separate
+// endpoints — while "saved courses" is the genuinely distinct
+// GET /courses/favourites.
 const profileFavouritesApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getFavouriteBooks: builder.query<z.infer<typeof profileBookItemSchema>[], void>({

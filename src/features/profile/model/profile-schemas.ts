@@ -48,75 +48,7 @@ const changeEmailResponseSchema = z.object({ message: z.string(), email: z.strin
 const confirmEmailRequestSchema = z.object({ code: z.string().length(6) })
 const confirmEmailResponseSchema = z.object({ message: z.string(), email: z.string() })
 
-// GET /orders — GetOrdersResponse[] (see /swagger/account). Per CLAUDE.md's
-// terminology note, this is the "purchased products" (books) list — books
-// are bought via /cart -> /orders/checkout, not a separate "product" entity.
-// Duplicated from Library's identical `orderSchema` (book-schemas.ts) rather
-// than imported, per CLAUDE.md's code-splitting mandate (each feature's
-// model layer is self-contained).
-const orderItemSchema = z.object({
-  bookId: z.number(),
-  title: z.string(),
-  cover: z.string(),
-  price: z.number(),
-})
-const orderStatusSchema = z.enum(["processing", "delivered", "cancelled"])
-const orderSchema = z.object({
-  id: z.number(),
-  status: orderStatusSchema,
-  totalPrice: z.number(),
-  createdAt: z.string(),
-  items: z.array(orderItemSchema),
-})
-
-// GET /courses/purchased (GetCoursePurchasesResponse[]) and
-// GET /courses/favourites (GetCourseFavouritesResponse[]) — both verified
-// against the live /swagger/account-json and /swagger/courses-json specs to
-// return the exact same base course shape as Courses' own
-// `courseBaseSchema`. Duplicated here rather than imported across the
-// feature boundary (same reasoning as orderSchema above).
-const profileCourseItemSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  price: z.number(),
-  discountPrice: z.number().nullable().optional(),
-  cover: z.string(),
-  description: z.string(),
-  sectionsCount: z.number(),
-  lessonsCount: z.number(),
-  categoryId: z.number(),
-  difficultyId: z.number(),
-  languageId: z.number(),
-  authorIds: z.array(z.number()),
-  averageRating: z.number(),
-  ratingsCount: z.number(),
-})
-
-// GET /favourites/read — GetFavouritesResponse[] (see /swagger/account), the
-// "saved products" (books) list per the terminology note — same base shape
-// as Library's `bookBaseSchema`, duplicated for the same reason.
-const profileBookItemSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  price: z.number(),
-  discountPrice: z.number().nullable().optional(),
-  cover: z.string(),
-  description: z.string(),
-  pageCount: z.number(),
-  publishedYear: z.number(),
-  categoryId: z.number(),
-  difficultyId: z.number(),
-  languageId: z.number(),
-  authorIds: z.array(z.number()),
-  averageRating: z.number(),
-  ratingsCount: z.number(),
-})
-
 type Profile = z.infer<typeof profileSchema>
-type Order = z.infer<typeof orderSchema>
-type OrderItem = z.infer<typeof orderItemSchema>
-type ProfileCourseItem = z.infer<typeof profileCourseItemSchema>
-type ProfileBookItem = z.infer<typeof profileBookItemSchema>
 
 export {
   changeEmailRequestSchema,
@@ -125,11 +57,6 @@ export {
   changePasswordResponseSchema,
   confirmEmailRequestSchema,
   confirmEmailResponseSchema,
-  orderItemSchema,
-  orderSchema,
-  orderStatusSchema,
-  profileBookItemSchema,
-  profileCourseItemSchema,
   profileSchema,
 }
-export type { Order, OrderItem, Profile, ProfileBookItem, ProfileCourseItem }
+export type { Profile }

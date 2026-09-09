@@ -3,7 +3,7 @@
 import { StarIcon } from "lucide-react"
 import Image from "next/image"
 
-import type { ProfileBookItem } from "@/features/profile/model/profile-schemas"
+import type { ProfileBookItem } from "@/features/saved-items/model/profile-saved-items-schemas"
 import { Link } from "@/lib/i18n/navigation"
 import { formatPrice } from "@/lib/utils"
 

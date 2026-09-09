@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useOrders } from "@/features/profile/viewmodel/use-orders"
+import { useOrders } from "@/features/profile-orders/viewmodel/use-orders"
 import { Link } from "@/lib/i18n/navigation"
 import { formatDate, formatPrice } from "@/lib/utils"
 

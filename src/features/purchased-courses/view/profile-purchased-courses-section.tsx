@@ -4,8 +4,8 @@ import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
-import { ProfileCourseCard } from "@/features/profile/view/profile-course-card"
-import { usePurchasedCourses } from "@/features/profile/viewmodel/use-purchased-courses"
+import { ProfileCourseCard } from "@/features/purchased-courses/view/profile-course-card"
+import { usePurchasedCourses } from "@/features/purchased-courses/viewmodel/use-purchased-courses"
 import { Link } from "@/lib/i18n/navigation"
 
 // "Purchased courses" tab — GET /courses/purchased.

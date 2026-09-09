@@ -3,7 +3,7 @@
 import { StarIcon } from "lucide-react"
 import Image from "next/image"
 
-import type { ProfileCourseItem } from "@/features/profile/model/profile-schemas"
+import type { ProfileCourseItem } from "@/features/purchased-courses/model/profile-purchased-courses-schemas"
 import { Link } from "@/lib/i18n/navigation"
 import { formatPrice } from "@/lib/utils"
 
@@ -11,12 +11,12 @@ interface ProfileCourseCardProps {
   course: ProfileCourseItem
 }
 
-// Purely presentational grid card for the purchased-courses/saved-courses
-// lists — feature-local (not @/components/shared) since it's only ever
-// reached via the profile feature's own /profile route, matching
-// CLAUDE.md's code-splitting mandate. Deliberately not reused from Courses'
-// own CourseCard for the same reason (each feature's view layer is
-// self-contained).
+// Purely presentational grid card for the purchased-courses list —
+// feature-local (not @/components/shared) since it's only ever reached via
+// the Profile dashboard's own /profile route, matching CLAUDE.md's
+// code-splitting mandate. Deliberately not reused from Courses' own
+// CourseCard, nor from saved-items' identical-looking copy, for the same
+// reason (each feature's view layer is self-contained).
 function ProfileCourseCard({ course }: ProfileCourseCardProps) {
   return (
     <Link

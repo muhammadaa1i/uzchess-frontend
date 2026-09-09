@@ -32,9 +32,11 @@ function toFormData(body: UpdateProfileBody): FormData {
 }
 
 // Profile's core RTK Query endpoints, injected into the shared endpoint-less
-// `baseApi` (see CLAUDE.md's code-splitting mandate). Split from
-// profile-orders-api.ts/profile-favourites-api.ts by concern, same pattern
-// as Courses splitting course-detail-api.ts/course-progress-api.ts/etc.
+// `baseApi` (see CLAUDE.md's code-splitting mandate). The "purchased"/
+// "saved" list endpoints that used to live alongside these have since moved
+// out into their own top-level features (profile-orders, purchased-courses,
+// saved-items), same pattern as Courses splitting into course-detail/
+// course-progress/etc.
 const profileApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getProfile: builder.query<z.infer<typeof profileSchema>, void>({

@@ -1,7 +1,7 @@
 import {
   useGetFavouriteBooksQuery,
   useGetFavouriteCoursesQuery,
-} from "@/features/profile/model/profile-favourites-api"
+} from "@/features/saved-items/model/profile-favourites-api"
 import { useAppSelector } from "@/lib/store/hooks"
 
 // Backs the "Saved items" tab, which per CLAUDE.md's terminology note

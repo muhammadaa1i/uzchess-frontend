@@ -1,4 +1,4 @@
-import { useGetOrdersQuery } from "@/features/profile/model/profile-orders-api"
+import { useGetOrdersQuery } from "@/features/profile-orders/model/profile-orders-api"
 import { useAppSelector } from "@/lib/store/hooks"
 
 function useOrders() {

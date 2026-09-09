@@ -1,4 +1,4 @@
-import { useGetPurchasedCoursesQuery } from "@/features/profile/model/profile-orders-api"
+import { useGetPurchasedCoursesQuery } from "@/features/purchased-courses/model/profile-purchased-courses-api"
 import { useAppSelector } from "@/lib/store/hooks"
 
 function usePurchasedCourses() {

@@ -4,12 +4,12 @@ import { StarIcon } from "lucide-react"
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 
-import { ErrorState } from "@/components/shared/error-state"
+import { ErrorState } from "@/components/shared/error/error-state"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
 import { authModalOpened } from "@/features/auth/model/auth-slice"
 import { translateCategoryTitle, translateDifficultyDegree } from "@/features/library/model/book-schemas"
+import { BookDetailSkeleton } from "@/features/library/view/book-detail-skeleton"
 import { BookRatingWidget } from "@/features/library/view/book-rating-widget"
 import { useBookDetail } from "@/features/library/viewmodel/use-book-detail"
 import { useAppDispatch } from "@/lib/store/hooks"
@@ -159,25 +159,6 @@ function BookDetailView({ bookId }: BookDetailViewProps) {
           </div>
 
           <BookRatingWidget bookId={book.id} isAuthenticated={isAuthenticated} />
-        </div>
-      </div>
-    </div>
-  )
-}
-
-function BookDetailSkeleton() {
-  return (
-    <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
-      <div className="grid grid-cols-1 gap-6 lg:grid-cols-[320px_1fr]">
-        <Skeleton className="aspect-[3/4] w-full rounded-xl" />
-        <div className="flex flex-col gap-4">
-          <Skeleton className="h-8 w-2/3 rounded-lg" />
-          <div className="flex flex-col gap-2">
-            {Array.from({ length: 4 }).map((_, index) => (
-              <Skeleton key={index} className="h-4 w-full rounded" />
-            ))}
-          </div>
-          <Skeleton className="h-32 w-full max-w-xs rounded-xl" />
         </div>
       </div>
     </div>

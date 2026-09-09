@@ -1,14 +1,17 @@
 "use client"
 
-import { CheckCircle2Icon, XCircleIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { TextField } from "@/components/shared/text-field"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { authModalOpened } from "@/features/auth/model/auth-slice"
+import { CheckoutEmptyCart } from "@/features/checkout/view/checkout-empty-cart"
+import { CheckoutFail } from "@/features/checkout/view/checkout-fail"
+import { CheckoutSignInRequired } from "@/features/checkout/view/checkout-sign-in-required"
+import { CheckoutSuccess } from "@/features/checkout/view/checkout-success"
+import { CheckoutSummaryRow } from "@/features/checkout/view/checkout-summary-row"
 import { useCheckout } from "@/features/checkout/viewmodel/use-checkout"
-import { Link } from "@/lib/i18n/navigation"
 import { useAppDispatch } from "@/lib/store/hooks"
 import { formatPrice } from "@/lib/utils"
 
@@ -44,61 +47,19 @@ function CheckoutView({ couponCode }: CheckoutViewProps) {
   } = useCheckout(couponCode)
 
   if (!isAuthenticated) {
-    return (
-      <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
-        <div className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center">
-          <p className="text-sm text-brand-secondary-low">{t("signInRequired")}</p>
-          <Button onClick={() => dispatch(authModalOpened("sign-in"))}>{t("signInCta")}</Button>
-        </div>
-      </div>
-    )
+    return <CheckoutSignInRequired onSignIn={() => dispatch(authModalOpened("sign-in"))} />
   }
 
   if (step === "success" && order) {
-    return (
-      <div className="mx-auto flex max-w-[560px] flex-col items-center gap-3 px-4 py-16 text-center">
-        <CheckCircle2Icon className="size-12 text-brand-green" />
-        <h1 className="text-2xl font-medium text-brand-white">{t("success.title")}</h1>
-        <p className="text-sm text-brand-secondary-low">{t("success.description")}</p>
-        <div className="mt-2 flex w-full flex-col gap-2 rounded-xl border border-[#1F272A] bg-[#1A1D1F] p-4 text-left text-sm">
-          <SummaryRow label={t("success.orderNumber")} value={order.orderNumber} />
-          <SummaryRow label={t("summary.total")} value={formatPrice(order.totalPrice)} />
-        </div>
-        <Button render={<Link href="/" />} nativeButton={false} className="mt-2 w-full">
-          {t("success.backHome")}
-        </Button>
-      </div>
-    )
+    return <CheckoutSuccess order={order} />
   }
 
-  // Direct navigation to /checkout with nothing in the cart (or after the
-  // cart was emptied in another tab) — the backend rejects a checkout
-  // submission for an empty cart with a 404, so show this up front instead
-  // of a fully interactive form that can only ever fail on submit.
   if (step === "form" && isCartEmpty) {
-    return (
-      <div className="mx-auto flex max-w-[1376px] flex-col gap-6 px-4 py-8 lg:px-6 lg:py-10">
-        <div className="flex flex-col items-center gap-4 rounded-xl border border-dashed border-border bg-card/50 px-6 py-10 text-center">
-          <p className="text-sm text-brand-secondary-low">{t("empty")}</p>
-          <Button render={<Link href="/cart" />} nativeButton={false}>
-            {t("goToCart")}
-          </Button>
-        </div>
-      </div>
-    )
+    return <CheckoutEmptyCart />
   }
 
   if (step === "fail") {
-    return (
-      <div className="mx-auto flex max-w-[560px] flex-col items-center gap-3 px-4 py-16 text-center">
-        <XCircleIcon className="size-12 text-destructive" />
-        <h1 className="text-2xl font-medium text-brand-white">{t("fail.title")}</h1>
-        {errorMessage && <p className="text-sm text-brand-secondary-low">{errorMessage}</p>}
-        <Button className="mt-2 w-full" onClick={retry}>
-          {t("fail.retry")}
-        </Button>
-      </div>
-    )
+    return <CheckoutFail errorMessage={errorMessage} onRetry={retry} />
   }
 
   return (
@@ -144,20 +105,20 @@ function CheckoutView({ couponCode }: CheckoutViewProps) {
             </div>
           ) : (
             <>
-              <SummaryRow label={t("summary.subtotal")} value={formatPrice(summary.subtotal)} />
+              <CheckoutSummaryRow label={t("summary.subtotal")} value={formatPrice(summary.subtotal)} />
               {summary.itemDiscount > 0 && (
-                <SummaryRow
+                <CheckoutSummaryRow
                   label={t("summary.itemDiscount")}
                   value={`-${formatPrice(summary.itemDiscount)}`}
                 />
               )}
               {summary.couponCode && summary.couponDiscount > 0 && (
-                <SummaryRow
+                <CheckoutSummaryRow
                   label={t("summary.couponDiscount", { code: summary.couponCode })}
                   value={`-${formatPrice(summary.couponDiscount)}`}
                 />
               )}
-              <SummaryRow label={t("summary.deliveryFee")} value={formatPrice(deliveryFee)} />
+              <CheckoutSummaryRow label={t("summary.deliveryFee")} value={formatPrice(deliveryFee)} />
               <div className="mt-1 flex items-center justify-between border-t border-[#1F272A] pt-3 text-base font-semibold text-brand-white">
                 <span>{t("summary.total")}</span>
                 <span>{formatPrice(total ?? 0)}</span>
@@ -166,20 +127,6 @@ function CheckoutView({ couponCode }: CheckoutViewProps) {
           )}
         </div>
       </div>
-    </div>
-  )
-}
-
-interface SummaryRowProps {
-  label: string
-  value: string
-}
-
-function SummaryRow({ label, value }: SummaryRowProps) {
-  return (
-    <div className="flex items-center justify-between text-sm text-brand-secondary-low">
-      <span>{label}</span>
-      <span className="text-brand-white">{value}</span>
     </div>
   )
 }

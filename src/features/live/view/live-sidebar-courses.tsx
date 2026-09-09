@@ -1,13 +1,10 @@
 "use client"
 
-import { StarIcon } from "lucide-react"
-import Image from "next/image"
 import { useTranslations } from "next-intl"
 
 import { Skeleton } from "@/components/ui/skeleton"
-import type { LiveSidebarCourse } from "@/features/live/model/live-schemas"
+import { LiveSidebarCourseRow } from "@/features/live/view/live-sidebar-course-row"
 import { useLiveSidebarCourses } from "@/features/live/viewmodel/use-live-sidebar-courses"
-import { cn, formatPrice } from "@/lib/utils"
 
 // Same "top courses" list shape as Home's `TopCoursesSection`
 // (../home/view/top-courses-section.tsx), duplicated per feature rather
@@ -34,43 +31,10 @@ function LiveSidebarCourses() {
       <h2 className="text-lg font-medium text-brand-white">{t("title")}</h2>
       <div className="mt-2 flex flex-col divide-y divide-[#272B30]">
         {courses.map((course) => (
-          <CourseRow key={course.id} course={course} />
+          <LiveSidebarCourseRow key={course.id} course={course} />
         ))}
       </div>
     </div>
-  )
-}
-
-function CourseRow({ course }: { course: LiveSidebarCourse }) {
-  return (
-    <article className={cn("flex items-center gap-4 py-3")}>
-      <div className="relative size-20 shrink-0 overflow-hidden rounded-xl bg-dark-2">
-        <Image src={course.cover} alt={course.title} fill sizes="80px" className="object-cover" />
-      </div>
-      <div className="flex min-w-0 flex-col gap-1.5">
-        <h3 className="line-clamp-2 text-sm font-medium text-brand-white">{course.title}</h3>
-        <div className="flex items-center gap-1 text-xs text-brand-secondary-low">
-          <StarIcon className="size-3.5 fill-brand-yellow text-brand-yellow" />
-          {course.averageRating.toFixed(1)} ({course.ratingsCount})
-        </div>
-        <div className="flex items-center gap-2">
-          {course.discountPrice ? (
-            <>
-              <span className="text-sm font-semibold text-brand-white">
-                {formatPrice(course.discountPrice)}
-              </span>
-              <span className="text-xs text-brand-secondary-low line-through">
-                {formatPrice(course.price)}
-              </span>
-            </>
-          ) : (
-            <span className="text-sm font-semibold text-brand-white">
-              {formatPrice(course.price)}
-            </span>
-          )}
-        </div>
-      </div>
-    </article>
   )
 }
 

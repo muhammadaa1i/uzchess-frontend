@@ -3,12 +3,11 @@
 import { useTranslations } from "next-intl"
 
 import { TimeControlTag } from "@/components/shared/chess/time-control-tag"
-import { ErrorState } from "@/components/shared/error-state"
+import { ErrorState } from "@/components/shared/error/error-state"
 import { YoutubeEmbedPlayerLoader } from "@/components/shared/video/youtube-embed-player-loader"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"
-import type { LiveGame } from "@/features/live/model/live-schemas"
+import { LivePlayerBadge } from "@/features/live/view/live-player-badge"
 import { LiveSidebarCourses } from "@/features/live/view/live-sidebar-courses"
 import { LiveSidebarPromo } from "@/features/live/view/live-sidebar-promo"
 import { useLiveGame } from "@/features/live/viewmodel/use-live-game"
@@ -79,13 +78,13 @@ function LiveView() {
 
           <div className="flex flex-wrap items-center justify-between gap-4 rounded-lg bg-[#1A1D1F] px-4 py-3">
             <div className="flex items-center gap-3">
-              <PlayerBadge
+              <LivePlayerBadge
                 name={game.whitePlayerName}
                 rating={game.whitePlayerRating}
                 avatarUrl={game.whitePlayerAvatarUrl}
               />
               <span className="text-sm text-brand-secondary-low">{t("vs")}</span>
-              <PlayerBadge
+              <LivePlayerBadge
                 name={game.blackPlayerName}
                 rating={game.blackPlayerRating}
                 avatarUrl={game.blackPlayerAvatarUrl}
@@ -100,27 +99,6 @@ function LiveView() {
           <LiveSidebarPromo />
         </aside>
       </div>
-    </div>
-  )
-}
-
-function PlayerBadge({
-  name,
-  rating,
-  avatarUrl,
-}: {
-  name: string
-  rating: number
-  avatarUrl?: LiveGame["whitePlayerAvatarUrl"]
-}) {
-  return (
-    <div className="flex items-center gap-2">
-      <Avatar size="sm">
-        <AvatarImage src={avatarUrl ?? undefined} alt={name} />
-        <AvatarFallback>{name.charAt(0)}</AvatarFallback>
-      </Avatar>
-      <span className="text-sm font-medium text-brand-white">{name}</span>
-      <span className="text-sm text-brand-secondary-low">({rating})</span>
     </div>
   )
 }

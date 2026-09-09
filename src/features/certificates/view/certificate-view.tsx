@@ -3,11 +3,13 @@
 import { useTranslations } from "next-intl"
 import { useRef } from "react"
 
-import { ErrorState } from "@/components/shared/error-state"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useCertificate } from "@/features/courses/viewmodel/use-certificate"
-import { Link } from "@/lib/i18n/navigation"
+import { CertificateError } from "@/features/certificates/view/certificate-error"
+import { CertificateNotEarned } from "@/features/certificates/view/certificate-not-earned"
+import { CertificateSignInRequired } from "@/features/certificates/view/certificate-sign-in-required"
+import { CertificateSkeleton } from "@/features/certificates/view/certificate-skeleton"
+import { CertificateUnavailable } from "@/features/certificates/view/certificate-unavailable"
+import { useCertificate } from "@/features/certificates/viewmodel/use-certificate"
 
 interface CertificateViewProps {
   courseId: number
@@ -28,48 +30,23 @@ function CertificateView({ courseId }: CertificateViewProps) {
     useCertificate(courseId)
 
   if (!isAuthenticated) {
-    return (
-      <div className="mx-auto flex max-w-[900px] flex-col items-center gap-3 px-4 py-16 text-center">
-        <h1 className="text-xl font-medium text-brand-white">{t("signInRequiredTitle")}</h1>
-        <p className="text-sm text-brand-secondary-low">{t("signInRequiredDescription")}</p>
-      </div>
-    )
+    return <CertificateSignInRequired />
   }
 
   if (isLoading) {
-    return (
-      <div className="mx-auto flex max-w-[900px] flex-col gap-4 px-4 py-8">
-        <Skeleton className="aspect-video w-full rounded-xl" />
-      </div>
-    )
+    return <CertificateSkeleton />
   }
 
   if (notEarnedYet) {
-    return (
-      <div className="mx-auto flex max-w-[900px] flex-col items-center gap-3 px-4 py-16 text-center">
-        <h1 className="text-xl font-medium text-brand-white">{t("notEarnedYetTitle")}</h1>
-        <p className="text-sm text-brand-secondary-low">{t("notEarnedYetDescription")}</p>
-        <Button render={<Link href={`/courses/${courseId}`} />} nativeButton={false}>
-          {t("backToCourse")}
-        </Button>
-      </div>
-    )
+    return <CertificateNotEarned courseId={courseId} />
   }
 
   if (isError) {
-    return (
-      <div className="mx-auto flex max-w-[900px] flex-col items-center gap-3 px-4 py-16 text-center">
-        <ErrorState onRetry={refetch} />
-      </div>
-    )
+    return <CertificateError onRetry={refetch} />
   }
 
   if (!objectUrl) {
-    return (
-      <div className="mx-auto flex max-w-[900px] flex-col items-center gap-3 px-4 py-16 text-center">
-        <p className="text-sm text-brand-secondary-low">{t("notEarnedYetDescription")}</p>
-      </div>
-    )
+    return <CertificateUnavailable />
   }
 
   return (

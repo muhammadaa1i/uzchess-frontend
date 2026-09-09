@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from "react"
 
-import { useDownloadCertificateQuery } from "@/features/courses/model/certificate-api"
+import { useDownloadCertificateQuery } from "@/features/certificates/model/certificate-api"
 import { useAppSelector } from "@/lib/store/hooks"
 
 // GET /courses/{id}/certificate returns a raw PDF body (see

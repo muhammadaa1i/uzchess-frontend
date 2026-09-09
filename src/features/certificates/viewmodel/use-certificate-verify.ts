@@ -1,4 +1,4 @@
-import { useVerifyCertificateQuery } from "@/features/courses/model/certificate-api"
+import { useVerifyCertificateQuery } from "@/features/certificates/model/certificate-api"
 
 function useCertificateVerify(code: string) {
   const { data, isLoading, isError, refetch } = useVerifyCertificateQuery(code, { skip: !code })

@@ -8,7 +8,7 @@ import dynamic from "next/dynamic"
 // requires a Client Component boundary, so that lives here instead of in
 // the (Server Component) page.
 const CertificateView = dynamic(
-  () => import("@/features/courses/view/certificate-view").then((mod) => mod.CertificateView),
+  () => import("@/features/certificates/view/certificate-view").then((mod) => mod.CertificateView),
   { ssr: false }
 )
 

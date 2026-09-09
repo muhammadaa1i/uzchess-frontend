@@ -1,6 +1,6 @@
 import type { z } from "zod"
 
-import { verifyCertificateResponseSchema } from "@/features/courses/model/certificate-schemas"
+import { verifyCertificateResponseSchema } from "@/features/certificates/model/certificate-schemas"
 import { baseApi } from "@/lib/api/base-api"
 
 const certificateApi = baseApi.injectEndpoints({

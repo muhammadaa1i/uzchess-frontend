@@ -2,21 +2,19 @@ import { useTranslations } from "next-intl"
 import { useState } from "react"
 
 import {
-  useGetBookAuthorsQuery,
-  useGetBookCategoriesQuery,
-  useGetBookDifficultiesQuery,
-} from "@/features/library/model/book-catalog-api"
-import {
   useAddToCartMutation,
   useGetBookByIdQuery,
+  useGetBookDetailAuthorsQuery,
+  useGetBookDetailCategoriesQuery,
+  useGetBookDetailDifficultiesQuery,
   useGetOrdersQuery,
-} from "@/features/library/model/book-detail-api"
-import { getBookErrorMessage } from "@/features/library/model/book-error"
+} from "@/features/book-detail/model/book-detail-api"
+import { getBookDetailErrorMessage } from "@/features/book-detail/model/book-detail-error"
 import { useAppSelector } from "@/lib/store/hooks"
 
 // Orders whose status is "cancelled" never actually delivered the book, so
 // they don't count toward "purchased" — matches the only distinction the
-// live GetOrdersResponse shape actually exposes (see book-schemas.ts).
+// live GetOrdersResponse shape actually exposes (see book-detail-schemas.ts).
 function orderCountsAsPurchase(status: string) {
   return status !== "cancelled"
 }
@@ -37,9 +35,9 @@ function useBookDetail(bookId: number) {
   // GET /orders is authenticated — skipped when signed out, matching
   // useCourseDetail's identical treatment of GET /courses/purchased.
   const { data: orders } = useGetOrdersQuery(undefined, { skip: !isAuthenticated })
-  const { data: categories } = useGetBookCategoriesQuery()
-  const { data: difficulties } = useGetBookDifficultiesQuery()
-  const { data: authors } = useGetBookAuthorsQuery()
+  const { data: categories } = useGetBookDetailCategoriesQuery()
+  const { data: difficulties } = useGetBookDetailDifficultiesQuery()
+  const { data: authors } = useGetBookDetailAuthorsQuery()
 
   const [addToCart, { isLoading: isAddingToCart }] = useAddToCartMutation()
 
@@ -60,7 +58,7 @@ function useBookDetail(bookId: number) {
       await addToCart(bookId).unwrap()
       setJustAdded(true)
     } catch (error) {
-      setCartError(getBookErrorMessage(error, tErrors("generic")))
+      setCartError(getBookDetailErrorMessage(error, tErrors("generic")))
     }
   }
 

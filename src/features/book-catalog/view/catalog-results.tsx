@@ -10,9 +10,9 @@ import type {
   BookDifficulty,
   BookLanguage,
   BookListItem,
-} from "@/features/library/model/book-schemas"
-import { BookListCard } from "@/features/library/view/book-list-card"
-import { CatalogPagination } from "@/features/library/view/catalog-pagination"
+} from "@/features/book-catalog/model/book-catalog-schemas"
+import { BookListCard } from "@/features/book-catalog/view/book-list-card"
+import { CatalogPagination } from "@/features/book-catalog/view/catalog-pagination"
 
 interface CatalogResultsProps {
   isLoading: boolean

@@ -1,12 +1,13 @@
 import { z } from "zod"
 
 // GET /cart/read — GetCartItemsResponse[] (see /swagger/account, "Book Cart").
-// Same base shape as Library's `bookBaseSchema` (see
-// @/features/library/model/book-schemas.ts) plus `quantity`, but duplicated
-// here rather than imported — each feature's model layer is self-contained
-// per CLAUDE.md's code-splitting mandate (endpoints/types for one feature
-// must not be reachable through another feature's file), same pattern
-// Courses/Library already follow for their own duplicated error helpers.
+// Same base shape as book-catalog's `bookListItemSchema` (see
+// @/features/book-catalog/model/book-catalog-schemas.ts) plus `quantity`,
+// but duplicated here rather than imported — each feature's model layer is
+// self-contained per CLAUDE.md's code-splitting mandate (endpoints/types
+// for one feature must not be reachable through another feature's file),
+// same pattern Courses/Library already follow for their own duplicated
+// error helpers.
 const cartItemSchema = z.object({
   id: z.number(),
   title: z.string(),

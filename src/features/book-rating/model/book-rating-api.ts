@@ -4,11 +4,9 @@ import {
   type createBookRatingRequestSchema,
   createBookRatingResponseSchema,
   deleteBookRatingResponseSchema,
-} from "@/features/library/model/book-schemas"
+} from "@/features/book-rating/model/book-rating-schemas"
 import { baseApi } from "@/lib/api/base-api"
 
-// Split from book-detail-api.ts by concern (rating vs. detail fetch), same
-// as Courses splitting course-review-api.ts out of course-detail-api.ts.
 const bookRatingApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     rateBook: builder.mutation<

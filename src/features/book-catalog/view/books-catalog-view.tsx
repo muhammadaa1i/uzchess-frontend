@@ -9,12 +9,12 @@ import {
   type BookLanguage,
   translateCategoryTitle,
   translateDifficultyDegree,
-} from "@/features/library/model/book-schemas"
-import { CatalogHeader } from "@/features/library/view/catalog-header"
-import { CatalogMobileFilterDialog } from "@/features/library/view/catalog-mobile-filter-dialog"
-import { CatalogResults } from "@/features/library/view/catalog-results"
-import { CatalogSidebarFilter } from "@/features/library/view/catalog-sidebar-filter"
-import { useBookCatalog } from "@/features/library/viewmodel/use-book-catalog"
+} from "@/features/book-catalog/model/book-catalog-schemas"
+import { CatalogHeader } from "@/features/book-catalog/view/catalog-header"
+import { CatalogMobileFilterDialog } from "@/features/book-catalog/view/catalog-mobile-filter-dialog"
+import { CatalogResults } from "@/features/book-catalog/view/catalog-results"
+import { CatalogSidebarFilter } from "@/features/book-catalog/view/catalog-sidebar-filter"
+import { useBookCatalog } from "@/features/book-catalog/viewmodel/use-book-catalog"
 
 function BooksCatalogView() {
   const t = useTranslations("Library")

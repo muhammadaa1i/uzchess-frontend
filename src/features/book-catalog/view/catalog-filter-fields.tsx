@@ -15,9 +15,9 @@ import {
   type BookLanguage,
   translateCategoryTitle,
   translateDifficultyDegree,
-} from "@/features/library/model/book-schemas"
-import { CatalogFilterGroup } from "@/features/library/view/catalog-filter-group"
-import { RatingStarFilter } from "@/features/library/view/catalog-rating-star-filter"
+} from "@/features/book-catalog/model/book-catalog-schemas"
+import { CatalogFilterGroup } from "@/features/book-catalog/view/catalog-filter-group"
+import { RatingStarFilter } from "@/features/book-catalog/view/catalog-rating-star-filter"
 
 interface CatalogFilterValues {
   categoryId: string

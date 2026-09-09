@@ -4,7 +4,7 @@ import { StarIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
-import { useBookRating } from "@/features/library/viewmodel/use-book-rating"
+import { useBookRating } from "@/features/book-rating/viewmodel/use-book-rating"
 import { cn } from "@/lib/utils"
 
 interface BookRatingWidgetProps {
@@ -13,10 +13,10 @@ interface BookRatingWidgetProps {
 }
 
 // No GET /books/reviews/{id}-style endpoint exists in the live spec (see
-// book-schemas.ts) — this can only submit/withdraw the signed-in user's own
-// score against POST/DELETE /books/rate/{id}, it can't render a review
-// feed the way CourseReviewsSection does. Flagged as a backend gap rather
-// than guessed at.
+// book-rating-schemas.ts) — this can only submit/withdraw the signed-in
+// user's own score against POST/DELETE /books/rate/{id}, it can't render a
+// review feed the way CourseReviewsSection does. Flagged as a backend gap
+// rather than guessed at.
 function BookRatingWidget({ bookId, isAuthenticated }: BookRatingWidgetProps) {
   const t = useTranslations("Library.detail.rating")
   const { selectedScore, submitRating, clearRating, isSubmitting, error, justRated } =

@@ -1,14 +1,15 @@
 import { useTranslations } from "next-intl"
 import { useState } from "react"
 
-import { getBookErrorMessage } from "@/features/library/model/book-error"
-import { useRateBookMutation, useRemoveBookRatingMutation } from "@/features/library/model/book-rating-api"
+import { useRateBookMutation, useRemoveBookRatingMutation } from "@/features/book-rating/model/book-rating-api"
+import { getBookRatingErrorMessage } from "@/features/book-rating/model/book-rating-error"
 
 // There's no GET endpoint exposing the current user's own prior rating for
-// a book (see book-schemas.ts's note on the missing reviews-list endpoint),
-// so "selected score" is purely this session's ephemeral UI state — not
-// something restorable from the server, hence plain useState rather than
-// Redux (same "view-local state" exception CLAUDE.md carves out).
+// a book (see book-rating-schemas.ts's note on the missing reviews-list
+// endpoint), so "selected score" is purely this session's ephemeral UI
+// state — not something restorable from the server, hence plain useState
+// rather than Redux (same "view-local state" exception CLAUDE.md carves
+// out).
 function useBookRating(bookId: number) {
   const tErrors = useTranslations("Library.detail.rating.errors")
   const [selectedScore, setSelectedScore] = useState(0)
@@ -26,7 +27,7 @@ function useBookRating(bookId: number) {
       setSelectedScore(score)
       setJustRated(true)
     } catch (submitError) {
-      setError(getBookErrorMessage(submitError, tErrors("generic")))
+      setError(getBookRatingErrorMessage(submitError, tErrors("generic")))
     }
   }
 
@@ -37,7 +38,7 @@ function useBookRating(bookId: number) {
       await removeRating(bookId).unwrap()
       setSelectedScore(0)
     } catch (removeError) {
-      setError(getBookErrorMessage(removeError, tErrors("generic")))
+      setError(getBookRatingErrorMessage(removeError, tErrors("generic")))
     }
   }
 

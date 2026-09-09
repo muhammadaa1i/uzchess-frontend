@@ -2,11 +2,11 @@
 // where `message` is a string for most errors but a string[] for
 // class-validator failures — this normalizes both into one displayable
 // string for whatever a `.unwrap()`-ed RTK Query mutation throws (typed
-// `unknown` at the catch site). Duplicated from Library's identical helper
-// (@/features/book-detail/model/book-detail-error.ts) rather than imported
-// — each feature's model layer is self-contained per CLAUDE.md's
+// `unknown` at the catch site). Duplicated across features (auth,
+// course-detail, lessons, course-reviews, book-detail, ...) rather than
+// imported — each feature's model layer is self-contained per CLAUDE.md's
 // code-splitting mandate.
-function getContactErrorMessage(error: unknown, fallback: string): string {
+function getBookRatingErrorMessage(error: unknown, fallback: string): string {
   if (typeof error !== "object" || error === null) return fallback
 
   if ("data" in error) {
@@ -25,4 +25,4 @@ function getContactErrorMessage(error: unknown, fallback: string): string {
   return fallback
 }
 
-export { getContactErrorMessage }
+export { getBookRatingErrorMessage }

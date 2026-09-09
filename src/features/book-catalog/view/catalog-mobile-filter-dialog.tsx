@@ -12,11 +12,15 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
-import type { BookCategory, BookDifficulty, BookLanguage } from "@/features/library/model/book-schemas"
+import type {
+  BookCategory,
+  BookDifficulty,
+  BookLanguage,
+} from "@/features/book-catalog/model/book-catalog-schemas"
 import {
   CatalogFilterFields,
   type CatalogFilterValues,
-} from "@/features/library/view/catalog-filter-fields"
+} from "@/features/book-catalog/view/catalog-filter-fields"
 
 interface CatalogMobileFilterDialogProps {
   hasActiveFilters: boolean

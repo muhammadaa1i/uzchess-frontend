@@ -6,7 +6,7 @@ import {
   useGetBookDifficultiesQuery,
   useGetBookLanguagesQuery,
   useGetBooksQuery,
-} from "@/features/library/model/book-catalog-api"
+} from "@/features/book-catalog/model/book-catalog-api"
 
 const CATALOG_PAGE_SIZE = 12
 

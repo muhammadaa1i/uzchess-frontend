@@ -8,10 +8,10 @@ import { ErrorState } from "@/components/shared/error/error-state"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { authModalOpened } from "@/features/auth/model/auth-slice"
-import { translateCategoryTitle, translateDifficultyDegree } from "@/features/library/model/book-schemas"
-import { BookDetailSkeleton } from "@/features/library/view/book-detail-skeleton"
-import { BookRatingWidget } from "@/features/library/view/book-rating-widget"
-import { useBookDetail } from "@/features/library/viewmodel/use-book-detail"
+import { translateCategoryTitle, translateDifficultyDegree } from "@/features/book-detail/model/book-detail-schemas"
+import { BookDetailSkeleton } from "@/features/book-detail/view/book-detail-skeleton"
+import { useBookDetail } from "@/features/book-detail/viewmodel/use-book-detail"
+import { BookRatingWidget } from "@/features/book-rating/view/book-rating-widget"
 import { useAppDispatch } from "@/lib/store/hooks"
 import { formatPrice } from "@/lib/utils"
 
@@ -19,6 +19,12 @@ interface BookDetailViewProps {
   bookId: number
 }
 
+// Imports BookRatingWidget from book-rating — the one deliberate
+// cross-feature view import in this split (same pattern as course-detail
+// embedding course-reviews' section directly, see
+// ../course-detail/view/course-detail-content.tsx): the detail page embeds
+// the rating widget inline rather than linking to it. Everything else about
+// rating (model/viewmodel/state) lives entirely in that feature.
 function BookDetailView({ bookId }: BookDetailViewProps) {
   const t = useTranslations("Library.detail")
   const tLibrary = useTranslations("Library")

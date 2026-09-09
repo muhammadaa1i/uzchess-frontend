@@ -13,7 +13,7 @@ import {
   type BookListItem,
   translateCategoryTitle,
   translateDifficultyDegree,
-} from "@/features/library/model/book-schemas"
+} from "@/features/book-catalog/model/book-catalog-schemas"
 import { Link } from "@/lib/i18n/navigation"
 import { formatPrice } from "@/lib/utils"
 
@@ -25,10 +25,10 @@ interface BookListCardProps {
   authors: BookAuthor[]
 }
 
-// Figma's catalog row-card layout (horizontal thumbnail + metadata), sibling
-// to the grid BookCard rather than a replacement — BookCard stays the
-// poster shape used by Home's top-books widget. Feature-local like BookCard,
-// per CLAUDE.md's code-splitting mandate.
+// Figma's catalog row-card layout (horizontal thumbnail + metadata) — the
+// only book card in this feature; unlike Courses, there's no separate grid
+// "poster" card here (Home's top-books widget renders its own compact row
+// rather than reusing this).
 function BookListCard({ book, category, difficulty, language, authors }: BookListCardProps) {
   const t = useTranslations("Library.card")
   const tLibrary = useTranslations("Library")

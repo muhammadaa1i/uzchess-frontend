@@ -6,7 +6,7 @@ import {
   bookDifficultySchema,
   bookLanguageSchema,
   paginatedBooksSchema,
-} from "@/features/library/model/book-schemas"
+} from "@/features/book-catalog/model/book-catalog-schemas"
 import { baseApi } from "@/lib/api/base-api"
 
 interface GetBooksParams {
@@ -19,11 +19,12 @@ interface GetBooksParams {
   size?: number
 }
 
-// Library feature's own RTK Query endpoints, injected into the shared
+// Book-catalog feature's own RTK Query endpoints, injected into the shared
 // endpoint-less `baseApi` (see CLAUDE.md's code-splitting mandate) — kept
-// separate from home's identically-shaped `getTopRatedBooks` endpoint in
-// home-api.ts, since endpoints for one feature must not live in another
-// feature's model file, even against the same backend route.
+// separate from home's identically-shaped `getTopRatedBooks` endpoint (see
+// ../top-books/model/top-books-api.ts) and book-detail's own duplicate
+// lookup endpoints, since endpoints for one feature must not live in
+// another feature's model file, even against the same backend route.
 const bookCatalogApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getBooks: builder.query<z.infer<typeof paginatedBooksSchema>, GetBooksParams | void>({

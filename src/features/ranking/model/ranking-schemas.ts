@@ -50,7 +50,7 @@ const paginatedPlayerRankingSchema = paginatedSchema(playerRankingSchema)
 
 // GET /players/ranking/filters — GetRankingFiltersResponse. `countries` is a
 // list of ISO country codes currently used by ranked players (see
-// countryCodesToOptions in @/components/shared/country-select for the
+// countryCodesToOptions in @/components/shared/form/country-select for the
 // code -> display name/flag conversion; the backend doesn't return names).
 const rankingFiltersSchema = z.object({
   countries: z.array(z.string()),

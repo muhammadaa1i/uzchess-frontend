@@ -1,7 +1,7 @@
 import { useLocale } from "next-intl"
 import { useState } from "react"
 
-import { countryCodesToOptions } from "@/components/shared/country-select"
+import { countryCodesToOptions } from "@/components/shared/form/country-select"
 import {
   useGetRankingFiltersQuery,
   useGetRankingQuery,

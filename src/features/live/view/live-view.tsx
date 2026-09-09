@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl"
 
 import { TimeControlTag } from "@/components/shared/chess/time-control-tag"
 import { ErrorState } from "@/components/shared/error-state"
-import { YoutubeEmbedPlayerLoader } from "@/components/shared/youtube-embed-player-loader"
+import { YoutubeEmbedPlayerLoader } from "@/components/shared/video/youtube-embed-player-loader"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Skeleton } from "@/components/ui/skeleton"

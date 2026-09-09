@@ -12,7 +12,7 @@ import { cn, formatDate } from "@/lib/utils"
 // code-splitting mandate: since neither feature may import the other's
 // model/view files, this row shape is defined locally here rather than
 // importing a feature's zod-inferred type, the same pattern already used by
-// @/components/shared/ranking-table. Each feature's own `NewsItem` type is a
+// @/components/shared/ranking/ranking-table. Each feature's own `NewsItem` type is a
 // structural superset of `NewsCardRow`, so no adapter/mapping is needed to
 // pass it in directly.
 interface NewsCardRow {

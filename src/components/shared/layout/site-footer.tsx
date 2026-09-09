@@ -1,7 +1,7 @@
 import Image from "next/image"
 import { useTranslations } from "next-intl"
 
-import { ContactFooterInfo } from "@/components/shared/contact-footer-info"
+import { ContactFooterInfo } from "@/components/shared/layout/contact-footer-info"
 import { Link } from "@/lib/i18n/navigation"
 
 const SOCIAL_LINKS = [

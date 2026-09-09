@@ -6,7 +6,7 @@ import { useTranslations } from "next-intl"
 import { useState } from "react"
 
 import { ErrorState } from "@/components/shared/error-state"
-import { NewsGridCard } from "@/components/shared/news-grid-card"
+import { NewsGridCard } from "@/components/shared/news/news-grid-card"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useNewsDetail } from "@/features/news/viewmodel/use-news-detail"

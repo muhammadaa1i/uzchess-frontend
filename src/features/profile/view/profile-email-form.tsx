@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl"
 import { Controller } from "react-hook-form"
 
-import { TextField } from "@/components/shared/text-field"
+import { TextField } from "@/components/shared/form/text-field"
 import { Button } from "@/components/ui/button"
 import { FieldError } from "@/components/ui/field"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"

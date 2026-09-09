@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl"
 import type { FormEvent } from "react"
 import type { UseFormReturn } from "react-hook-form"
 
-import { TextField } from "@/components/shared/text-field"
+import { TextField } from "@/components/shared/form/text-field"
 import { Button } from "@/components/ui/button"
 import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { Textarea } from "@/components/ui/textarea"

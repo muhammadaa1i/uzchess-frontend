@@ -4,7 +4,7 @@ import { CameraIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 import { useId } from "react"
 
-import { TextField } from "@/components/shared/text-field"
+import { TextField } from "@/components/shared/form/text-field"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Field, FieldLabel } from "@/components/ui/field"

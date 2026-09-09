@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 
-import { TextField } from "@/components/shared/text-field"
+import { TextField } from "@/components/shared/form/text-field"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import { authModalOpened } from "@/features/auth/model/auth-slice"

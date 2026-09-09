@@ -6,8 +6,8 @@ import { useTranslations } from "next-intl"
 import { useState } from "react"
 
 import { TimeControlTag } from "@/components/shared/chess/time-control-tag"
-import { SectionHeading } from "@/components/shared/section-heading"
-import { YoutubeEmbedPlayerLoader } from "@/components/shared/youtube-embed-player-loader"
+import { YoutubeEmbedPlayerLoader } from "@/components/shared/video/youtube-embed-player-loader"
+import { SectionHeading } from "@/components/shared/widget/section-heading"
 import { Button } from "@/components/ui/button"
 import { Skeleton } from "@/components/ui/skeleton"
 import {

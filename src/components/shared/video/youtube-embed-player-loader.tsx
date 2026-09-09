@@ -10,7 +10,7 @@ import dynamic from "next/dynamic"
 // Component) page.
 const YoutubeEmbedPlayer = dynamic(
   () =>
-    import("@/components/shared/youtube-embed-player").then((mod) => mod.YoutubeEmbedPlayer),
+    import("@/components/shared/video/youtube-embed-player").then((mod) => mod.YoutubeEmbedPlayer),
   { ssr: false }
 )
 

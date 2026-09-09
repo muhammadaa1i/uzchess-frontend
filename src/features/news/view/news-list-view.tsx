@@ -5,8 +5,8 @@ import { useTranslations } from "next-intl"
 import type { MouseEvent } from "react"
 
 import { ErrorState } from "@/components/shared/error-state"
-import { NewsGridCard } from "@/components/shared/news-grid-card"
-import { TextField } from "@/components/shared/text-field"
+import { TextField } from "@/components/shared/form/text-field"
+import { NewsGridCard } from "@/components/shared/news/news-grid-card"
 import {
   Pagination,
   PaginationContent,

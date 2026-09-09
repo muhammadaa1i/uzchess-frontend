@@ -3,9 +3,9 @@
 import { useTranslations } from "next-intl"
 import type { MouseEvent } from "react"
 
-import { CountrySelect } from "@/components/shared/country-select"
 import { ErrorState } from "@/components/shared/error-state"
-import { RankingTable } from "@/components/shared/ranking-table"
+import { CountrySelect } from "@/components/shared/form/country-select"
+import { RankingTable } from "@/components/shared/ranking/ranking-table"
 import {
   Pagination,
   PaginationContent,

@@ -2,9 +2,9 @@
 
 import { useTranslations } from "next-intl"
 
-import { EmptyState } from "@/components/shared/empty-state"
 import { ErrorState } from "@/components/shared/error-state"
-import { SectionHeading } from "@/components/shared/section-heading"
+import { EmptyState } from "@/components/shared/widget/empty-state"
+import { SectionHeading } from "@/components/shared/widget/section-heading"
 import { Skeleton } from "@/components/ui/skeleton"
 import { CompletedGameRow, GRID_COLS } from "@/features/completed-games/view/completed-game-row"
 import { useCompletedGames } from "@/features/completed-games/viewmodel/use-completed-games"

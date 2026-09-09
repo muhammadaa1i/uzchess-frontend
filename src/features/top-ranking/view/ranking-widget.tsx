@@ -2,16 +2,16 @@
 
 import { useTranslations } from "next-intl"
 
-import { EmptyState } from "@/components/shared/empty-state"
 import { ErrorState } from "@/components/shared/error-state"
-import { RankingTable } from "@/components/shared/ranking-table"
-import { SectionHeading } from "@/components/shared/section-heading"
+import { RankingTable } from "@/components/shared/ranking/ranking-table"
+import { EmptyState } from "@/components/shared/widget/empty-state"
+import { SectionHeading } from "@/components/shared/widget/section-heading"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useTopRanking } from "@/features/top-ranking/viewmodel/use-top-ranking"
 
 // "Barchasi" links to the full Ranking page (section 3 of the Figma to-do
 // list) — the row rendering itself lives in the shared `RankingTable`
-// component (@/components/shared/ranking-table) so this widget and the full
+// component (@/components/shared/ranking/ranking-table) so this widget and the full
 // Ranking page don't import from each other's feature folder (see CLAUDE.md's
 // code-splitting mandate).
 function RankingWidget() {

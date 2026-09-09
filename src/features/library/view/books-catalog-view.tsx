@@ -5,7 +5,7 @@ import { useTranslations } from "next-intl"
 import type { MouseEvent, ReactNode } from "react"
 
 import { ErrorState } from "@/components/shared/error-state"
-import { TextField } from "@/components/shared/text-field"
+import { TextField } from "@/components/shared/form/text-field"
 import {
   Breadcrumb,
   BreadcrumbItem,

@@ -5,7 +5,7 @@ import { cn } from "@/lib/utils"
 // Purely presentational empty-state placeholder, shared across every
 // Home-page widget feature (game-of-day, top-ranking, latest-news,
 // top-courses, top-books, completed-games) — same rationale as
-// @/components/shared/section-heading.
+// @/components/shared/widget/section-heading.
 interface EmptyStateProps {
   message?: string
   className?: string

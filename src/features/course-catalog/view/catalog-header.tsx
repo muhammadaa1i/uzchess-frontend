@@ -3,7 +3,7 @@
 import { GraduationCapIcon, HomeIcon, SearchIcon } from "lucide-react"
 import { useTranslations } from "next-intl"
 
-import { TextField } from "@/components/shared/text-field"
+import { TextField } from "@/components/shared/form/text-field"
 import {
   Breadcrumb,
   BreadcrumbItem,

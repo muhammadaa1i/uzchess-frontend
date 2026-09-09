@@ -3,10 +3,9 @@
 // class-validator failures — this normalizes both into one displayable
 // string for whatever a `.unwrap()`-ed RTK Query mutation throws (typed
 // `unknown` at the catch site). Duplicated across features (auth, course-detail,
-// lessons, course-reviews, library, ...) rather than imported — each
-// feature's model layer is self-contained per CLAUDE.md's code-splitting
-// mandate.
-function getBookErrorMessage(error: unknown, fallback: string): string {
+// lessons, course-reviews) rather than imported — each feature's model layer
+// is self-contained per CLAUDE.md's code-splitting mandate.
+function getCourseReviewErrorMessage(error: unknown, fallback: string): string {
   if (typeof error !== "object" || error === null) return fallback
 
   if ("data" in error) {
@@ -25,4 +24,4 @@ function getBookErrorMessage(error: unknown, fallback: string): string {
   return fallback
 }
 
-export { getBookErrorMessage }
+export { getCourseReviewErrorMessage }

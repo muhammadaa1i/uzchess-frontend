@@ -16,8 +16,8 @@ import { useAppDispatch } from "@/lib/store/hooks"
 
 // Dashboard shell — left-nav Tabs (general settings / purchased courses /
 // orders / saved items) per CLAUDE.md's Profile section. Same
-// sign-in-required guard as Courses' lesson screen
-// (@/features/courses/view/lesson-view.tsx): the whole page is gated behind
+// sign-in-required guard as the lessons feature's lesson screen
+// (@/features/lessons/view/lesson-view.tsx): the whole page is gated behind
 // auth, so an unauthenticated visit opens the sign-in modal and renders a
 // plain fallback instead of any dashboard chrome.
 function ProfileView() {

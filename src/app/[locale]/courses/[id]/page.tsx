@@ -1,4 +1,4 @@
-import { CourseDetailView } from "@/features/courses/view/course-detail-view"
+import { CourseDetailView } from "@/features/course-detail/view/course-detail-view"
 
 interface CourseDetailPageProps {
   params: Promise<{ id: string }>

@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 
-import { ErrorState } from "@/components/shared/error-state"
+import { ErrorState } from "@/components/shared/error/error-state"
 import { Skeleton } from "@/components/ui/skeleton"
 import { CertificateVerifyNotFound } from "@/features/certificates/view/certificate-verify-not-found"
 import { CertificateVerifyResult } from "@/features/certificates/view/certificate-verify-result"

@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 
-import { ErrorState } from "@/components/shared/error-state"
+import { ErrorState } from "@/components/shared/error/error-state"
 import { Skeleton } from "@/components/ui/skeleton"
 import type { CourseReview } from "@/features/course-reviews/model/course-review-schemas"
 import { CourseReviewItem } from "@/features/course-reviews/view/course-review-item"

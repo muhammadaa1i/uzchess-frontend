@@ -2,7 +2,7 @@
 
 import { useTranslations } from "next-intl"
 
-import { ErrorState } from "@/components/shared/error-state"
+import { ErrorState } from "@/components/shared/error/error-state"
 import { NewsCard } from "@/components/shared/news/news-card"
 import { EmptyState } from "@/components/shared/widget/empty-state"
 import { SectionHeading } from "@/components/shared/widget/section-heading"

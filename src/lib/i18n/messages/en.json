@@ -539,6 +539,15 @@
       "emailInvalid": "Enter a valid email address"
     }
   },
+  "Admin": {
+    "nav": {
+      "roles": "Roles",
+      "news": "News",
+      "banners": "Banners",
+      "books": "Books",
+      "courses": "Courses"
+    }
+  },
   "Profile": {
     "signInRequired": "Sign in to view your profile",
     "notFound": "Profile not found",

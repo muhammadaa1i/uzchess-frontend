@@ -539,6 +539,15 @@
       "emailInvalid": "To'g'ri elektron pochta manzilini kiriting"
     }
   },
+  "Admin": {
+    "nav": {
+      "roles": "Rollar",
+      "news": "Yangiliklar",
+      "banners": "Bannerlar",
+      "books": "Kitoblar",
+      "courses": "Kurslar"
+    }
+  },
   "Profile": {
     "signInRequired": "Profilni ko'rish uchun tizimga kiring",
     "notFound": "Profil topilmadi",

@@ -168,6 +168,20 @@ Same rule as Auth above: styling from Figma, fields/flow from the backend (`/pro
 - [x] Static/CMS page template (`src/features/static-page`) — one reusable View wired to `/about`, `/terms`, `/cookie-policy` (matching the footer's existing hrefs/labels), real (non-lorem-ipsum) placeholder copy in all three locales. No backend CMS endpoint exists anywhere — confirmed genuinely static, no gap to flag.
 - [x] 404 page (`src/app/[locale]/not-found.tsx`, decorative `SimpleBoard` + scattered pieces) plus a `src/app/[locale]/[...rest]/page.tsx` catch-all calling `notFound()` — this Next.js version only reaches a segment's `not-found.tsx` when something throws `notFound()`, so an arbitrary unmatched path needs the catch-all to trigger it. Note: this renders as a soft-404 (HTTP 200 with `noindex`), not a true 404 status — getting a hard 404 would require a `proxy.ts`-level check, out of scope here.
 
+### 12. Admin panel (no Figma design — internal tooling over existing backend-only admin endpoints)
+
+Backend has three roles (`user`/`admin`/`superadmin`, `../backend/src/core/enums/role/role.enum.ts`) and ~20 `@Roles(Role.Admin)`-gated domains, with zero frontend to drive them today — admins currently have no choice but to hit Swagger/curl directly. Same "flag the gap" convention as elsewhere in this list applies twice here: **role is not exposed on any REST response** (not `GetProfileResponse`, not Login/RegisterResponse) — it only exists inside the JWT `accessToken`'s `roles` claim (`login.handler.ts`, re-embedded identically on refresh in `refresh-token.handler.ts`), so admin-gating decodes the JWT client-side purely for UI purposes — the backend's `@Roles()` guard remains the real security boundary. And **no `GET /users` listing/search endpoint exists** (only `POST /users/:id/roles`, superadmin-gated) — the role-assignment screen takes a numeric user ID directly rather than offering a picker.
+
+- [x] Infra: `Role` type + JWT role decoder (`src/features/auth/model/role.ts`, `jwt.ts`), `auth-selectors.ts` (`selectIsAdmin`/`selectIsSuperAdmin`/`selectAuthRehydrated`), `use-admin-access.ts` — `selectAuthRehydrated` exists because `provider.tsx` uses `PersistGate loading={null}`, so `accessToken` is briefly `null` for one tick even for an already-logged-in admin; the `/admin` layout guard must wait for rehydration before redirecting or it bounces real admins on refresh.
+- [ ] `/admin` layout (`src/app/[locale]/admin/layout.tsx`) gating on `useAdminAccess()` + `admin-shell` sidebar nav (`src/features/admin/admin-shell`)
+- [ ] Role management (`src/features/admin/role-management`) — `POST /users/:id/roles`, gated to superadmin (stricter than the rest of `/admin`, which only needs `admin`), manual numeric user-ID input per the gap noted above
+- [ ] News admin CRUD (`src/features/admin/news-management`) — `POST/PATCH/DELETE news/{create,update/:id,delete/:id}`, multipart image upload
+- [ ] Banners admin CRUD (`src/features/admin/banner-management`)
+- [ ] Books admin CRUD (`src/features/admin/book-management`) — Book entity only, not the sub-catalogs (see backlog below)
+- [ ] Courses admin CRUD (`src/features/admin/course-management`) — Course entity only, not sections/lessons authoring
+
+**Deferred backlog** (real `@Roles(Role.Admin)` domains, intentionally not in this pass): book/course categories, authors, difficulty, languages, coupons, delivery-setting, admin order list, rating moderation, course sections/lessons authoring, players, games, game-of-day, contact-message inbox.
+
 ### Ambiguities to clarify before implementation
 
 - [x] **Resolved — stray moodboard, ignore.** The "Promote/Desktop/Dark" component (Inter font, "Promote"/"Engagement" widgets) sits inside an unnamed, unstructured `[GROUP]` (node `801:37669`) alongside literal "OLD"/"NEW" comparison text labels and other scratch frames — clearly a design-iteration scratch area, not a named UzChess screen like every real flow frame (`Cart`, `Education / Courses / Single`, etc.). No action needed.

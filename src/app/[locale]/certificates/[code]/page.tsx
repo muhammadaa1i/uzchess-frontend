@@ -1,4 +1,4 @@
-import { CertificateVerifyView } from "@/features/certificates/view/certificate-verify-view"
+import { CertificateVerifyView } from "@/features/courses/certificates/view/certificate-verify-view"
 
 interface CertificateVerifyPageProps {
   params: Promise<{ code: string }>

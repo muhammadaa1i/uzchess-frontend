@@ -3,7 +3,7 @@
 // class-validator failures — this normalizes both into one displayable
 // string for whatever a `.unwrap()`-ed RTK Query mutation throws (typed
 // `unknown` at the catch site). Duplicated from Library's identical helper
-// (@/features/book-detail/model/book-detail-error.ts) rather than imported
+// (@/features/library/book-detail/model/book-detail-error.ts) rather than imported
 // — each feature's model layer is self-contained per CLAUDE.md's
 // code-splitting mandate.
 function getContactErrorMessage(error: unknown, fallback: string): string {

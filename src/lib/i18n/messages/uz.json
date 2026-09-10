@@ -547,6 +547,13 @@
       "unverified": "Email tasdiqlanmagan",
       "changeAvatarAria": "Profil rasmini o'zgartirish"
     },
+    "logout": {
+      "trigger": "Chiqish",
+      "title": "Tizimdan chiqish",
+      "description": "Rostan ham tizimdan chiqishni tasdiqlaysizmi?",
+      "cancel": "Bekor qilish",
+      "confirm": "Davom etish"
+    },
     "nav": {
       "general": "Umumiy sozlamalar",
       "purchasedCourses": "Sotib olingan kurslar",

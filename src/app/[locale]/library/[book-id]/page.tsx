@@ -1,4 +1,4 @@
-import { BookDetailView } from "@/features/book-detail/view/book-detail-view"
+import { BookDetailView } from "@/features/library/book-detail/view/book-detail-view"
 
 interface BookDetailPageProps {
   params: Promise<{ "book-id": string }>

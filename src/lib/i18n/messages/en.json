@@ -547,6 +547,13 @@
       "unverified": "Email not verified",
       "changeAvatarAria": "Change profile photo"
     },
+    "logout": {
+      "trigger": "Log out",
+      "title": "Log out",
+      "description": "Are you sure you want to log out?",
+      "cancel": "Cancel",
+      "confirm": "Continue"
+    },
     "nav": {
       "general": "General settings",
       "purchasedCourses": "Purchased courses",

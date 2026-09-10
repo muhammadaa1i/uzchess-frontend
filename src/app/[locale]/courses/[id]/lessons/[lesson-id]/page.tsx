@@ -1,4 +1,4 @@
-import { LessonView } from "@/features/lessons/view/lesson-view"
+import { LessonView } from "@/features/courses/lessons/view/lesson-view"
 
 interface LessonPageProps {
   params: Promise<{ id: string; "lesson-id": string }>

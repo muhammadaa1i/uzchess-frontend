@@ -33,7 +33,13 @@ function useSignIn() {
     setFormError(null)
     try {
       const response = await login(values).unwrap()
-      dispatch(credentialsSet(response))
+      dispatch(
+        credentialsSet({
+          accessToken: response.accessToken,
+          refreshToken: response.refreshToken,
+          user: response,
+        })
+      )
       dispatch(authModalClosed())
     } catch (error) {
       if (isThrottled(error)) {

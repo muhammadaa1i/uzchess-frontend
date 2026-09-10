@@ -1,4 +1,4 @@
-import { CheckoutView } from "@/features/checkout/view/checkout-view"
+import { CheckoutView } from "@/features/commerce/checkout/view/checkout-view"
 
 interface CheckoutPageProps {
   searchParams: Promise<{ code?: string }>

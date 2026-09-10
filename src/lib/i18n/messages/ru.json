@@ -547,6 +547,13 @@
       "unverified": "Email не подтверждён",
       "changeAvatarAria": "Изменить фото профиля"
     },
+    "logout": {
+      "trigger": "Выйти",
+      "title": "Выход из системы",
+      "description": "Вы уверены, что хотите выйти из системы?",
+      "cancel": "Отмена",
+      "confirm": "Продолжить"
+    },
     "nav": {
       "general": "Общие настройки",
       "purchasedCourses": "Купленные курсы",

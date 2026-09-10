@@ -11,9 +11,8 @@ type AuthModalView = "closed" | "sign-in" | "sign-up" | "verify-email"
 interface AuthState {
   accessToken: string | null
   refreshToken: string | null
-  // Populated by POST /auth/register's response. POST /auth/login only
-  // returns a token pair (verified against the live /swagger/account-json
-  // spec) — a plain sign-in leaves `user` untouched, see auth-api.ts.
+  // Populated by both POST /auth/register's and POST /auth/login's
+  // responses — both return the user plus a token pair, see auth-api.ts.
   user: AuthUser | null
   modalView: AuthModalView
 }

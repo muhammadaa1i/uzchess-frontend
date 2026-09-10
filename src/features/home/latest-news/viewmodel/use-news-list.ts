@@ -1,0 +1,16 @@
+import { useGetHomeNewsQuery } from "@/features/home/latest-news/model/latest-news-api"
+
+const NEWS_LIST_SIZE = 6
+
+function useNewsList() {
+  const { data, isLoading, isError, refetch } = useGetHomeNewsQuery({ size: NEWS_LIST_SIZE })
+
+  return {
+    news: data?.data ?? [],
+    isLoading,
+    isError,
+    refetch,
+  }
+}
+
+export { useNewsList }

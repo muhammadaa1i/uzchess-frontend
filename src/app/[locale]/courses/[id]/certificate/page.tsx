@@ -1,4 +1,4 @@
-import { CertificateViewLoader } from "@/features/certificates/view/certificate-view-loader"
+import { CertificateViewLoader } from "@/features/courses/certificates/view/certificate-view-loader"
 
 interface CertificatePageProps {
   params: Promise<{ id: string }>

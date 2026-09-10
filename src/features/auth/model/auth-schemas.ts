@@ -47,11 +47,13 @@ const tokenPairSchema = z.object({
   refreshToken: z.string(),
 })
 
-// POST /auth/login — LoginResponse. Verified against the live
-// /swagger/account-json spec: tokens only, no user fields — unlike
-// RegisterResponse. See auth-slice.ts for how `user` state is (not)
-// populated after a plain sign-in.
-const loginResponseSchema = tokenPairSchema
+// POST /auth/login — LoginResponse. Now returns the user plus a token pair,
+// same shape as RegisterResponse, so a plain sign-in populates `user` too
+// (see auth-slice.ts / use-sign-in.ts).
+const loginResponseSchema = authUserSchema.extend({
+  accessToken: z.string(),
+  refreshToken: z.string(),
+})
 
 // POST /auth/refresh — RefreshTokenRequest / RefreshTokenResponse
 const refreshRequestSchema = z.object({

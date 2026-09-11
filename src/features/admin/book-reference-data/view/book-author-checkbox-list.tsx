@@ -2,7 +2,7 @@
 
 import { Checkbox } from "@/components/ui/checkbox"
 import { FieldLabel } from "@/components/ui/field"
-import type { BookAuthor } from "@/features/admin/book-editor/model/book-editor-schemas"
+import type { BookAuthor } from "@/features/admin/book-reference-data/model/book-reference-data-schemas"
 
 interface BookAuthorCheckboxListProps {
   authors: BookAuthor[]
@@ -14,9 +14,10 @@ interface BookAuthorCheckboxListProps {
 // of author ids (`ArrayNotEmpty`, at least one required), and there's no
 // shadcn multi-select primitive installed (see components.json's currently
 // installed set), so this is a plain scrollable checkbox list, same
-// Checkbox primitive as sign-up-form.tsx's `acceptTerms` field. One
-// component per file per CLAUDE.md/feedback conventions rather than
-// colocating this inline in book-editor-form.tsx.
+// Checkbox primitive as sign-up-form.tsx's `acceptTerms` field. Lives in this
+// reference-data slice (moved from book-editor) since it's driven entirely by
+// the `authors` reference list this slice owns — book-editor-form.tsx wraps
+// it in its own `Controller` the same way it wraps the sibling select fields.
 function BookAuthorCheckboxList({ authors, value, onChange }: BookAuthorCheckboxListProps) {
   function toggle(authorId: number, checked: boolean) {
     onChange(checked ? [...value, authorId] : value.filter((id) => id !== authorId))

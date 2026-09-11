@@ -1,12 +1,6 @@
 import type { z } from "zod"
 
-import {
-  bookAuthorSchema,
-  bookCategorySchema,
-  bookDifficultySchema,
-  bookEditorItemSchema,
-  bookLanguageSchema,
-} from "@/features/admin/book-editor/model/book-editor-schemas"
+import { bookEditorItemSchema } from "@/features/admin/book-editor/model/book-editor-schemas"
 import { baseApi } from "@/lib/api/base-api"
 
 // Shared by create/update — CreateBookRequest/UpdateBookRequest, sent as
@@ -61,40 +55,18 @@ function toFormData(body: BookMutationBody): FormData {
   return formData
 }
 
-// Book editor's own RTK Query endpoints, injected into the shared
-// endpoint-less `baseApi` (see CLAUDE.md's code-splitting mandate) — kept
-// separate from the sibling book-list slice's `getAdminBooks`/`deleteBook`
-// endpoints and from the public book-catalog feature's identically-shaped
-// reference-list endpoints (src/features/library/book-catalog/model/book-catalog-api.ts),
-// since endpoints for one feature/slice must not live in another slice's
-// model file even against the same backend route. The reference-list
-// endpoints here only ever feed read-only selects on the create/edit form —
-// this feature does not add CRUD for categories/authors/difficulty/languages
-// themselves (explicitly out of scope, see CLAUDE.md's admin-panel deferred
-// backlog). Mutations are admin-only per CLAUDE.md's admin-panel note
-// (backend-enforced via `@Roles(Role.Admin)` on BookController — only the GET
-// routes are `@Public()`). No RTK Query tag invalidation is used anywhere in
-// this codebase yet — the list refreshes via an explicit `refetch()` call
-// (owned by the sibling book-list slice) after a mutation succeeds here, same
-// pattern as news-management-api.ts.
+// Book editor's own RTK Query endpoints (create/update only — the sibling
+// book-list slice owns `getAdminBooks`/`deleteBook`, and the sibling
+// book-reference-data slice owns the read-only category/author/difficulty/
+// language lookups), injected into the shared endpoint-less `baseApi` (see
+// CLAUDE.md's code-splitting mandate). Mutations are admin-only per
+// CLAUDE.md's admin-panel note (backend-enforced via `@Roles(Role.Admin)` on
+// BookController). No RTK Query tag invalidation is used anywhere in this
+// codebase yet — the list refreshes via an explicit `refetch()` call (owned
+// by book-list) after a mutation succeeds here, same pattern as
+// news-management-api.ts.
 const bookEditorApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
-    getAdminBookCategories: builder.query<z.infer<typeof bookCategorySchema>[], void>({
-      query: () => ({ url: "/books/categories/read" }),
-      transformResponse: (response: unknown) => bookCategorySchema.array().parse(response),
-    }),
-    getAdminBookAuthors: builder.query<z.infer<typeof bookAuthorSchema>[], void>({
-      query: () => ({ url: "/authors/read" }),
-      transformResponse: (response: unknown) => bookAuthorSchema.array().parse(response),
-    }),
-    getAdminBookDifficulties: builder.query<z.infer<typeof bookDifficultySchema>[], void>({
-      query: () => ({ url: "/difficulty/read" }),
-      transformResponse: (response: unknown) => bookDifficultySchema.array().parse(response),
-    }),
-    getAdminBookLanguages: builder.query<z.infer<typeof bookLanguageSchema>[], void>({
-      query: () => ({ url: "/languages/read" }),
-      transformResponse: (response: unknown) => bookLanguageSchema.array().parse(response),
-    }),
     createBook: builder.mutation<z.infer<typeof bookEditorItemSchema>, BookMutationBody>({
       query: (body) => ({ url: "/books/create", method: "POST", body: toFormData(body) }),
       transformResponse: (response: unknown) => bookEditorItemSchema.parse(response),
@@ -113,22 +85,7 @@ const bookEditorApi = baseApi.injectEndpoints({
   }),
 })
 
-const {
-  useGetAdminBookCategoriesQuery,
-  useGetAdminBookAuthorsQuery,
-  useGetAdminBookDifficultiesQuery,
-  useGetAdminBookLanguagesQuery,
-  useCreateBookMutation,
-  useUpdateBookMutation,
-} = bookEditorApi
+const { useCreateBookMutation, useUpdateBookMutation } = bookEditorApi
 
-export {
-  bookEditorApi,
-  useCreateBookMutation,
-  useGetAdminBookAuthorsQuery,
-  useGetAdminBookCategoriesQuery,
-  useGetAdminBookDifficultiesQuery,
-  useGetAdminBookLanguagesQuery,
-  useUpdateBookMutation,
-}
+export { bookEditorApi, useCreateBookMutation, useUpdateBookMutation }
 export type { BookMutationBody }

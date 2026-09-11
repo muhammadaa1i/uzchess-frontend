@@ -1,8 +1,6 @@
 "use client"
 
-import Image from "next/image"
 import { useTranslations } from "next-intl"
-import { useId } from "react"
 import type { FormEvent } from "react"
 import { Controller } from "react-hook-form"
 import type { UseFormReturn } from "react-hook-form"
@@ -11,23 +9,22 @@ import { Button } from "@/components/ui/button"
 import { DialogTitle } from "@/components/ui/dialog"
 import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Textarea } from "@/components/ui/textarea"
 import type { BookEditorFormValues } from "@/features/admin/book-editor/model/book-editor-form-schema"
+import { BookCoverField } from "@/features/admin/book-editor/view/book-cover-field"
+import { BookMetaFields } from "@/features/admin/book-editor/view/book-meta-fields"
+import { BookPricingFields } from "@/features/admin/book-editor/view/book-pricing-fields"
 import type {
   BookAuthor,
   BookCategory,
   BookDifficulty,
   BookLanguage,
-} from "@/features/admin/book-editor/model/book-editor-schemas"
-import { BookAuthorCheckboxList } from "@/features/admin/book-editor/view/book-author-checkbox-list"
+} from "@/features/admin/book-reference-data/model/book-reference-data-schemas"
+import { BookAuthorCheckboxList } from "@/features/admin/book-reference-data/view/book-author-checkbox-list"
+import { BookCategoryField } from "@/features/admin/book-reference-data/view/book-category-field"
+import { BookDifficultyField } from "@/features/admin/book-reference-data/view/book-difficulty-field"
+import { BookLanguageField } from "@/features/admin/book-reference-data/view/book-language-field"
 
 interface BookEditorFormProps {
   title: string
@@ -46,15 +43,15 @@ interface BookEditorFormProps {
   languages: BookLanguage[]
 }
 
-// Pure form fields shared by both create and edit modes
+// Pure field composition shared by both create and edit modes
 // (book-editor-dialog.tsx decides which mutation `onSubmit` actually calls
 // via use-book-editor-form.ts) — same "dumb View, hook owns the logic" split
-// as news-management-form.tsx/banner-management-form.tsx. Category/
-// difficulty/language are read-only reference selects (see CLAUDE.md's
-// admin-panel scope note — no CRUD for those sub-catalogs here), authors is a
-// Controller-wrapped checkbox list since it's a multi-value field. Cover
-// upload mirrors news/banner's file-input pattern (no live blob-URL preview,
-// just the selected file's name — same next/image limitation noted there).
+// as news-management-form.tsx/banner-management-form.tsx. The individual
+// field groups (pricing/meta/cover) live in their own files in this slice,
+// and the reference-data-driven fields (category/difficulty/language
+// selects, author checkbox list) live in the sibling book-reference-data
+// slice — this file's only job is composing them behind the shared
+// `Controller` wiring for react-hook-form.
 function BookEditorForm({
   title,
   form,
@@ -72,7 +69,6 @@ function BookEditorForm({
   languages,
 }: BookEditorFormProps) {
   const t = useTranslations("Admin.bookManagement.form")
-  const coverInputId = useId()
 
   return (
     <div className="flex flex-col gap-4">
@@ -95,25 +91,7 @@ function BookEditorForm({
             <FieldError errors={[form.formState.errors.title]} />
           </Field>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Field>
-              <FieldLabel htmlFor="price">{t("priceLabel")}</FieldLabel>
-              <Input id="price" type="number" inputMode="numeric" {...form.register("price")} />
-              <FieldError errors={[form.formState.errors.price]} />
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="discountPrice">{t("discountPriceLabel")}</FieldLabel>
-              <Input
-                id="discountPrice"
-                type="number"
-                inputMode="numeric"
-                placeholder={t("discountPricePlaceholder")}
-                {...form.register("discountPrice")}
-              />
-              <FieldError errors={[form.formState.errors.discountPrice]} />
-            </Field>
-          </div>
+          <BookPricingFields form={form} />
 
           <Field>
             <FieldLabel htmlFor="description">{t("descriptionLabel")}</FieldLabel>
@@ -121,50 +99,18 @@ function BookEditorForm({
             <FieldError errors={[form.formState.errors.description]} />
           </Field>
 
-          <div className="grid grid-cols-2 gap-4">
-            <Field>
-              <FieldLabel htmlFor="pageCount">{t("pageCountLabel")}</FieldLabel>
-              <Input
-                id="pageCount"
-                type="number"
-                inputMode="numeric"
-                {...form.register("pageCount")}
-              />
-              <FieldError errors={[form.formState.errors.pageCount]} />
-            </Field>
-
-            <Field>
-              <FieldLabel htmlFor="publishedYear">{t("publishedYearLabel")}</FieldLabel>
-              <Input
-                id="publishedYear"
-                type="number"
-                inputMode="numeric"
-                {...form.register("publishedYear")}
-              />
-              <FieldError errors={[form.formState.errors.publishedYear]} />
-            </Field>
-          </div>
+          <BookMetaFields form={form} />
 
           <Controller
             control={form.control}
             name="categoryId"
             render={({ field }) => (
-              <Field>
-                <FieldLabel>{t("categoryLabel")}</FieldLabel>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder={t("categoryPlaceholder")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {categories.map((category) => (
-                      <SelectItem key={category.id} value={String(category.id)}>
-                        {category.title}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FieldError errors={[form.formState.errors.categoryId]} />
-              </Field>
+              <BookCategoryField
+                categories={categories}
+                value={field.value}
+                onChange={field.onChange}
+                error={form.formState.errors.categoryId}
+              />
             )}
           />
 
@@ -172,22 +118,12 @@ function BookEditorForm({
             control={form.control}
             name="difficultyId"
             render={({ field }) => (
-              <Field>
-                <FieldLabel>{t("difficultyLabel")}</FieldLabel>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder={t("difficultyPlaceholder")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {difficulties.map((difficulty) => (
-                      <SelectItem key={difficulty.id} value={String(difficulty.id)}>
-                        {difficulty.degree}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FieldError errors={[form.formState.errors.difficultyId]} />
-              </Field>
+              <BookDifficultyField
+                difficulties={difficulties}
+                value={field.value}
+                onChange={field.onChange}
+                error={form.formState.errors.difficultyId}
+              />
             )}
           />
 
@@ -195,22 +131,12 @@ function BookEditorForm({
             control={form.control}
             name="languageId"
             render={({ field }) => (
-              <Field>
-                <FieldLabel>{t("languageLabel")}</FieldLabel>
-                <Select value={field.value} onValueChange={field.onChange}>
-                  <SelectTrigger className="w-full">
-                    <SelectValue placeholder={t("languagePlaceholder")} />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {languages.map((language) => (
-                      <SelectItem key={language.id} value={String(language.id)}>
-                        {language.title}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-                <FieldError errors={[form.formState.errors.languageId]} />
-              </Field>
+              <BookLanguageField
+                languages={languages}
+                value={field.value}
+                onChange={field.onChange}
+                error={form.formState.errors.languageId}
+              />
             )}
           />
 
@@ -230,23 +156,11 @@ function BookEditorForm({
             )}
           />
 
-          <Field>
-            <FieldLabel htmlFor={coverInputId}>{t("coverLabel")}</FieldLabel>
-            {existingImageUrl && !selectedImageName && (
-              <div className="relative h-28 w-full overflow-hidden rounded-lg bg-dark-2">
-                <Image src={existingImageUrl} alt="" fill className="object-cover" />
-              </div>
-            )}
-            <Input
-              id={coverInputId}
-              type="file"
-              accept="image/*"
-              onChange={(event) => onImageChange(event.target.files?.[0])}
-            />
-            <p className="text-xs text-brand-secondary-low">
-              {selectedImageName ? t("coverSelected", { name: selectedImageName }) : t("coverHint")}
-            </p>
-          </Field>
+          <BookCoverField
+            selectedImageName={selectedImageName}
+            existingImageUrl={existingImageUrl}
+            onImageChange={onImageChange}
+          />
 
           {formError && <p className="text-sm text-destructive">{formError}</p>}
 

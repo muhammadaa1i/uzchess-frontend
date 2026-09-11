@@ -6,7 +6,10 @@ import { z } from "zod"
 // domain reuse each other's View components directly, but never each other's
 // model layer, same rule CLAUDE.md documents for course-detail vs.
 // course-reviews/lessons). book-list-row.tsx/book-edit-button.tsx pass a
-// `BookAdminItem` in as this type's structurally-identical `book` prop.
+// `BookAdminItem` in as this type's structurally-identical `book` prop. The
+// category/author/difficulty/language reference-list shapes used to also
+// live in this file but were split out into the sibling book-reference-data
+// slice, which owns that read-only lookup data independently.
 const bookEditorItemSchema = z.object({
   id: z.number(),
   title: z.string(),
@@ -24,47 +27,7 @@ const bookEditorItemSchema = z.object({
   ratingsCount: z.number().optional(),
 })
 
-// GET /books/categories/read — GetCategoriesResponse. Same reference-list
-// shape as book-catalog-schemas.ts's bookCategorySchema, duplicated here per
-// the code-splitting mandate — the create/edit form needs it as a read-only
-// reference select, not to build the categories sub-catalog CRUD (explicitly
-// out of scope, see CLAUDE.md's admin-panel deferred backlog).
-const bookCategorySchema = z.object({
-  id: z.number(),
-  title: z.string(),
-})
-
-// GET /authors/read — GetAuthorsResponse.
-const bookAuthorSchema = z.object({
-  id: z.number(),
-  fullName: z.string(),
-})
-
-// GET /difficulty/read — GetDifficultiesResponse.
-const bookDifficultySchema = z.object({
-  id: z.number(),
-  degree: z.string(),
-  icon: z.string(),
-})
-
-// GET /languages/read — GetLanguagesResponse.
-const bookLanguageSchema = z.object({
-  id: z.number(),
-  title: z.string(),
-  code: z.string(),
-})
-
 type BookEditorItem = z.infer<typeof bookEditorItemSchema>
-type BookCategory = z.infer<typeof bookCategorySchema>
-type BookAuthor = z.infer<typeof bookAuthorSchema>
-type BookDifficulty = z.infer<typeof bookDifficultySchema>
-type BookLanguage = z.infer<typeof bookLanguageSchema>
 
-export {
-  bookAuthorSchema,
-  bookCategorySchema,
-  bookDifficultySchema,
-  bookEditorItemSchema,
-  bookLanguageSchema,
-}
-export type { BookAuthor, BookCategory, BookDifficulty, BookEditorItem, BookLanguage }
+export { bookEditorItemSchema }
+export type { BookEditorItem }

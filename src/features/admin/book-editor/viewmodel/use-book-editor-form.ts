@@ -3,20 +3,14 @@ import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
-import {
-  useCreateBookMutation,
-  useGetAdminBookAuthorsQuery,
-  useGetAdminBookCategoriesQuery,
-  useGetAdminBookDifficultiesQuery,
-  useGetAdminBookLanguagesQuery,
-  useUpdateBookMutation,
-} from "@/features/admin/book-editor/model/book-editor-api"
+import { useCreateBookMutation, useUpdateBookMutation } from "@/features/admin/book-editor/model/book-editor-api"
 import { getBookEditorErrorMessage } from "@/features/admin/book-editor/model/book-editor-error"
 import {
   createBookEditorFormSchema,
   type BookEditorFormValues,
 } from "@/features/admin/book-editor/model/book-editor-form-schema"
 import type { BookEditorItem } from "@/features/admin/book-editor/model/book-editor-schemas"
+import { useBookReferenceData } from "@/features/admin/book-reference-data/viewmodel/use-book-reference-data"
 
 interface UseBookEditorFormOptions {
   book?: BookEditorItem
@@ -43,32 +37,19 @@ const EMPTY_VALUES: BookEditorFormValues = {
 // /books/update/{id} when present. Same "no separate by-id fetch" shape as
 // use-banner-form.ts: GET /books/read's list response already carries every
 // field the edit form needs (see book-editor-schemas.ts), so the row's own
-// item is passed straight in. The four reference-list queries (category/
-// author/difficulty/language) back this form's read-only reference selects/
-// checkboxes only — this feature does not add CRUD for those sub-catalogs
-// themselves (see CLAUDE.md's admin-panel deferred backlog); gated on `open`
-// for the same reason use-news-form.ts gates its by-id fetch on `open` — the
-// dialog stays mounted in each row for the row's whole lifetime, only its
-// visibility toggles, so without the gate every row would fire all four
-// reference-list requests as soon as the page loads instead of on demand.
+// item is passed straight in. The category/author/difficulty/language
+// reference-list fetching (backing this form's read-only reference
+// selects/checkboxes) lives in the sibling book-reference-data slice — see
+// that slice's use-book-reference-data.ts for why it's gated on `open`
+// (renamed `enabled` there) the same way this form's mutations are scoped to
+// this dialog's lifetime.
 function useBookEditorForm({ book, open, onSaved }: UseBookEditorFormOptions) {
   const t = useTranslations("Admin.bookManagement")
   const tValidation = useTranslations("Admin.bookManagement.validation")
   const isEditMode = book !== undefined
 
-  const { data: categories, isFetching: isCategoriesLoading } = useGetAdminBookCategoriesQuery(
-    undefined,
-    { skip: !open }
-  )
-  const { data: authors, isFetching: isAuthorsLoading } = useGetAdminBookAuthorsQuery(undefined, {
-    skip: !open,
-  })
-  const { data: difficulties, isFetching: isDifficultiesLoading } =
-    useGetAdminBookDifficultiesQuery(undefined, { skip: !open })
-  const { data: languages, isFetching: isLanguagesLoading } = useGetAdminBookLanguagesQuery(
-    undefined,
-    { skip: !open }
-  )
+  const { categories, authors, difficulties, languages, isLoading: isReferenceDataLoading } =
+    useBookReferenceData({ enabled: open })
 
   const [createBook, { isLoading: isCreating }] = useCreateBookMutation()
   const [updateBook, { isLoading: isUpdating }] = useUpdateBookMutation()
@@ -166,16 +147,15 @@ function useBookEditorForm({ book, open, onSaved }: UseBookEditorFormOptions) {
     form,
     onSubmit: form.handleSubmit(onSubmit),
     isLoading: isCreating || isUpdating,
-    isReferenceDataLoading:
-      isCategoriesLoading || isAuthorsLoading || isDifficultiesLoading || isLanguagesLoading,
+    isReferenceDataLoading,
     formError,
     selectedImageName,
     onImageChange,
     existingImageUrl: book?.cover ?? null,
-    categories: categories ?? [],
-    authors: authors ?? [],
-    difficulties: difficulties ?? [],
-    languages: languages ?? [],
+    categories,
+    authors,
+    difficulties,
+    languages,
   }
 }
 

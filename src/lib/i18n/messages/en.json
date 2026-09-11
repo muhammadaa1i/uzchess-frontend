@@ -616,6 +616,52 @@
         "previous": "Previous",
         "next": "Next"
       }
+    },
+    "bannerManagement": {
+      "title": "Banners",
+      "description": "Create, edit, or remove promo banners.",
+      "createCta": "Add banner",
+      "empty": "No banners yet.",
+      "notAuthorized": "You must be an admin to manage banners.",
+      "edit": "Edit",
+      "delete": "Delete",
+      "columns": {
+        "image": "Image",
+        "title": "Title",
+        "status": "Status",
+        "actions": "Actions"
+      },
+      "status": {
+        "active": "Active",
+        "inactive": "Inactive"
+      },
+      "errors": {
+        "generic": "Something went wrong. Please try again."
+      },
+      "form": {
+        "createTitle": "Add banner",
+        "editTitle": "Edit banner",
+        "titleLabel": "Title",
+        "subtitleLabel": "Subtitle",
+        "linkUrlLabel": "Link URL",
+        "badgeTextLabel": "Badge text",
+        "badgeTextPlaceholder": "e.g. 1000$",
+        "isActiveLabel": "Active",
+        "imageLabel": "Image",
+        "imageHint": "JPG, PNG or SVG, up to 5MB",
+        "imageSelected": "Selected: {name}",
+        "submitCreate": "Create",
+        "submitEdit": "Save changes"
+      },
+      "validation": {
+        "titleRequired": "Title is required"
+      },
+      "deleteDialog": {
+        "title": "Delete banner",
+        "description": "Are you sure you want to delete \"{title}\"? This cannot be undone.",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+      }
     }
   },
   "Profile": {

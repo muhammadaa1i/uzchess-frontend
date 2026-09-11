@@ -616,6 +616,52 @@
         "previous": "Назад",
         "next": "Далее"
       }
+    },
+    "bannerManagement": {
+      "title": "Баннеры",
+      "description": "Создавайте, редактируйте или удаляйте промо-баннеры.",
+      "createCta": "Добавить баннер",
+      "empty": "Пока нет баннеров.",
+      "notAuthorized": "Управлять баннерами может только администратор.",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "columns": {
+        "image": "Изображение",
+        "title": "Заголовок",
+        "status": "Статус",
+        "actions": "Действия"
+      },
+      "status": {
+        "active": "Активен",
+        "inactive": "Неактивен"
+      },
+      "errors": {
+        "generic": "Что-то пошло не так. Попробуйте ещё раз."
+      },
+      "form": {
+        "createTitle": "Добавить баннер",
+        "editTitle": "Редактировать баннер",
+        "titleLabel": "Заголовок",
+        "subtitleLabel": "Подзаголовок",
+        "linkUrlLabel": "Ссылка",
+        "badgeTextLabel": "Текст значка",
+        "badgeTextPlaceholder": "например, 1000$",
+        "isActiveLabel": "Активен",
+        "imageLabel": "Изображение",
+        "imageHint": "JPG, PNG или SVG, до 5 МБ",
+        "imageSelected": "Выбрано: {name}",
+        "submitCreate": "Создать",
+        "submitEdit": "Сохранить изменения"
+      },
+      "validation": {
+        "titleRequired": "Заголовок обязателен"
+      },
+      "deleteDialog": {
+        "title": "Удалить баннер",
+        "description": "Вы уверены, что хотите удалить «{title}»? Это действие нельзя отменить.",
+        "cancel": "Отмена",
+        "confirm": "Удалить"
+      }
     }
   },
   "Profile": {

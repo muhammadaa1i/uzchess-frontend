@@ -616,6 +616,52 @@
         "previous": "Oldingi",
         "next": "Keyingi"
       }
+    },
+    "bannerManagement": {
+      "title": "Bannerlar",
+      "description": "Promo-bannerlarni qo'shing, tahrirlang yoki o'chiring.",
+      "createCta": "Banner qo'shish",
+      "empty": "Hozircha bannerlar yo'q.",
+      "notAuthorized": "Bannerlarni faqat admin boshqara oladi.",
+      "edit": "Tahrirlash",
+      "delete": "O'chirish",
+      "columns": {
+        "image": "Rasm",
+        "title": "Sarlavha",
+        "status": "Holati",
+        "actions": "Amallar"
+      },
+      "status": {
+        "active": "Faol",
+        "inactive": "Faol emas"
+      },
+      "errors": {
+        "generic": "Nimadir xato ketdi. Qaytadan urinib ko'ring."
+      },
+      "form": {
+        "createTitle": "Banner qo'shish",
+        "editTitle": "Bannerni tahrirlash",
+        "titleLabel": "Sarlavha",
+        "subtitleLabel": "Kichik sarlavha",
+        "linkUrlLabel": "Havola",
+        "badgeTextLabel": "Belgi matni",
+        "badgeTextPlaceholder": "masalan, 1000$",
+        "isActiveLabel": "Faol",
+        "imageLabel": "Rasm",
+        "imageHint": "JPG, PNG yoki SVG, 5 MB gacha",
+        "imageSelected": "Tanlandi: {name}",
+        "submitCreate": "Yaratish",
+        "submitEdit": "O'zgarishlarni saqlash"
+      },
+      "validation": {
+        "titleRequired": "Sarlavha kiritilishi shart"
+      },
+      "deleteDialog": {
+        "title": "Bannerni o'chirish",
+        "description": "\"{title}\" bannerini o'chirishni tasdiqlaysizmi? Bu amalni bekor qilib bo'lmaydi.",
+        "cancel": "Bekor qilish",
+        "confirm": "O'chirish"
+      }
     }
   },
   "Profile": {

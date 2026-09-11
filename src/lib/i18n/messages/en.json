@@ -662,6 +662,73 @@
         "cancel": "Cancel",
         "confirm": "Delete"
       }
+    },
+    "bookManagement": {
+      "title": "Books",
+      "description": "Create, edit, or remove books.",
+      "createCta": "Add book",
+      "empty": "No books yet.",
+      "notAuthorized": "You must be an admin to manage books.",
+      "edit": "Edit",
+      "delete": "Delete",
+      "columns": {
+        "image": "Image",
+        "title": "Title",
+        "price": "Price",
+        "actions": "Actions"
+      },
+      "errors": {
+        "generic": "Something went wrong. Please try again.",
+        "coverRequired": "Cover image is required"
+      },
+      "form": {
+        "createTitle": "Add book",
+        "editTitle": "Edit book",
+        "titleLabel": "Title",
+        "priceLabel": "Price",
+        "discountPriceLabel": "Discount price",
+        "discountPricePlaceholder": "Leave empty for no discount",
+        "descriptionLabel": "Description",
+        "pageCountLabel": "Page count",
+        "publishedYearLabel": "Published year",
+        "categoryLabel": "Category",
+        "categoryPlaceholder": "Select a category",
+        "difficultyLabel": "Difficulty",
+        "difficultyPlaceholder": "Select a difficulty",
+        "languageLabel": "Language",
+        "languagePlaceholder": "Select a language",
+        "authorsLabel": "Authors",
+        "coverLabel": "Cover",
+        "coverHint": "JPG, PNG or SVG, up to 5MB",
+        "coverSelected": "Selected: {name}",
+        "submitCreate": "Create",
+        "submitEdit": "Save changes"
+      },
+      "validation": {
+        "titleRequired": "Title is required",
+        "priceRequired": "Price is required",
+        "priceInvalid": "Enter a valid price",
+        "discountPriceInvalid": "Enter a valid discount price",
+        "descriptionRequired": "Description is required",
+        "pageCountRequired": "Page count is required",
+        "pageCountInvalid": "Enter a valid page count",
+        "publishedYearRequired": "Published year is required",
+        "publishedYearInvalid": "Enter a valid 4-digit year",
+        "categoryRequired": "Select a category",
+        "difficultyRequired": "Select a difficulty",
+        "languageRequired": "Select a language",
+        "authorsRequired": "Select at least one author"
+      },
+      "deleteDialog": {
+        "title": "Delete book",
+        "description": "Are you sure you want to delete \"{title}\"? This cannot be undone.",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+      },
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+      }
     }
   },
   "Profile": {

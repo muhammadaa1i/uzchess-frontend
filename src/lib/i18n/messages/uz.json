@@ -662,6 +662,73 @@
         "cancel": "Bekor qilish",
         "confirm": "O'chirish"
       }
+    },
+    "bookManagement": {
+      "title": "Kitoblar",
+      "description": "Kitoblarni qo'shing, tahrirlang yoki o'chiring.",
+      "createCta": "Kitob qo'shish",
+      "empty": "Hozircha kitoblar yo'q.",
+      "notAuthorized": "Kitoblarni faqat admin boshqara oladi.",
+      "edit": "Tahrirlash",
+      "delete": "O'chirish",
+      "columns": {
+        "image": "Rasm",
+        "title": "Sarlavha",
+        "price": "Narx",
+        "actions": "Amallar"
+      },
+      "errors": {
+        "generic": "Nimadir xato ketdi. Qaytadan urinib ko'ring.",
+        "coverRequired": "Muqova rasmi kerak"
+      },
+      "form": {
+        "createTitle": "Kitob qo'shish",
+        "editTitle": "Kitobni tahrirlash",
+        "titleLabel": "Sarlavha",
+        "priceLabel": "Narx",
+        "discountPriceLabel": "Chegirmali narx",
+        "discountPricePlaceholder": "Chegirma yo'q bo'lsa bo'sh qoldiring",
+        "descriptionLabel": "Tavsif",
+        "pageCountLabel": "Sahifalar soni",
+        "publishedYearLabel": "Nashr yili",
+        "categoryLabel": "Kategoriya",
+        "categoryPlaceholder": "Kategoriyani tanlang",
+        "difficultyLabel": "Qiyinlik darajasi",
+        "difficultyPlaceholder": "Qiyinlik darajasini tanlang",
+        "languageLabel": "Til",
+        "languagePlaceholder": "Tilni tanlang",
+        "authorsLabel": "Mualliflar",
+        "coverLabel": "Muqova",
+        "coverHint": "JPG, PNG yoki SVG, 5 MB gacha",
+        "coverSelected": "Tanlandi: {name}",
+        "submitCreate": "Yaratish",
+        "submitEdit": "O'zgarishlarni saqlash"
+      },
+      "validation": {
+        "titleRequired": "Sarlavha kiritilishi shart",
+        "priceRequired": "Narx kiritilishi shart",
+        "priceInvalid": "To'g'ri narx kiriting",
+        "discountPriceInvalid": "To'g'ri chegirmali narx kiriting",
+        "descriptionRequired": "Tavsif kiritilishi shart",
+        "pageCountRequired": "Sahifalar soni kiritilishi shart",
+        "pageCountInvalid": "To'g'ri sahifalar sonini kiriting",
+        "publishedYearRequired": "Nashr yili kiritilishi shart",
+        "publishedYearInvalid": "To'g'ri 4 xonali yilni kiriting",
+        "categoryRequired": "Kategoriyani tanlang",
+        "difficultyRequired": "Qiyinlik darajasini tanlang",
+        "languageRequired": "Tilni tanlang",
+        "authorsRequired": "Kamida bitta muallifni tanlang"
+      },
+      "deleteDialog": {
+        "title": "Kitobni o'chirish",
+        "description": "\"{title}\" kitobini o'chirishni tasdiqlaysizmi? Bu amalni bekor qilib bo'lmaydi.",
+        "cancel": "Bekor qilish",
+        "confirm": "O'chirish"
+      },
+      "pagination": {
+        "previous": "Oldingi",
+        "next": "Keyingi"
+      }
     }
   },
   "Profile": {

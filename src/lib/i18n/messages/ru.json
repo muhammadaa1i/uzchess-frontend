@@ -662,6 +662,73 @@
         "cancel": "Отмена",
         "confirm": "Удалить"
       }
+    },
+    "bookManagement": {
+      "title": "Книги",
+      "description": "Создавайте, редактируйте или удаляйте книги.",
+      "createCta": "Добавить книгу",
+      "empty": "Пока нет книг.",
+      "notAuthorized": "Управлять книгами может только администратор.",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "columns": {
+        "image": "Изображение",
+        "title": "Заголовок",
+        "price": "Цена",
+        "actions": "Действия"
+      },
+      "errors": {
+        "generic": "Что-то пошло не так. Попробуйте ещё раз.",
+        "coverRequired": "Необходима обложка"
+      },
+      "form": {
+        "createTitle": "Добавить книгу",
+        "editTitle": "Редактировать книгу",
+        "titleLabel": "Заголовок",
+        "priceLabel": "Цена",
+        "discountPriceLabel": "Цена со скидкой",
+        "discountPricePlaceholder": "Оставьте пустым, если скидки нет",
+        "descriptionLabel": "Описание",
+        "pageCountLabel": "Количество страниц",
+        "publishedYearLabel": "Год издания",
+        "categoryLabel": "Категория",
+        "categoryPlaceholder": "Выберите категорию",
+        "difficultyLabel": "Уровень сложности",
+        "difficultyPlaceholder": "Выберите уровень сложности",
+        "languageLabel": "Язык",
+        "languagePlaceholder": "Выберите язык",
+        "authorsLabel": "Авторы",
+        "coverLabel": "Обложка",
+        "coverHint": "JPG, PNG или SVG, до 5 МБ",
+        "coverSelected": "Выбрано: {name}",
+        "submitCreate": "Создать",
+        "submitEdit": "Сохранить изменения"
+      },
+      "validation": {
+        "titleRequired": "Заголовок обязателен",
+        "priceRequired": "Цена обязательна",
+        "priceInvalid": "Введите корректную цену",
+        "discountPriceInvalid": "Введите корректную цену со скидкой",
+        "descriptionRequired": "Описание обязательно",
+        "pageCountRequired": "Количество страниц обязательно",
+        "pageCountInvalid": "Введите корректное количество страниц",
+        "publishedYearRequired": "Год издания обязателен",
+        "publishedYearInvalid": "Введите корректный 4-значный год",
+        "categoryRequired": "Выберите категорию",
+        "difficultyRequired": "Выберите уровень сложности",
+        "languageRequired": "Выберите язык",
+        "authorsRequired": "Выберите хотя бы одного автора"
+      },
+      "deleteDialog": {
+        "title": "Удалить книгу",
+        "description": "Вы уверены, что хотите удалить «{title}»? Это действие нельзя отменить.",
+        "cancel": "Отмена",
+        "confirm": "Удалить"
+      },
+      "pagination": {
+        "previous": "Назад",
+        "next": "Далее"
+      }
     }
   },
   "Profile": {

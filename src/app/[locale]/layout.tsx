@@ -19,6 +19,11 @@ const poppins = Poppins({
 export const metadata: Metadata = {
   title: "UzChess",
   description: "UzChess",
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
+    apple: "/favicon.svg",
+  },
 };
 
 function generateStaticParams() {

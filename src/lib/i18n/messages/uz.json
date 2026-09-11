@@ -729,6 +729,67 @@
         "previous": "Oldingi",
         "next": "Keyingi"
       }
+    },
+    "courseManagement": {
+      "title": "Kurslar",
+      "description": "Kurslarni qo'shing, tahrirlang yoki o'chiring.",
+      "createCta": "Kurs qo'shish",
+      "empty": "Hozircha kurslar yo'q.",
+      "notAuthorized": "Kurslarni faqat admin boshqara oladi.",
+      "edit": "Tahrirlash",
+      "delete": "O'chirish",
+      "columns": {
+        "image": "Rasm",
+        "title": "Sarlavha",
+        "price": "Narx",
+        "actions": "Amallar"
+      },
+      "errors": {
+        "generic": "Nimadir xato ketdi. Qaytadan urinib ko'ring.",
+        "coverRequired": "Muqova rasmi kerak"
+      },
+      "form": {
+        "createTitle": "Kurs qo'shish",
+        "editTitle": "Kursni tahrirlash",
+        "titleLabel": "Sarlavha",
+        "priceLabel": "Narx",
+        "discountPriceLabel": "Chegirmali narx",
+        "discountPricePlaceholder": "Chegirma yo'q bo'lsa bo'sh qoldiring",
+        "descriptionLabel": "Tavsif",
+        "categoryLabel": "Kategoriya",
+        "categoryPlaceholder": "Kategoriyani tanlang",
+        "difficultyLabel": "Qiyinlik darajasi",
+        "difficultyPlaceholder": "Qiyinlik darajasini tanlang",
+        "languageLabel": "Til",
+        "languagePlaceholder": "Tilni tanlang",
+        "authorsLabel": "Mualliflar",
+        "coverLabel": "Muqova",
+        "coverHint": "JPG, PNG yoki SVG, 5 MB gacha",
+        "coverSelected": "Tanlandi: {name}",
+        "submitCreate": "Yaratish",
+        "submitEdit": "O'zgarishlarni saqlash"
+      },
+      "validation": {
+        "titleRequired": "Sarlavha kiritilishi shart",
+        "priceRequired": "Narx kiritilishi shart",
+        "priceInvalid": "To'g'ri narx kiriting",
+        "discountPriceInvalid": "To'g'ri chegirmali narx kiriting",
+        "descriptionRequired": "Tavsif kiritilishi shart",
+        "categoryRequired": "Kategoriyani tanlang",
+        "difficultyRequired": "Qiyinlik darajasini tanlang",
+        "languageRequired": "Tilni tanlang",
+        "authorsRequired": "Kamida bitta muallifni tanlang"
+      },
+      "deleteDialog": {
+        "title": "Kursni o'chirish",
+        "description": "\"{title}\" kursini o'chirishni tasdiqlaysizmi? Bu amalni bekor qilib bo'lmaydi.",
+        "cancel": "Bekor qilish",
+        "confirm": "O'chirish"
+      },
+      "pagination": {
+        "previous": "Oldingi",
+        "next": "Keyingi"
+      }
     }
   },
   "Profile": {

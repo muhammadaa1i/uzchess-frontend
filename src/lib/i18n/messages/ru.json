@@ -569,6 +569,53 @@
         "userIdInvalid": "Введите корректный числовой ID пользователя",
         "roleRequired": "Выберите роль"
       }
+    },
+    "newsManagement": {
+      "title": "Новости",
+      "description": "Создавайте, редактируйте или удаляйте новостные статьи.",
+      "createCta": "Добавить новость",
+      "empty": "Пока нет новостей.",
+      "notAuthorized": "Управлять новостями может только администратор.",
+      "edit": "Редактировать",
+      "delete": "Удалить",
+      "columns": {
+        "image": "Изображение",
+        "title": "Заголовок",
+        "publishedAt": "Опубликовано",
+        "actions": "Действия"
+      },
+      "errors": {
+        "generic": "Что-то пошло не так. Попробуйте ещё раз."
+      },
+      "form": {
+        "createTitle": "Добавить новость",
+        "editTitle": "Редактировать новость",
+        "titleLabel": "Заголовок",
+        "excerptLabel": "Краткое описание",
+        "contentLabel": "Содержание",
+        "publishedAtLabel": "Дата публикации",
+        "imageLabel": "Изображение",
+        "imageHint": "JPG, PNG или SVG, до 5 МБ",
+        "imageSelected": "Выбрано: {name}",
+        "submitCreate": "Создать",
+        "submitEdit": "Сохранить изменения"
+      },
+      "validation": {
+        "titleRequired": "Заголовок обязателен",
+        "excerptRequired": "Краткое описание обязательно",
+        "contentRequired": "Содержание обязательно",
+        "publishedAtRequired": "Дата публикации обязательна"
+      },
+      "deleteDialog": {
+        "title": "Удалить новость",
+        "description": "Вы уверены, что хотите удалить «{title}»? Это действие нельзя отменить.",
+        "cancel": "Отмена",
+        "confirm": "Удалить"
+      },
+      "pagination": {
+        "previous": "Назад",
+        "next": "Далее"
+      }
     }
   },
   "Profile": {

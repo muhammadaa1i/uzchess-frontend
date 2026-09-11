@@ -569,6 +569,53 @@
         "userIdInvalid": "To'g'ri raqamli ID kiriting",
         "roleRequired": "Rolni tanlang"
       }
+    },
+    "newsManagement": {
+      "title": "Yangiliklar",
+      "description": "Yangilik maqolalarini qo'shing, tahrirlang yoki o'chiring.",
+      "createCta": "Yangilik qo'shish",
+      "empty": "Hozircha yangiliklar yo'q.",
+      "notAuthorized": "Yangiliklarni faqat admin boshqara oladi.",
+      "edit": "Tahrirlash",
+      "delete": "O'chirish",
+      "columns": {
+        "image": "Rasm",
+        "title": "Sarlavha",
+        "publishedAt": "Nashr sanasi",
+        "actions": "Amallar"
+      },
+      "errors": {
+        "generic": "Nimadir xato ketdi. Qaytadan urinib ko'ring."
+      },
+      "form": {
+        "createTitle": "Yangilik qo'shish",
+        "editTitle": "Yangilikni tahrirlash",
+        "titleLabel": "Sarlavha",
+        "excerptLabel": "Qisqacha mazmuni",
+        "contentLabel": "Matn",
+        "publishedAtLabel": "Nashr sanasi",
+        "imageLabel": "Rasm",
+        "imageHint": "JPG, PNG yoki SVG, 5 MB gacha",
+        "imageSelected": "Tanlandi: {name}",
+        "submitCreate": "Yaratish",
+        "submitEdit": "O'zgarishlarni saqlash"
+      },
+      "validation": {
+        "titleRequired": "Sarlavha kiritilishi shart",
+        "excerptRequired": "Qisqacha mazmun kiritilishi shart",
+        "contentRequired": "Matn kiritilishi shart",
+        "publishedAtRequired": "Nashr sanasi kiritilishi shart"
+      },
+      "deleteDialog": {
+        "title": "Yangilikni o'chirish",
+        "description": "\"{title}\" yangiligini o'chirishni tasdiqlaysizmi? Bu amalni bekor qilib bo'lmaydi.",
+        "cancel": "Bekor qilish",
+        "confirm": "O'chirish"
+      },
+      "pagination": {
+        "previous": "Oldingi",
+        "next": "Keyingi"
+      }
     }
   },
   "Profile": {

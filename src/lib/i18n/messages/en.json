@@ -569,6 +569,53 @@
         "userIdInvalid": "Enter a valid numeric user ID",
         "roleRequired": "Select a role"
       }
+    },
+    "newsManagement": {
+      "title": "News",
+      "description": "Create, edit, or remove news articles.",
+      "createCta": "Add news",
+      "empty": "No news articles yet.",
+      "notAuthorized": "You must be an admin to manage news.",
+      "edit": "Edit",
+      "delete": "Delete",
+      "columns": {
+        "image": "Image",
+        "title": "Title",
+        "publishedAt": "Published",
+        "actions": "Actions"
+      },
+      "errors": {
+        "generic": "Something went wrong. Please try again."
+      },
+      "form": {
+        "createTitle": "Add news",
+        "editTitle": "Edit news",
+        "titleLabel": "Title",
+        "excerptLabel": "Excerpt",
+        "contentLabel": "Content",
+        "publishedAtLabel": "Published date",
+        "imageLabel": "Image",
+        "imageHint": "JPG, PNG or SVG, up to 5MB",
+        "imageSelected": "Selected: {name}",
+        "submitCreate": "Create",
+        "submitEdit": "Save changes"
+      },
+      "validation": {
+        "titleRequired": "Title is required",
+        "excerptRequired": "Excerpt is required",
+        "contentRequired": "Content is required",
+        "publishedAtRequired": "Published date is required"
+      },
+      "deleteDialog": {
+        "title": "Delete news article",
+        "description": "Are you sure you want to delete \"{title}\"? This cannot be undone.",
+        "cancel": "Cancel",
+        "confirm": "Delete"
+      },
+      "pagination": {
+        "previous": "Previous",
+        "next": "Next"
+      }
     }
   },
   "Profile": {

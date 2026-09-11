@@ -546,6 +546,29 @@
       "banners": "Banners",
       "books": "Books",
       "courses": "Courses"
+    },
+    "roleManagement": {
+      "title": "Assign role",
+      "description": "Promote a user to admin or super admin by their numeric user ID.",
+      "userIdLabel": "User ID",
+      "userIdDescription": "Enter the target user's numeric ID — there's no user lookup endpoint yet.",
+      "userIdPlaceholder": "e.g. 42",
+      "roleLabel": "Role",
+      "roleOptions": {
+        "admin": "Admin",
+        "superadmin": "Super admin"
+      },
+      "submit": "Assign role",
+      "success": "Role assigned. This user's roles are now: {roles}",
+      "notAuthorized": "You must be a super admin to manage roles.",
+      "errors": {
+        "generic": "Something went wrong. Please try again."
+      },
+      "validation": {
+        "userIdRequired": "User ID is required",
+        "userIdInvalid": "Enter a valid numeric user ID",
+        "roleRequired": "Select a role"
+      }
     }
   },
   "Profile": {

@@ -546,6 +546,29 @@
       "banners": "Bannerlar",
       "books": "Kitoblar",
       "courses": "Kurslar"
+    },
+    "roleManagement": {
+      "title": "Rol tayinlash",
+      "description": "Foydalanuvchini raqamli ID orqali admin yoki superadmin darajasiga o'tkazing.",
+      "userIdLabel": "Foydalanuvchi ID",
+      "userIdDescription": "Kerakli foydalanuvchining raqamli ID sini kiriting — hozircha foydalanuvchilarni qidirish uchun endpoint mavjud emas.",
+      "userIdPlaceholder": "masalan, 42",
+      "roleLabel": "Rol",
+      "roleOptions": {
+        "admin": "Admin",
+        "superadmin": "Super admin"
+      },
+      "submit": "Rol tayinlash",
+      "success": "Rol tayinlandi. Foydalanuvchining rollari endi: {roles}",
+      "notAuthorized": "Rollarni faqat super admin boshqara oladi.",
+      "errors": {
+        "generic": "Nimadir xato ketdi. Qaytadan urinib ko'ring."
+      },
+      "validation": {
+        "userIdRequired": "Foydalanuvchi ID kiritilishi shart",
+        "userIdInvalid": "To'g'ri raqamli ID kiriting",
+        "roleRequired": "Rolni tanlang"
+      }
     }
   },
   "Profile": {

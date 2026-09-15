@@ -3,7 +3,7 @@ import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
-import { userUpdated } from "@/features/auth/model/auth-slice"
+import { userUpdated } from "@/features/auth/session/model/auth-slice"
 import {
   useChangeEmailMutation,
   useConfirmEmailMutation,

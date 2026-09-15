@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic"
 import { useState } from "react"
 
-import { authModalOpened } from "@/features/auth/model/auth-slice"
+import { authModalOpened } from "@/features/auth/session/model/auth-slice"
 import { CourseDetailContent } from "@/features/courses/course-detail/view/course-detail-content"
 import { CourseDetailError } from "@/features/courses/course-detail/view/course-detail-error"
 import { CourseDetailHeader } from "@/features/courses/course-detail/view/course-detail-header"

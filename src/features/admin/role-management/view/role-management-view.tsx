@@ -3,7 +3,7 @@
 import { useTranslations } from "next-intl"
 
 import { RoleManagementForm } from "@/features/admin/role-management/view/role-management-form"
-import { useAdminAccess } from "@/features/auth/viewmodel/use-admin-access"
+import { useAdminAccess } from "@/features/auth/session/viewmodel/use-admin-access"
 
 // /admin/roles — this specific screen is superadmin-only (assigning
 // admin/superadmin is a stricter operation than the rest of /admin, which

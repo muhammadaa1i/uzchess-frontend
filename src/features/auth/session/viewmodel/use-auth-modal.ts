@@ -2,7 +2,7 @@ import {
   authModalClosed,
   authModalOpened,
   type AuthModalView,
-} from "@/features/auth/model/auth-slice"
+} from "@/features/auth/session/model/auth-slice"
 import { useAppDispatch, useAppSelector } from "@/lib/store/hooks"
 
 function useAuthModal() {

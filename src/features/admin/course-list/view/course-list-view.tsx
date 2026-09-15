@@ -8,7 +8,7 @@ import { CourseList } from "@/features/admin/course-list/view/course-list"
 import { CourseListPagination } from "@/features/admin/course-list/view/course-list-pagination"
 import { CourseListSkeleton } from "@/features/admin/course-list/view/course-list-skeleton"
 import { useAdminCourseList } from "@/features/admin/course-list/viewmodel/use-admin-course-list"
-import { useAdminAccess } from "@/features/auth/viewmodel/use-admin-access"
+import { useAdminAccess } from "@/features/auth/session/viewmodel/use-admin-access"
 
 // /admin/courses — layout.tsx's gate already requires plain `admin` (unlike
 // role-management, this screen doesn't need the stricter superadmin check),

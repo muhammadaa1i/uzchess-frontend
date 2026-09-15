@@ -4,7 +4,7 @@ import { useTranslations } from "next-intl"
 import { useEffect } from "react"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { authModalOpened } from "@/features/auth/model/auth-slice"
+import { authModalOpened } from "@/features/auth/session/model/auth-slice"
 import { ProfilePurchasedCoursesSection } from "@/features/courses/purchased-courses/view/profile-purchased-courses-section"
 import { ProfileGeneralSection } from "@/features/profile/profile/view/profile-general-section"
 import { ProfileHeader } from "@/features/profile/profile/view/profile-header"

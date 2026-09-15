@@ -2,7 +2,8 @@
 // where `message` is a string for most errors but a string[] for
 // class-validator failures — this normalizes both into one displayable
 // string for whatever a `.unwrap()`-ed RTK Query mutation throws (typed
-// `unknown` at the catch site).
+// `unknown` at the catch site). Shared by register/login/verify-email, not
+// owned by any single one of them.
 function getAuthErrorMessage(error: unknown, fallback: string): string {
   if (typeof error !== "object" || error === null) return fallback
 

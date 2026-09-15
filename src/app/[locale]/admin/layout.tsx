@@ -3,8 +3,8 @@
 import { useEffect } from "react"
 
 import { AdminSidebarNav } from "@/features/admin/admin-shell/view/admin-sidebar-nav"
-import { authModalOpened } from "@/features/auth/model/auth-slice"
-import { useAdminAccess } from "@/features/auth/viewmodel/use-admin-access"
+import { authModalOpened } from "@/features/auth/session/model/auth-slice"
+import { useAdminAccess } from "@/features/auth/session/viewmodel/use-admin-access"
 import { useRouter } from "@/lib/i18n/navigation"
 import { useAppDispatch } from "@/lib/store/hooks"
 

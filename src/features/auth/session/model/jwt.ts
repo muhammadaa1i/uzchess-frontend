@@ -1,4 +1,4 @@
-import type { Role } from "@/features/auth/model/role"
+import type { Role } from "@/features/auth/session/model/role"
 
 // Decodes the JWT payload segment purely for UI gating (which admin nav
 // items/routes to show) — this is never a security boundary, the backend's

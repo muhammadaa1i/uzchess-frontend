@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { Field, FieldError, FieldLabel } from "@/components/ui/field"
-import { useAuthModal } from "@/features/auth/viewmodel/use-auth-modal"
-import { useSignUp } from "@/features/auth/viewmodel/use-sign-up"
+import { useSignUp } from "@/features/auth/register/viewmodel/use-sign-up"
+import { useAuthModal } from "@/features/auth/session/viewmodel/use-auth-modal"
 
 function SignUpForm() {
   const t = useTranslations("Auth.signUp")

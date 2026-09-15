@@ -13,9 +13,9 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Separator } from "@/components/ui/separator"
-import { useLogoutMutation } from "@/features/auth/model/auth-api"
-import type { AuthUser } from "@/features/auth/model/auth-schemas"
-import { authModalOpened, loggedOut } from "@/features/auth/model/auth-slice"
+import type { AuthUser } from "@/features/auth/session/model/auth-schemas"
+import { authModalOpened, loggedOut } from "@/features/auth/session/model/auth-slice"
+import { useLogoutMutation } from "@/features/auth/session/model/logout-api"
 import { useGetCartQuery } from "@/features/commerce/cart/model/cart-api"
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation"
 import type { routing } from "@/lib/i18n/routing"

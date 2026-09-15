@@ -9,7 +9,7 @@ import {
   REHYDRATE,
 } from "redux-persist"
 
-import { authSlice } from "@/features/auth/model/auth-slice"
+import { authSlice } from "@/features/auth/session/model/auth-slice"
 import { baseApi } from "@/lib/api/base-api"
 import { persistStorage } from "@/lib/store/storage"
 

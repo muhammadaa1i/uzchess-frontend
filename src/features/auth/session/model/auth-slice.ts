@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit"
 
-import type { AuthUser } from "@/features/auth/model/auth-schemas"
+import type { AuthUser } from "@/features/auth/session/model/auth-schemas"
 
 // Which auth overlay (if any) is currently shown over the dimmed home page —
 // cross-tree UI state (trigger lives in SiteHeader, display lives in
@@ -12,7 +12,8 @@ interface AuthState {
   accessToken: string | null
   refreshToken: string | null
   // Populated by both POST /auth/register's and POST /auth/login's
-  // responses — both return the user plus a token pair, see auth-api.ts.
+  // responses — both return the user plus a token pair, see
+  // register/model/register-api.ts, login/model/login-api.ts.
   user: AuthUser | null
   modalView: AuthModalView
 }
@@ -53,7 +54,7 @@ const authSlice = createSlice({
     },
     // Narrower than `userUpdated` — flips the one field the verify-email
     // flow actually changes, without requiring a full AuthUser (which that
-    // flow never re-fetches; see auth-api.ts's verifyEmailConfirm).
+    // flow never re-fetches; see verify-email/viewmodel/use-verify-email.ts).
     emailVerified(state) {
       if (state.user) {
         state.user.isEmailVerified = true

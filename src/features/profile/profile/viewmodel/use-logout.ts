@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-import { useLogoutMutation } from "@/features/auth/model/auth-api"
-import { loggedOut } from "@/features/auth/model/auth-slice"
+import { loggedOut } from "@/features/auth/session/model/auth-slice"
+import { useLogoutMutation } from "@/features/auth/session/model/logout-api"
 import { useAppDispatch } from "@/lib/store/hooks"
 
 // Backs the in-page "Chiqish" confirmation dialog on the General settings

@@ -7,8 +7,8 @@ import { Button } from "@/components/ui/button"
 import { DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { FieldError } from "@/components/ui/field"
 import { InputOTP, InputOTPGroup, InputOTPSlot } from "@/components/ui/input-otp"
-import { useAuthModal } from "@/features/auth/viewmodel/use-auth-modal"
-import { useVerifyEmail } from "@/features/auth/viewmodel/use-verify-email"
+import { useAuthModal } from "@/features/auth/session/viewmodel/use-auth-modal"
+import { useVerifyEmail } from "@/features/auth/verify-email/viewmodel/use-verify-email"
 
 function VerifyEmailPrompt() {
   const t = useTranslations("Auth.verifyEmail")

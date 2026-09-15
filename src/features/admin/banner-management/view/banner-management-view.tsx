@@ -7,7 +7,7 @@ import { BannerCreateButton } from "@/features/admin/banner-management/view/bann
 import { BannerManagementList } from "@/features/admin/banner-management/view/banner-management-list"
 import { BannerManagementSkeleton } from "@/features/admin/banner-management/view/banner-management-skeleton"
 import { useAdminBannerList } from "@/features/admin/banner-management/viewmodel/use-admin-banner-list"
-import { useAdminAccess } from "@/features/auth/viewmodel/use-admin-access"
+import { useAdminAccess } from "@/features/auth/session/viewmodel/use-admin-access"
 
 // /admin/banners — layout.tsx's gate already requires plain `admin` (unlike
 // role-management, this screen doesn't need the stricter superadmin check),

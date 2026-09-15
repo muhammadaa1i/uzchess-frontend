@@ -2,7 +2,7 @@ import {
   selectAuthRehydrated,
   selectIsAdmin,
   selectIsSuperAdmin,
-} from "@/features/auth/model/auth-selectors"
+} from "@/features/auth/session/model/auth-selectors"
 import { useAppSelector } from "@/lib/store/hooks"
 
 // Used by the /admin layout guard and by any page that needs a stricter gate

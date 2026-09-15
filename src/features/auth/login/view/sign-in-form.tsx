@@ -5,8 +5,8 @@ import { useTranslations } from "next-intl"
 import { TextField } from "@/components/shared/form/text-field"
 import { Button } from "@/components/ui/button"
 import { DialogDescription, DialogTitle } from "@/components/ui/dialog"
-import { useAuthModal } from "@/features/auth/viewmodel/use-auth-modal"
-import { useSignIn } from "@/features/auth/viewmodel/use-sign-in"
+import { useSignIn } from "@/features/auth/login/viewmodel/use-sign-in"
+import { useAuthModal } from "@/features/auth/session/viewmodel/use-auth-modal"
 
 function SignInForm() {
   const t = useTranslations("Auth.signIn")

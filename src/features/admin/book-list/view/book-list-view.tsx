@@ -8,7 +8,7 @@ import { BookList } from "@/features/admin/book-list/view/book-list"
 import { BookListPagination } from "@/features/admin/book-list/view/book-list-pagination"
 import { BookListSkeleton } from "@/features/admin/book-list/view/book-list-skeleton"
 import { useAdminBookList } from "@/features/admin/book-list/viewmodel/use-admin-book-list"
-import { useAdminAccess } from "@/features/auth/viewmodel/use-admin-access"
+import { useAdminAccess } from "@/features/auth/session/viewmodel/use-admin-access"
 
 // /admin/books — layout.tsx's gate already requires plain `admin` (unlike
 // role-management, this screen doesn't need the stricter superadmin check),

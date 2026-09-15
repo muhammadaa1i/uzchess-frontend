@@ -8,7 +8,7 @@ import { NewsManagementList } from "@/features/admin/news-management/view/news-m
 import { NewsManagementPagination } from "@/features/admin/news-management/view/news-management-pagination"
 import { NewsManagementSkeleton } from "@/features/admin/news-management/view/news-management-skeleton"
 import { useAdminNewsList } from "@/features/admin/news-management/viewmodel/use-admin-news-list"
-import { useAdminAccess } from "@/features/auth/viewmodel/use-admin-access"
+import { useAdminAccess } from "@/features/auth/session/viewmodel/use-admin-access"
 
 // /admin/news — layout.tsx's gate already requires plain `admin` (unlike
 // role-management, this screen doesn't need the stricter superadmin check),

@@ -6,10 +6,11 @@ import { useEffect, useState } from "react"
 // rather than an exact echo of the backend's actual throttle window.
 const THROTTLE_COOLDOWN_SECONDS = 30
 
-// Shared by useSignIn/useSignUp (same feature, so sharing here doesn't
-// violate CLAUDE.md's cross-feature duplication mandate) — ticks a
-// countdown down to 0 once started, same pattern as useVerifyEmail's
-// resend cooldown.
+// Shared by login/register's useSignIn/useSignUp — lives in `session` since
+// it's used by two sibling slices rather than owned by either one, same
+// pattern as this file's neighbors (auth-error.ts, use-auth-modal.ts). Ticks
+// a countdown down to 0 once started, same pattern as verify-email's resend
+// cooldown.
 function useThrottleCooldown() {
   const [cooldown, setCooldown] = useState(0)
 

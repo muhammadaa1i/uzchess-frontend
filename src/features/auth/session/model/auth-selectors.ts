@@ -1,4 +1,4 @@
-import { decodeAccessTokenRoles } from "@/features/auth/model/jwt"
+import { decodeAccessTokenRoles } from "@/features/auth/session/model/jwt"
 import type { RootState } from "@/lib/store/store"
 
 // `_persist` is always present (persistReducer wraps authSlice.reducer

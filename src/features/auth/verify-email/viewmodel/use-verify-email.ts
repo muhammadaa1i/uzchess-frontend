@@ -3,16 +3,16 @@ import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 
+import { getAuthErrorMessage } from "@/features/auth/session/model/auth-error"
+import { authModalClosed, emailVerified } from "@/features/auth/session/model/auth-slice"
 import {
   useVerifyEmailConfirmMutation,
   useVerifyEmailResendMutation,
-} from "@/features/auth/model/auth-api"
-import { getAuthErrorMessage } from "@/features/auth/model/auth-error"
+} from "@/features/auth/verify-email/model/verify-email-api"
 import {
   createVerifyEmailFormSchema,
   type VerifyEmailFormValues,
-} from "@/features/auth/model/auth-form-schemas"
-import { authModalClosed, emailVerified } from "@/features/auth/model/auth-slice"
+} from "@/features/auth/verify-email/model/verify-email-form-schema"
 import { useAppDispatch } from "@/lib/store/hooks"
 
 const RESEND_COOLDOWN_SECONDS = 60

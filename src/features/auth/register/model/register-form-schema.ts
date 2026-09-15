@@ -13,12 +13,11 @@ type ValidationKey =
   | "confirmPasswordRequired"
   | "passwordMismatch"
   | "termsRequired"
-  | "codeRequired"
 
 type ValidationT = (key: ValidationKey) => string
 
 // RHF+zod schema for the Sign up form. Field-level rules mirror the backend's
-// RegisterRequest validators exactly (see auth-schemas.ts's
+// RegisterRequest validators exactly (see register-schemas.ts's
 // registerRequestSchema) plus the password-match check the backend also
 // enforces (RegisterHandler compares password/confirmPassword itself).
 // `acceptTerms` is a client-only gate on the submit button — no backend
@@ -46,24 +45,5 @@ function createSignUpFormSchema(t: ValidationT) {
 
 type SignUpFormValues = z.infer<ReturnType<typeof createSignUpFormSchema>>
 
-// RHF+zod schema for the Sign in form — mirrors LoginRequest.
-function createSignInFormSchema(t: ValidationT) {
-  return z.object({
-    email: z.string().trim().min(1, t("emailRequired")).email(t("emailInvalid")),
-    password: z.string().min(1, t("passwordRequired")),
-  })
-}
-
-type SignInFormValues = z.infer<ReturnType<typeof createSignInFormSchema>>
-
-// RHF+zod schema for the 6-digit email verification OTP prompt.
-function createVerifyEmailFormSchema(t: ValidationT) {
-  return z.object({
-    code: z.string().length(6, t("codeRequired")),
-  })
-}
-
-type VerifyEmailFormValues = z.infer<ReturnType<typeof createVerifyEmailFormSchema>>
-
-export { createSignUpFormSchema, createSignInFormSchema, createVerifyEmailFormSchema }
-export type { SignUpFormValues, SignInFormValues, VerifyEmailFormValues }
+export { createSignUpFormSchema }
+export type { SignUpFormValues }

@@ -4,7 +4,7 @@ import type { ReactNode } from "react"
 import { MobileTabBar } from "@/components/shared/layout/mobile-tab-bar"
 import { SiteFooter } from "@/components/shared/layout/site-footer"
 import { SiteHeader } from "@/components/shared/layout/site-header"
-import { AuthModal } from "@/features/auth/view/auth-modal"
+import { AuthModal } from "@/features/auth/session/view/auth-modal"
 
 function SiteShell({ children }: { children: ReactNode }) {
   return (

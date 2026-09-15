@@ -1,7 +1,7 @@
 import { useTranslations } from "next-intl"
 import { useEffect, useState } from "react"
 
-import { authModalOpened } from "@/features/auth/model/auth-slice"
+import { authModalOpened } from "@/features/auth/session/model/auth-slice"
 import {
   useCompleteLessonMutation,
   useGetCourseLessonsProgressQuery,

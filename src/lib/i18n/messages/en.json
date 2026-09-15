@@ -316,6 +316,7 @@
       "title": "Sign in",
       "email": "Email",
       "password": "Password",
+      "forgotPassword": "Forgot password?",
       "submit": "Sign in",
       "switchPrompt": "Don't have an account?",
       "switchAction": "Sign up"
@@ -341,6 +342,22 @@
       "resendCooldown": "Resend ({seconds}s)",
       "skip": "Later"
     },
+    "forgotPassword": {
+      "title": "Forgot password?",
+      "description": "Enter your email and we'll send you a confirmation code",
+      "email": "Email",
+      "submit": "Send code",
+      "backToSignIn": "Back to sign in"
+    },
+    "resetPassword": {
+      "title": "Set a new password",
+      "description": "Enter the code sent to your email and your new password",
+      "newPassword": "New password",
+      "confirmNewPassword": "Confirm new password",
+      "submit": "Reset password",
+      "resend": "Resend code",
+      "resendCooldown": "Resend ({seconds}s)"
+    },
     "validation": {
       "firstNameRequired": "Enter your first name",
       "lastNameRequired": "Enter your last name",
@@ -357,6 +374,7 @@
       "invalidCredentials": "Invalid email or password",
       "codeExpired": "The code has expired. Request a new one",
       "codeInvalid": "Invalid code",
+      "noPendingReset": "No pending request found. Please request a new code",
       "tooManyRequests": "Too many attempts. Try again in {seconds}s"
     }
   },

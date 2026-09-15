@@ -36,6 +36,14 @@ const nextConfig: NextConfig = {
         hostname: "picsum.photos",
         pathname: "/**"
       },
+      {
+        // Placehold.co — used as the Difficulty entity's seed `icon` value
+        // in ../backend/src/migrations/1789147689930-uzchess.ts (shared by
+        // books + courses), so it's a real seeded data path, not local-only.
+        protocol: "https",
+        hostname: "placehold.co",
+        pathname: "/**"
+      },
     ],
   },
 };

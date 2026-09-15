@@ -31,6 +31,13 @@ function SignInForm() {
           errors={[form.formState.errors.password]}
           {...form.register("password")}
         />
+        <button
+          type="button"
+          className="self-end text-sm text-brand-secondary-low hover:underline"
+          onClick={() => open("forgot-password")}
+        >
+          {t("forgotPassword")}
+        </button>
         {formError && <p className="text-sm text-destructive">{formError}</p>}
         <Button type="submit" disabled={isDisabled} className="mt-2">
           {t("submit")}

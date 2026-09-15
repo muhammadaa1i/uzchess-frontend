@@ -316,6 +316,7 @@
       "title": "Kirish",
       "email": "Email",
       "password": "Parol",
+      "forgotPassword": "Parolni unutdingizmi?",
       "submit": "Kirish",
       "switchPrompt": "Hisobingiz yo'qmi?",
       "switchAction": "Ro'yxatdan o'tish"
@@ -341,6 +342,22 @@
       "resendCooldown": "Qayta yuborish ({seconds}s)",
       "skip": "Keyinroq"
     },
+    "forgotPassword": {
+      "title": "Parolni unutdingizmi?",
+      "description": "Emailingizni kiriting, tasdiqlash kodini yuboramiz",
+      "email": "Email",
+      "submit": "Kod yuborish",
+      "backToSignIn": "Kirishga qaytish"
+    },
+    "resetPassword": {
+      "title": "Yangi parol o'rnatish",
+      "description": "Emailingizga yuborilgan kodni va yangi parolni kiriting",
+      "newPassword": "Yangi parol",
+      "confirmNewPassword": "Yangi parolni tasdiqlang",
+      "submit": "Parolni tiklash",
+      "resend": "Kodni qayta yuborish",
+      "resendCooldown": "Qayta yuborish ({seconds}s)"
+    },
     "validation": {
       "firstNameRequired": "Ismni kiriting",
       "lastNameRequired": "Familiyani kiriting",
@@ -357,6 +374,7 @@
       "invalidCredentials": "Email yoki parol noto'g'ri",
       "codeExpired": "Kod muddati tugagan. Yangi kod so'rang",
       "codeInvalid": "Kod noto'g'ri",
+      "noPendingReset": "So'rov topilmadi. Yangi kod so'rang",
       "tooManyRequests": "Juda ko'p urinish. {seconds} soniyadan keyin qayta urining"
     }
   },

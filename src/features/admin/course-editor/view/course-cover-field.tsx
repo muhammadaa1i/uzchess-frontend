@@ -31,7 +31,7 @@ function CourseCoverField({
       <FieldLabel htmlFor={coverInputId}>{t("coverLabel")}</FieldLabel>
       {existingImageUrl && !selectedImageName && (
         <div className="relative h-28 w-full overflow-hidden rounded-lg bg-dark-2">
-          <Image src={existingImageUrl} alt="" fill className="object-cover" />
+          <Image src={existingImageUrl} alt="" fill sizes="512px" className="object-cover" />
         </div>
       )}
       <Input

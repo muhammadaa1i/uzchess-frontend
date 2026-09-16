@@ -31,6 +31,10 @@ interface CourseEditButtonProps {
 function CourseEditButton({ item, onSaved }: CourseEditButtonProps) {
   const t = useTranslations("Admin.courseManagement")
   const [open, setOpen] = useState(false)
+  // See course-create-button.tsx — defers the dialog's mount (and its
+  // next/dynamic chunk fetch + reference-data queries) past the initial
+  // render of every row, to the row's first actual click.
+  const [hasOpened, setHasOpened] = useState(false)
 
   return (
     <>
@@ -38,11 +42,16 @@ function CourseEditButton({ item, onSaved }: CourseEditButtonProps) {
         variant="secondary"
         size="icon-sm"
         aria-label={t("edit")}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setHasOpened(true)
+          setOpen(true)
+        }}
       >
         <PencilIcon className="size-4" />
       </Button>
-      <CourseEditorDialog open={open} onOpenChange={setOpen} course={item} onSaved={onSaved} />
+      {hasOpened && (
+        <CourseEditorDialog open={open} onOpenChange={setOpen} course={item} onSaved={onSaved} />
+      )}
     </>
   )
 }

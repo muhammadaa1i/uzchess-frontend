@@ -3,6 +3,7 @@
 import { Trash2Icon } from "lucide-react"
 import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import type { NewsAdminItem } from "@/features/admin/news-management/model/news-management-schemas"
@@ -28,6 +29,9 @@ function NewsDeleteButton({ item, onSaved }: NewsDeleteButtonProps) {
     newsId: item.id,
     onDeleted: onSaved,
   })
+  // See news-create-button.tsx — defers the dialog's next/dynamic chunk
+  // fetch past the initial render of every row, to the row's first click.
+  const [hasOpened, setHasOpened] = useState(false)
 
   return (
     <>
@@ -35,17 +39,22 @@ function NewsDeleteButton({ item, onSaved }: NewsDeleteButtonProps) {
         variant="destructive"
         size="icon-sm"
         aria-label={t("delete")}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setHasOpened(true)
+          setOpen(true)
+        }}
       >
         <Trash2Icon className="size-4" />
       </Button>
-      <NewsDeleteDialog
-        title={item.title}
-        open={open}
-        onOpenChange={setOpen}
-        onConfirm={confirmDelete}
-        isLoading={isLoading}
-      />
+      {hasOpened && (
+        <NewsDeleteDialog
+          title={item.title}
+          open={open}
+          onOpenChange={setOpen}
+          onConfirm={confirmDelete}
+          isLoading={isLoading}
+        />
+      )}
     </>
   )
 }

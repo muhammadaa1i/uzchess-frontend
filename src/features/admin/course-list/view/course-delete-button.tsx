@@ -3,6 +3,7 @@
 import { Trash2Icon } from "lucide-react"
 import dynamic from "next/dynamic"
 import { useTranslations } from "next-intl"
+import { useState } from "react"
 
 import { Button } from "@/components/ui/button"
 import type { CourseAdminItem } from "@/features/admin/course-list/model/course-list-schemas"
@@ -31,6 +32,9 @@ function CourseDeleteButton({ item, onSaved }: CourseDeleteButtonProps) {
     courseId: item.id,
     onDeleted: onSaved,
   })
+  // See course-create-button.tsx — defers the dialog's next/dynamic chunk
+  // fetch past the initial render of every row, to the row's first click.
+  const [hasOpened, setHasOpened] = useState(false)
 
   return (
     <>
@@ -38,17 +42,22 @@ function CourseDeleteButton({ item, onSaved }: CourseDeleteButtonProps) {
         variant="destructive"
         size="icon-sm"
         aria-label={t("delete")}
-        onClick={() => setOpen(true)}
+        onClick={() => {
+          setHasOpened(true)
+          setOpen(true)
+        }}
       >
         <Trash2Icon className="size-4" />
       </Button>
-      <CourseDeleteDialog
-        title={item.title}
-        open={open}
-        onOpenChange={setOpen}
-        onConfirm={confirmDelete}
-        isLoading={isLoading}
-      />
+      {hasOpened && (
+        <CourseDeleteDialog
+          title={item.title}
+          open={open}
+          onOpenChange={setOpen}
+          onConfirm={confirmDelete}
+          isLoading={isLoading}
+        />
+      )}
     </>
   )
 }

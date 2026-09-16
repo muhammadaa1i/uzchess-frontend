@@ -32,14 +32,24 @@ interface BannerCreateButtonProps {
 function BannerCreateButton({ onSaved }: BannerCreateButtonProps) {
   const t = useTranslations("Admin.bannerManagement")
   const [open, setOpen] = useState(false)
+  // `next/dynamic` starts fetching its chunk as soon as the component is
+  // rendered, not when `open` becomes true — gate the mount on a
+  // one-way-latched flag so the dialog only ever loads once the user
+  // actually clicks, instead of on every page load.
+  const [hasOpened, setHasOpened] = useState(false)
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>
+      <Button
+        onClick={() => {
+          setHasOpened(true)
+          setOpen(true)
+        }}
+      >
         <PlusIcon />
         {t("createCta")}
       </Button>
-      <BannerFormDialog open={open} onOpenChange={setOpen} onSaved={onSaved} />
+      {hasOpened && <BannerFormDialog open={open} onOpenChange={setOpen} onSaved={onSaved} />}
     </>
   )
 }

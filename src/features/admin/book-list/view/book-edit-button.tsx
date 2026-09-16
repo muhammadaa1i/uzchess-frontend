@@ -30,13 +30,27 @@ interface BookEditButtonProps {
 function BookEditButton({ item, onSaved }: BookEditButtonProps) {
   const t = useTranslations("Admin.bookManagement")
   const [open, setOpen] = useState(false)
+  // See book-create-button.tsx — defers the dialog's mount (and its
+  // next/dynamic chunk fetch + reference-data queries) past the initial
+  // render of every row, to the row's first actual click.
+  const [hasOpened, setHasOpened] = useState(false)
 
   return (
     <>
-      <Button variant="secondary" size="icon-sm" aria-label={t("edit")} onClick={() => setOpen(true)}>
+      <Button
+        variant="secondary"
+        size="icon-sm"
+        aria-label={t("edit")}
+        onClick={() => {
+          setHasOpened(true)
+          setOpen(true)
+        }}
+      >
         <PencilIcon className="size-4" />
       </Button>
-      <BookEditorDialog open={open} onOpenChange={setOpen} book={item} onSaved={onSaved} />
+      {hasOpened && (
+        <BookEditorDialog open={open} onOpenChange={setOpen} book={item} onSaved={onSaved} />
+      )}
     </>
   )
 }

@@ -16,6 +16,7 @@ import { Separator } from "@/components/ui/separator"
 import type { AuthUser } from "@/features/auth/session/model/auth-schemas"
 import { authModalOpened, loggedOut } from "@/features/auth/session/model/auth-slice"
 import { useLogoutMutation } from "@/features/auth/session/model/logout-api"
+import { useAdminAccess } from "@/features/auth/session/viewmodel/use-admin-access"
 import { useGetCartQuery } from "@/features/commerce/cart/model/cart-api"
 import { Link, usePathname, useRouter } from "@/lib/i18n/navigation"
 import type { routing } from "@/lib/i18n/routing"
@@ -202,6 +203,7 @@ function UserMenu({ user }: { user: AuthUser }) {
   const t = useTranslations("Header")
   const dispatch = useAppDispatch()
   const [logout] = useLogoutMutation()
+  const { isAdmin } = useAdminAccess()
   const name = `${user.firstName} ${user.lastName}`
 
   async function handleLogout() {
@@ -225,6 +227,9 @@ function UserMenu({ user }: { user: AuthUser }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuItem render={<Link href="/profile" />}>{t("profile")}</DropdownMenuItem>
+        {isAdmin && (
+          <DropdownMenuItem render={<Link href="/admin" />}>{t("adminPanel")}</DropdownMenuItem>
+        )}
         <DropdownMenuItem onClick={handleLogout}>{t("logout")}</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

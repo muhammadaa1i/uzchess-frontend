@@ -12,6 +12,7 @@
     "cart": "Корзина",
     "signIn": "Войти",
     "profile": "Профиль",
+    "adminPanel": "Админ-панель",
     "logout": "Выйти"
   },
   "Footer": {

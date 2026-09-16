@@ -12,6 +12,7 @@
     "cart": "Savat",
     "signIn": "Kirish",
     "profile": "Profil",
+    "adminPanel": "Admin panel",
     "logout": "Chiqish"
   },
   "Footer": {

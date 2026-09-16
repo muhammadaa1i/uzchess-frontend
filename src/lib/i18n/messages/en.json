@@ -12,6 +12,7 @@
     "cart": "Cart",
     "signIn": "Sign in",
     "profile": "Profile",
+    "adminPanel": "Admin panel",
     "logout": "Log out"
   },
   "Footer": {

@@ -89,7 +89,7 @@
   --accent-foreground: var(--brand-white);
   --destructive: var(--brand-red);
   --border: var(--dark-2);
-  --input: var(--dark-2);
+  --input: var(--brand-secondary);
   --ring: var(--brand-blue-light);
   --radius: 0.625rem;
 }

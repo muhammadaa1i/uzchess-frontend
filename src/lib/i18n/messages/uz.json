@@ -91,6 +91,15 @@
       "player": "O'yinchi",
       "rating": "Reyting"
     },
+    "gamesTable": {
+      "players": "O'yinchilar",
+      "result": "Natija",
+      "gameType": "O'yin turi",
+      "moves": "Yurishlar",
+      "date": "Sana",
+      "ongoing": "Davom etmoqda",
+      "empty": "O'yinlar topilmadi"
+    },
     "empty": "Hozircha reyting mavjud emas",
     "pagination": {
       "previous": "Oldingi",

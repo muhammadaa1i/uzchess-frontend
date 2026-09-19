@@ -15,7 +15,11 @@ const completedGamesApi = baseApi.injectEndpoints({
     >({
       query: (params) => ({
         url: "/games/list",
-        params: { sortBy: "date", size: params?.size },
+        // Backend now also returns ongoing games (null scores) from this
+        // endpoint — explicitly filter to `status: "completed"` so this
+        // "Yakunlangan o'yinlar" (completed games) widget never renders a
+        // game with no result yet.
+        params: { sortBy: "date", size: params?.size, status: "completed" },
       }),
       transformResponse: (response: unknown) => paginatedCompletedGamesSchema.parse(response),
     }),

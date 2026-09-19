@@ -91,6 +91,15 @@
       "player": "Игрок",
       "rating": "Рейтинг"
     },
+    "gamesTable": {
+      "players": "Игроки",
+      "result": "Результат",
+      "gameType": "Тип игры",
+      "moves": "Ходы",
+      "date": "Дата",
+      "ongoing": "Идёт",
+      "empty": "Партии не найдены"
+    },
     "empty": "Рейтинг пока недоступен",
     "pagination": {
       "previous": "Назад",

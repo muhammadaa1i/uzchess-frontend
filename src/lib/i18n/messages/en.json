@@ -91,6 +91,15 @@
       "player": "Player",
       "rating": "Rating"
     },
+    "gamesTable": {
+      "players": "Players",
+      "result": "Result",
+      "gameType": "Game type",
+      "moves": "Moves",
+      "date": "Date",
+      "ongoing": "Ongoing",
+      "empty": "No games found"
+    },
     "empty": "Ranking is not available yet",
     "pagination": {
       "previous": "Previous",

@@ -6,6 +6,7 @@ import {
   useGetRankingFiltersQuery,
   useGetRankingQuery,
 } from "@/features/ranking/ranking/model/ranking-api"
+import { usePageQueryParam } from "@/lib/hooks/use-page-query-param"
 
 const PAGE_SIZE = 10
 
@@ -21,7 +22,7 @@ const ALL_COUNTRIES = "all"
 // needing a slice.
 function useRanking() {
   const locale = useLocale()
-  const [page, setPage] = useState(1)
+  const [page, setPage] = usePageQueryParam()
   const [country, setCountry] = useState(ALL_COUNTRIES)
 
   const {

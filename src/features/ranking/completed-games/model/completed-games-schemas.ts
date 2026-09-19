@@ -30,8 +30,12 @@ const completedGameSchema = z.object({
   blackPlayerName: z.string(),
   blackPlayerAvatarUrl: z.string().nullable().optional(),
   blackPlayerRating: z.number(),
-  whiteScore: z.number(),
-  blackScore: z.number(),
+  // The backend response shape now allows null here for ongoing games (see
+  // GetGamesListResponse) even though this feature's query always sends
+  // `status: "completed"` — matching the real (nullable) shape defensively
+  // means a backend/query change elsewhere can't silently crash this parse.
+  whiteScore: z.number().nullable(),
+  blackScore: z.number().nullable(),
   gameType: gameTypeSchema,
   movesCount: z.number(),
   playedAt: z.string(),

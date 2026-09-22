@@ -18,9 +18,11 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 - `npm run build` — production build
 - `npm run start` — run the production build
 - `npm run lint` — ESLint (flat config, `eslint-config-next` core-web-vitals + typescript rules)
-- `npx tsc --noEmit` — typecheck (no dedicated npm script exists; this is what the `builder`/`tester` agents and pre-commit verification actually run)
+- `npx tsc --noEmit` — typecheck (no dedicated npm script exists; this is what the `builder`/`tester` agents run as part of their own verification, on top of the git hook below)
 
 There is no test runner configured yet — do not assume Jest/Vitest exist until they're added to `package.json`.
+
+A Husky `pre-commit` hook (`.husky/pre-commit`) runs `npx lint-staged`, which runs `eslint --fix` on staged `*.{js,jsx,ts,tsx,mjs}` files (see the `lint-staged` field in `package.json`) — it does not run `tsc`, so a commit can still pass with type errors. Since it's `--fix`, staged files can be modified in place during commit; re-check `git status`/`git diff` after a commit if that matters.
 
 ## Current state
 

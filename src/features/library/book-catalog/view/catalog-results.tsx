@@ -4,15 +4,15 @@ import { useTranslations } from "next-intl"
 
 import { ErrorState } from "@/components/shared/error/error-state"
 import { Skeleton } from "@/components/ui/skeleton"
+import type { BookListItem } from "@/features/library/book-catalog/model/book-catalog-schemas"
+import { BookListCard } from "@/features/library/book-catalog/view/book-list-card"
+import { CatalogPagination } from "@/features/library/book-catalog/view/catalog-pagination"
 import type {
   BookAuthor,
   BookCategory,
   BookDifficulty,
   BookLanguage,
-  BookListItem,
-} from "@/features/library/book-catalog/model/book-catalog-schemas"
-import { BookListCard } from "@/features/library/book-catalog/view/book-list-card"
-import { CatalogPagination } from "@/features/library/book-catalog/view/catalog-pagination"
+} from "@/features/library/book-catalog-reference-data/model/book-catalog-reference-data-schemas"
 
 interface CatalogResultsProps {
   isLoading: boolean

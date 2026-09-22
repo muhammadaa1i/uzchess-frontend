@@ -2,29 +2,17 @@
 
 import { useTranslations } from "next-intl"
 
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select"
-import {
-  type BookCategory,
-  type BookDifficulty,
-  type BookLanguage,
-  translateCategoryTitle,
-  translateDifficultyDegree,
-} from "@/features/library/book-catalog/model/book-catalog-schemas"
-import { CatalogFilterGroup } from "@/features/library/book-catalog/view/catalog-filter-group"
-import { RatingStarFilter } from "@/features/library/book-catalog/view/catalog-rating-star-filter"
-
-interface CatalogFilterValues {
-  categoryId: string
-  difficultyId: string
-  languageId: string
-  minRating: string
-}
+import type { CatalogFilterValues } from "@/features/library/book-catalog-filters/model/catalog-filter-schemas"
+import { CatalogFilterGroup } from "@/features/library/book-catalog-filters/view/catalog-filter-group"
+import { RatingStarFilter } from "@/features/library/book-catalog-filters/view/catalog-rating-star-filter"
+import type {
+  BookCategory,
+  BookDifficulty,
+  BookLanguage,
+} from "@/features/library/book-catalog-reference-data/model/book-catalog-reference-data-schemas"
+import { CatalogCategorySelect } from "@/features/library/book-catalog-reference-data/view/catalog-category-select"
+import { CatalogDifficultySelect } from "@/features/library/book-catalog-reference-data/view/catalog-difficulty-select"
+import { CatalogLanguageSelect } from "@/features/library/book-catalog-reference-data/view/catalog-language-select"
 
 interface CatalogFilterFieldsProps {
   filters: CatalogFilterValues
@@ -45,7 +33,11 @@ interface CatalogFilterFieldsProps {
 
 // The field set shared by the desktop inline sidebar and the mobile Dialog
 // (see the "filter(responsive)" Figma frame) — kept as one component so the
-// two surfaces can never drift out of sync with each other.
+// two surfaces can never drift out of sync with each other. Composes the
+// sibling book-catalog-reference-data slice's own picker widgets (View reuse
+// across sibling slices, same pattern as admin's book-editor-form.tsx
+// composing book-reference-data's field components) rather than rendering
+// Select markup inline.
 function CatalogFilterFields({
   filters,
   updateFilter,
@@ -67,60 +59,41 @@ function CatalogFilterFields({
   return (
     <>
       <CatalogFilterGroup label={t("filters.languageLabel")}>
-        <Select
+        <CatalogLanguageSelect
+          languages={languages}
           value={filters.languageId}
-          onValueChange={(value) => value && updateFilter("languageId", value)}
-        >
-          <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
-            <SelectValue placeholder={t("filters.language")}>{languageLabel}</SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={anyLanguage}>{t("filters.any")}</SelectItem>
-            {languages.map((language) => (
-              <SelectItem key={language.id} value={String(language.id)}>
-                {language.title}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          onValueChange={(value) => updateFilter("languageId", value)}
+          anyValue={anyLanguage}
+          anyLabel={t("filters.any")}
+          placeholder={t("filters.language")}
+          currentLabel={languageLabel}
+        />
       </CatalogFilterGroup>
 
       <CatalogFilterGroup label={t("filters.difficultyLabel")}>
-        <Select
+        <CatalogDifficultySelect
+          difficulties={difficulties}
           value={filters.difficultyId}
-          onValueChange={(value) => value && updateFilter("difficultyId", value)}
-        >
-          <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
-            <SelectValue placeholder={t("filters.difficulty")}>{difficultyLabel}</SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={anyDifficulty}>{t("filters.any")}</SelectItem>
-            {difficulties.map((difficulty) => (
-              <SelectItem key={difficulty.id} value={String(difficulty.id)}>
-                {translateDifficultyDegree(difficultyLabels, difficulty.degree)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          onValueChange={(value) => updateFilter("difficultyId", value)}
+          anyValue={anyDifficulty}
+          anyLabel={t("filters.any")}
+          placeholder={t("filters.difficulty")}
+          currentLabel={difficultyLabel}
+          difficultyLabels={difficultyLabels}
+        />
       </CatalogFilterGroup>
 
       <CatalogFilterGroup label={t("filters.categoryLabel")}>
-        <Select
+        <CatalogCategorySelect
+          categories={categories}
           value={filters.categoryId}
-          onValueChange={(value) => value && updateFilter("categoryId", value)}
-        >
-          <SelectTrigger className="h-14! w-full justify-between rounded-lg border border-[#232627] bg-[#15181A] px-4 text-sm text-brand-white">
-            <SelectValue placeholder={t("filters.category")}>{categoryLabel}</SelectValue>
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value={anyCategory}>{t("filters.any")}</SelectItem>
-            {categories.map((category) => (
-              <SelectItem key={category.id} value={String(category.id)}>
-                {translateCategoryTitle(categoryLabels, category.title)}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
+          onValueChange={(value) => updateFilter("categoryId", value)}
+          anyValue={anyCategory}
+          anyLabel={t("filters.any")}
+          placeholder={t("filters.category")}
+          currentLabel={categoryLabel}
+          categoryLabels={categoryLabels}
+        />
       </CatalogFilterGroup>
 
       <CatalogFilterGroup label={t("filters.ratingLabel")}>
@@ -135,4 +108,3 @@ function CatalogFilterFields({
 }
 
 export { CatalogFilterFields }
-export type { CatalogFilterValues }

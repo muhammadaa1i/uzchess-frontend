@@ -1,12 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
-import {
-  useGetBookAuthorsQuery,
-  useGetBookCategoriesQuery,
-  useGetBookDifficultiesQuery,
-  useGetBookLanguagesQuery,
-  useGetBooksQuery,
-} from "@/features/library/book-catalog/model/book-catalog-api"
+import { useGetBooksQuery } from "@/features/library/book-catalog/model/book-catalog-api"
+import { useBookCatalogReferenceData } from "@/features/library/book-catalog-reference-data/viewmodel/use-book-catalog-reference-data"
+import { usePageQueryParam } from "@/lib/hooks/use-page-query-param"
 
 const CATALOG_PAGE_SIZE = 12
 
@@ -52,16 +48,31 @@ function useBookCatalog() {
   // SEARCH_DEBOUNCE_MS after typing settles — see the effect below.
   const [searchInput, setSearchInput] = useState(DEFAULT_FILTERS.search)
   const [filters, setFilters] = useState<CatalogFilters>(DEFAULT_FILTERS)
-  const [page, setPage] = useState(1)
+  const [page, setPage] = usePageQueryParam()
+  // `useEffect` always runs once right after mount regardless of its
+  // dependency array — without this guard, the debounce effect below would
+  // unconditionally call `setPage(1)` ~700ms after every mount, silently
+  // wiping out a page number restored from the URL (e.g. a reload on page
+  // 2) right after usePageQueryParam had just set it correctly.
+  const isFirstSearchCommit = useRef(true)
 
   useEffect(() => {
     const timeout = setTimeout(() => {
       setFilters((current) =>
         current.search === searchInput ? current : { ...current, search: searchInput }
       )
-      setPage(1)
+      if (isFirstSearchCommit.current) {
+        isFirstSearchCommit.current = false
+      } else {
+        setPage(1)
+      }
     }, SEARCH_DEBOUNCE_MS)
     return () => clearTimeout(timeout)
+    // `setPage`'s identity changes with the page number (it's derived from
+    // the URL via usePageQueryParam, not a plain useState setter) — adding
+    // it here would re-fire this debounce effect on every page change and
+    // reset back to page 1, the opposite of what usePageQueryParam fixes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchInput])
 
   const {
@@ -80,10 +91,13 @@ function useBookCatalog() {
     languageId: filters.languageId === ANY_LANGUAGE ? undefined : Number(filters.languageId),
     minRating: filters.minRating === ANY_RATING ? undefined : Number(filters.minRating),
   })
-  const { data: categories } = useGetBookCategoriesQuery()
-  const { data: difficulties } = useGetBookDifficultiesQuery()
-  const { data: languages } = useGetBookLanguagesQuery()
-  const { data: authors } = useGetBookAuthorsQuery()
+  // Category/author/difficulty/language reference data (needed to resolve
+  // each result card's id fields to labels) comes from the sibling
+  // book-catalog-reference-data slice — the same hook the book-catalog-filters
+  // slice calls independently for its own Select options, so both consumers
+  // share one RTK Query cache entry per list rather than firing duplicate
+  // requests on the same page load.
+  const { categories, difficulties, languages, authors } = useBookCatalogReferenceData()
 
   function updateSearch(value: string) {
     setSearchInput(value)
@@ -123,10 +137,10 @@ function useBookCatalog() {
     updateFilter,
     clearFilters,
     hasActiveFilters,
-    categories: categories ?? [],
-    difficulties: difficulties ?? [],
-    languages: languages ?? [],
-    authors: authors ?? [],
+    categories,
+    difficulties,
+    languages,
+    authors,
     anyCategory: ANY_CATEGORY,
     anyDifficulty: ANY_DIFFICULTY,
     anyLanguage: ANY_LANGUAGE,

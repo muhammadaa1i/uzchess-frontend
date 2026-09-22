@@ -12,15 +12,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import type { CatalogFilterValues } from "@/features/library/book-catalog-filters/model/catalog-filter-schemas"
+import { CatalogFilterFields } from "@/features/library/book-catalog-filters/view/catalog-filter-fields"
 import type {
   BookCategory,
   BookDifficulty,
   BookLanguage,
-} from "@/features/library/book-catalog/model/book-catalog-schemas"
-import {
-  CatalogFilterFields,
-  type CatalogFilterValues,
-} from "@/features/library/book-catalog/view/catalog-filter-fields"
+} from "@/features/library/book-catalog-reference-data/model/book-catalog-reference-data-schemas"
 
 interface CatalogMobileFilterDialogProps {
   hasActiveFilters: boolean
@@ -42,7 +40,7 @@ interface CatalogMobileFilterDialogProps {
 }
 
 // Mirrors the Courses catalog's identical mobile filter treatment (see
-// ../course-catalog/view/catalog-mobile-filter-dialog.tsx) for consistency
+// ../../course-catalog/view/catalog-mobile-filter-dialog.tsx) for consistency
 // between the two catalogs — below `lg` the same fields render here inside a
 // Dialog instead of catalog-sidebar-filter.tsx's pushed-down inline panel.
 function CatalogMobileFilterDialog({

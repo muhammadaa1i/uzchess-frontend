@@ -5,15 +5,15 @@ import Image from "next/image"
 import { useTranslations } from "next-intl"
 
 import { Badge } from "@/components/ui/badge"
+import type { BookListItem } from "@/features/library/book-catalog/model/book-catalog-schemas"
 import {
   type BookAuthor,
   type BookCategory,
   type BookDifficulty,
   type BookLanguage,
-  type BookListItem,
   translateCategoryTitle,
   translateDifficultyDegree,
-} from "@/features/library/book-catalog/model/book-catalog-schemas"
+} from "@/features/library/book-catalog-reference-data/model/book-catalog-reference-data-schemas"
 import { Link } from "@/lib/i18n/navigation"
 import { formatPrice } from "@/lib/utils"
 

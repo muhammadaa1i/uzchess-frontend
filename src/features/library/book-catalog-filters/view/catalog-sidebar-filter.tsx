@@ -3,15 +3,13 @@
 import { useTranslations } from "next-intl"
 
 import { Button } from "@/components/ui/button"
+import type { CatalogFilterValues } from "@/features/library/book-catalog-filters/model/catalog-filter-schemas"
+import { CatalogFilterFields } from "@/features/library/book-catalog-filters/view/catalog-filter-fields"
 import type {
   BookCategory,
   BookDifficulty,
   BookLanguage,
-} from "@/features/library/book-catalog/model/book-catalog-schemas"
-import {
-  CatalogFilterFields,
-  type CatalogFilterValues,
-} from "@/features/library/book-catalog/view/catalog-filter-fields"
+} from "@/features/library/book-catalog-reference-data/model/book-catalog-reference-data-schemas"
 
 interface CatalogSidebarFilterProps {
   hasActiveFilters: boolean

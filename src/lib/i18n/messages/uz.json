@@ -133,6 +133,8 @@
     },
     "categoryLabels": {
       "Debyut nazariyasi": "Debyut nazariyasi",
+      "Debyutlar": "Debyutlar",
+      "Debyutlar nazariyasi": "Debyutlar nazariyasi",
       "Mittelshpil": "Mittelshpil",
       "Taktika": "Taktika",
       "Endshpil": "Endshpil",
@@ -279,7 +281,10 @@
       "Hujum qilish": "Hujum qilish",
       "Himoyalanish": "Himoyalanish",
       "Qoidalar": "Qoidalar",
-      "Mot qilish": "Mot qilish"
+      "Mot qilish": "Mot qilish",
+      "Debyutlar nazariyasi": "Debyutlar nazariyasi",
+      "Taktika": "Taktika",
+      "Shaxmat tarixi": "Shaxmat tarixi"
     },
     "languageLabels": {
       "O'zbek": "O'zbek",

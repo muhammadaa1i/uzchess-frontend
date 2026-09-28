@@ -133,6 +133,8 @@
     },
     "categoryLabels": {
       "Debyut nazariyasi": "Теория дебютов",
+      "Debyutlar": "Дебюты",
+      "Debyutlar nazariyasi": "Теория дебютов",
       "Mittelshpil": "Миттельшпиль",
       "Taktika": "Тактика",
       "Endshpil": "Эндшпиль",
@@ -279,7 +281,10 @@
       "Hujum qilish": "Атака",
       "Himoyalanish": "Защита",
       "Qoidalar": "Правила",
-      "Mot qilish": "Постановка мата"
+      "Mot qilish": "Постановка мата",
+      "Debyutlar nazariyasi": "Теория дебютов",
+      "Taktika": "Тактика",
+      "Shaxmat tarixi": "История шахмат"
     },
     "languageLabels": {
       "O'zbek": "Узбекский",

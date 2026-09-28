@@ -133,6 +133,8 @@
     },
     "categoryLabels": {
       "Debyut nazariyasi": "Opening Theory",
+      "Debyutlar": "Openings",
+      "Debyutlar nazariyasi": "Opening Theory",
       "Mittelshpil": "Middlegame",
       "Taktika": "Tactics",
       "Endshpil": "Endgame",
@@ -279,7 +281,10 @@
       "Hujum qilish": "Attack",
       "Himoyalanish": "Defense",
       "Qoidalar": "Rules",
-      "Mot qilish": "Checkmating"
+      "Mot qilish": "Checkmating",
+      "Debyutlar nazariyasi": "Opening Theory",
+      "Taktika": "Tactics",
+      "Shaxmat tarixi": "Chess History"
     },
     "languageLabels": {
       "O'zbek": "Uzbek",

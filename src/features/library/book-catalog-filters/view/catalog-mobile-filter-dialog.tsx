@@ -37,6 +37,7 @@ interface CatalogMobileFilterDialogProps {
   languageLabel: (value: string) => string
   difficultyLabels: Record<string, string>
   categoryLabels: Record<string, string>
+  languageLabels: Record<string, string>
 }
 
 // Mirrors the Courses catalog's identical mobile filter treatment (see
@@ -60,6 +61,7 @@ function CatalogMobileFilterDialog({
   languageLabel,
   difficultyLabels,
   categoryLabels,
+  languageLabels,
 }: CatalogMobileFilterDialogProps) {
   const t = useTranslations("Library")
 
@@ -102,6 +104,7 @@ function CatalogMobileFilterDialog({
           languageLabel={languageLabel}
           difficultyLabels={difficultyLabels}
           categoryLabels={categoryLabels}
+          languageLabels={languageLabels}
         />
 
         <DialogClose render={<Button className="w-full" />}>{t("filters.apply")}</DialogClose>

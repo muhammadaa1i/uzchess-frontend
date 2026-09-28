@@ -127,9 +127,9 @@
     "empty": "Курсы не найдены",
     "notFound": "Курс не найден",
     "difficultyLevels": {
-      "Beginner": "Начинающий",
-      "Intermediate": "Средний",
-      "Advanced": "Продвинутый"
+      "Boshlang'ich": "Начинающий",
+      "O'rta": "Средний",
+      "Professional": "Продвинутый"
     },
     "categoryLabels": {
       "Debyut nazariyasi": "Теория дебютов",
@@ -139,6 +139,11 @@
       "Shaxmat tarixi": "История шахмат",
       "Buyuk chempionlar": "Великие чемпионы",
       "Bolalar uchun shaxmat": "Шахматы для детей"
+    },
+    "languageLabels": {
+      "O'zbek": "Узбекский",
+      "Rus": "Русский",
+      "Ingliz": "Английский"
     },
     "filters": {
       "heading": "Фильтр",
@@ -265,9 +270,9 @@
     "empty": "Книги не найдены",
     "notFound": "Книга не найдена",
     "difficultyLevels": {
-      "Beginner": "Начинающий",
-      "Intermediate": "Средний",
-      "Advanced": "Продвинутый"
+      "Boshlang'ich": "Начинающий",
+      "O'rta": "Средний",
+      "Professional": "Продвинутый"
     },
     "categoryLabels": {
       "Strategiya": "Стратегия",
@@ -275,6 +280,11 @@
       "Himoyalanish": "Защита",
       "Qoidalar": "Правила",
       "Mot qilish": "Постановка мата"
+    },
+    "languageLabels": {
+      "O'zbek": "Узбекский",
+      "Rus": "Русский",
+      "Ingliz": "Английский"
     },
     "filters": {
       "heading": "Фильтр",

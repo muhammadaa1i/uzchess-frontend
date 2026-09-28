@@ -127,9 +127,9 @@
     "empty": "Hech qanday kurs topilmadi",
     "notFound": "Kurs topilmadi",
     "difficultyLevels": {
-      "Beginner": "Boshlang'ich",
-      "Intermediate": "O'rta",
-      "Advanced": "Professional"
+      "Boshlang'ich": "Boshlang'ich",
+      "O'rta": "O'rta",
+      "Professional": "Professional"
     },
     "categoryLabels": {
       "Debyut nazariyasi": "Debyut nazariyasi",
@@ -139,6 +139,11 @@
       "Shaxmat tarixi": "Shaxmat tarixi",
       "Buyuk chempionlar": "Buyuk chempionlar",
       "Bolalar uchun shaxmat": "Bolalar uchun shaxmat"
+    },
+    "languageLabels": {
+      "O'zbek": "O'zbek",
+      "Rus": "Rus",
+      "Ingliz": "Ingliz"
     },
     "filters": {
       "heading": "Filter",
@@ -265,9 +270,9 @@
     "empty": "Kitoblar topilmadi",
     "notFound": "Kitob topilmadi",
     "difficultyLevels": {
-      "Beginner": "Boshlang'ich",
-      "Intermediate": "O'rta",
-      "Advanced": "Professional"
+      "Boshlang'ich": "Boshlang'ich",
+      "O'rta": "O'rta",
+      "Professional": "Professional"
     },
     "categoryLabels": {
       "Strategiya": "Strategiya",
@@ -275,6 +280,11 @@
       "Himoyalanish": "Himoyalanish",
       "Qoidalar": "Qoidalar",
       "Mot qilish": "Mot qilish"
+    },
+    "languageLabels": {
+      "O'zbek": "O'zbek",
+      "Rus": "Rus",
+      "Ingliz": "Ingliz"
     },
     "filters": {
       "heading": "Filter",

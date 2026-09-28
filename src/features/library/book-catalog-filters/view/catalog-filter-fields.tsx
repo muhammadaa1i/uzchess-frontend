@@ -29,6 +29,7 @@ interface CatalogFilterFieldsProps {
   languageLabel: (value: string) => string
   difficultyLabels: Record<string, string>
   categoryLabels: Record<string, string>
+  languageLabels: Record<string, string>
 }
 
 // The field set shared by the desktop inline sidebar and the mobile Dialog
@@ -53,6 +54,7 @@ function CatalogFilterFields({
   languageLabel,
   difficultyLabels,
   categoryLabels,
+  languageLabels,
 }: CatalogFilterFieldsProps) {
   const t = useTranslations("Library")
 
@@ -67,6 +69,7 @@ function CatalogFilterFields({
           anyLabel={t("filters.any")}
           placeholder={t("filters.language")}
           currentLabel={languageLabel}
+          languageLabels={languageLabels}
         />
       </CatalogFilterGroup>
 

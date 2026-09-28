@@ -79,6 +79,14 @@ const courseLanguageSchema = z.object({
   code: z.string(),
 })
 
+// `title` is a real language name, but the backend returns it as
+// admin-entered free text in a single locale (e.g. "O'zbek") rather than a
+// fixed ISO-derived label — translated via Courses.languageLabels the same
+// way category/difficulty are, with a fallback to the raw value.
+function translateLanguageTitle(labels: Record<string, string>, title: string): string {
+  return labels[title] ?? title
+}
+
 type CourseListItem = z.infer<typeof courseListItemSchema>
 type CourseCategory = z.infer<typeof courseCategorySchema>
 type CourseDifficulty = z.infer<typeof courseDifficultySchema>
@@ -93,5 +101,6 @@ export {
   paginatedSchema,
   translateCategoryTitle,
   translateDifficultyDegree,
+  translateLanguageTitle,
 }
 export type { CourseCategory, CourseDifficulty, CourseLanguage, CourseListItem }

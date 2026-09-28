@@ -8,6 +8,7 @@ import {
   type CourseLanguage,
   translateCategoryTitle,
   translateDifficultyDegree,
+  translateLanguageTitle,
 } from "@/features/courses/course-catalog/model/course-catalog-schemas"
 import { CatalogHeader } from "@/features/courses/course-catalog/view/catalog-header"
 import { CatalogMobileFilterDialog } from "@/features/courses/course-catalog/view/catalog-mobile-filter-dialog"
@@ -19,6 +20,7 @@ function CoursesCatalogView() {
   const t = useTranslations("Courses")
   const difficultyLabels = (t.raw as (key: string) => Record<string, string>)("difficultyLevels")
   const categoryLabels = (t.raw as (key: string) => Record<string, string>)("categoryLabels")
+  const languageLabels = (t.raw as (key: string) => Record<string, string>)("languageLabels")
   const {
     courses,
     isLoading,
@@ -71,7 +73,8 @@ function CoursesCatalogView() {
   }
   function languageLabel(value: string) {
     if (value === anyLanguage) return t("filters.any")
-    return languageById.get(Number(value))?.title ?? t("filters.language")
+    const title = languageById.get(Number(value))?.title
+    return title ? translateLanguageTitle(languageLabels, title) : t("filters.language")
   }
 
   return (
@@ -96,6 +99,7 @@ function CoursesCatalogView() {
           languageLabel={languageLabel}
           difficultyLabels={difficultyLabels}
           categoryLabels={categoryLabels}
+          languageLabels={languageLabels}
         />
 
         <CatalogMobileFilterDialog
@@ -115,6 +119,7 @@ function CoursesCatalogView() {
           languageLabel={languageLabel}
           difficultyLabels={difficultyLabels}
           categoryLabels={categoryLabels}
+          languageLabels={languageLabels}
         />
 
         <CatalogResults

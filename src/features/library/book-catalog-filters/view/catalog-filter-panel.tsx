@@ -44,6 +44,7 @@ function CatalogFilterPanel({
     languageLabel,
     difficultyLabels,
     categoryLabels,
+    languageLabels,
   } = useCatalogFilterPanel({ anyCategory, anyDifficulty, anyLanguage })
 
   const sharedProps = {
@@ -63,6 +64,7 @@ function CatalogFilterPanel({
     languageLabel,
     difficultyLabels,
     categoryLabels,
+    languageLabels,
   }
 
   return (

@@ -6,6 +6,7 @@ import {
   type BookLanguage,
   translateCategoryTitle,
   translateDifficultyDegree,
+  translateLanguageTitle,
 } from "@/features/library/book-catalog-reference-data/model/book-catalog-reference-data-schemas"
 import { useBookCatalogReferenceData } from "@/features/library/book-catalog-reference-data/viewmodel/use-book-catalog-reference-data"
 
@@ -30,6 +31,7 @@ function useCatalogFilterPanel({
   const t = useTranslations("Library")
   const difficultyLabels = (t.raw as (key: string) => Record<string, string>)("difficultyLevels")
   const categoryLabels = (t.raw as (key: string) => Record<string, string>)("categoryLabels")
+  const languageLabels = (t.raw as (key: string) => Record<string, string>)("languageLabels")
   const { categories, difficulties, languages } = useBookCatalogReferenceData()
 
   const categoryById = new Map<number, BookCategory>(
@@ -54,7 +56,8 @@ function useCatalogFilterPanel({
   }
   function languageLabel(value: string) {
     if (value === anyLanguage) return t("filters.any")
-    return languageById.get(Number(value))?.title ?? t("filters.language")
+    const title = languageById.get(Number(value))?.title
+    return title ? translateLanguageTitle(languageLabels, title) : t("filters.language")
   }
 
   return {
@@ -66,6 +69,7 @@ function useCatalogFilterPanel({
     languageLabel,
     difficultyLabels,
     categoryLabels,
+    languageLabels,
   }
 }
 

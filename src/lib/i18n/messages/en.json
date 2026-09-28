@@ -127,9 +127,9 @@
     "empty": "No courses found",
     "notFound": "Course not found",
     "difficultyLevels": {
-      "Beginner": "Beginner",
-      "Intermediate": "Intermediate",
-      "Advanced": "Advanced"
+      "Boshlang'ich": "Beginner",
+      "O'rta": "Intermediate",
+      "Professional": "Advanced"
     },
     "categoryLabels": {
       "Debyut nazariyasi": "Opening Theory",
@@ -139,6 +139,11 @@
       "Shaxmat tarixi": "Chess History",
       "Buyuk chempionlar": "Great Champions",
       "Bolalar uchun shaxmat": "Chess for Kids"
+    },
+    "languageLabels": {
+      "O'zbek": "Uzbek",
+      "Rus": "Russian",
+      "Ingliz": "English"
     },
     "filters": {
       "heading": "Filter",
@@ -265,9 +270,9 @@
     "empty": "No books found",
     "notFound": "Book not found",
     "difficultyLevels": {
-      "Beginner": "Beginner",
-      "Intermediate": "Intermediate",
-      "Advanced": "Advanced"
+      "Boshlang'ich": "Beginner",
+      "O'rta": "Intermediate",
+      "Professional": "Advanced"
     },
     "categoryLabels": {
       "Strategiya": "Strategy",
@@ -275,6 +280,11 @@
       "Himoyalanish": "Defense",
       "Qoidalar": "Rules",
       "Mot qilish": "Checkmating"
+    },
+    "languageLabels": {
+      "O'zbek": "Uzbek",
+      "Rus": "Russian",
+      "Ingliz": "English"
     },
     "filters": {
       "heading": "Filter",

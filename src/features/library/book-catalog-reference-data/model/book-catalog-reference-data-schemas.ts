@@ -43,6 +43,14 @@ const bookLanguageSchema = z.object({
   code: z.string(),
 })
 
+// `title` is a real language name, but the backend returns it as
+// admin-entered free text in a single locale (e.g. "O'zbek") rather than a
+// fixed ISO-derived label — translated via Library.languageLabels the same
+// way category/difficulty are, with a fallback to the raw value.
+function translateLanguageTitle(labels: Record<string, string>, title: string): string {
+  return labels[title] ?? title
+}
+
 type BookCategory = z.infer<typeof bookCategorySchema>
 type BookAuthor = z.infer<typeof bookAuthorSchema>
 type BookDifficulty = z.infer<typeof bookDifficultySchema>
@@ -55,5 +63,6 @@ export {
   bookLanguageSchema,
   translateCategoryTitle,
   translateDifficultyDegree,
+  translateLanguageTitle,
 }
 export type { BookAuthor, BookCategory, BookDifficulty, BookLanguage }

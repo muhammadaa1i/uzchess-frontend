@@ -28,6 +28,7 @@ interface CatalogSidebarFilterProps {
   languageLabel: (value: string) => string
   difficultyLabels: Record<string, string>
   categoryLabels: Record<string, string>
+  languageLabels: Record<string, string>
 }
 
 // Desktop/tablet sidebar — inline, always visible from `lg` up. See
@@ -50,6 +51,7 @@ function CatalogSidebarFilter({
   languageLabel,
   difficultyLabels,
   categoryLabels,
+  languageLabels,
 }: CatalogSidebarFilterProps) {
   const t = useTranslations("Library")
 
@@ -79,6 +81,7 @@ function CatalogSidebarFilter({
         languageLabel={languageLabel}
         difficultyLabels={difficultyLabels}
         categoryLabels={categoryLabels}
+        languageLabels={languageLabels}
       />
     </aside>
   )

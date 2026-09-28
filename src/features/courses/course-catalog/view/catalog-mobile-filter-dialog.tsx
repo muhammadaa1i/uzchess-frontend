@@ -39,6 +39,7 @@ interface CatalogMobileFilterDialogProps {
   languageLabel: (value: string) => string
   difficultyLabels: Record<string, string>
   categoryLabels: Record<string, string>
+  languageLabels: Record<string, string>
 }
 
 // No mobile Figma frame existed for this exact catalog screen when this was
@@ -64,6 +65,7 @@ function CatalogMobileFilterDialog({
   languageLabel,
   difficultyLabels,
   categoryLabels,
+  languageLabels,
 }: CatalogMobileFilterDialogProps) {
   const t = useTranslations("Courses")
 
@@ -106,6 +108,7 @@ function CatalogMobileFilterDialog({
           languageLabel={languageLabel}
           difficultyLabels={difficultyLabels}
           categoryLabels={categoryLabels}
+          languageLabels={languageLabels}
         />
 
         <DialogClose render={<Button className="w-full" />}>{t("filters.apply")}</DialogClose>

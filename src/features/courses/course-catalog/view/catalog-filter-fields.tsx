@@ -15,6 +15,7 @@ import {
   type CourseLanguage,
   translateCategoryTitle,
   translateDifficultyDegree,
+  translateLanguageTitle,
 } from "@/features/courses/course-catalog/model/course-catalog-schemas"
 import { CatalogFilterGroup } from "@/features/courses/course-catalog/view/catalog-filter-group"
 import { RatingStarFilter } from "@/features/courses/course-catalog/view/catalog-rating-star-filter"
@@ -41,6 +42,7 @@ interface CatalogFilterFieldsProps {
   languageLabel: (value: string) => string
   difficultyLabels: Record<string, string>
   categoryLabels: Record<string, string>
+  languageLabels: Record<string, string>
 }
 
 // The field set shared by the desktop inline sidebar and the mobile Dialog
@@ -61,6 +63,7 @@ function CatalogFilterFields({
   languageLabel,
   difficultyLabels,
   categoryLabels,
+  languageLabels,
 }: CatalogFilterFieldsProps) {
   const t = useTranslations("Courses")
 
@@ -116,7 +119,7 @@ function CatalogFilterFields({
             <SelectItem value={anyLanguage}>{t("filters.any")}</SelectItem>
             {languages.map((language) => (
               <SelectItem key={language.id} value={String(language.id)}>
-                {language.title}
+                {translateLanguageTitle(languageLabels, language.title)}
               </SelectItem>
             ))}
           </SelectContent>

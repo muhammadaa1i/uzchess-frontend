@@ -7,7 +7,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-import type { BookLanguage } from "@/features/library/book-catalog-reference-data/model/book-catalog-reference-data-schemas"
+import {
+  type BookLanguage,
+  translateLanguageTitle,
+} from "@/features/library/book-catalog-reference-data/model/book-catalog-reference-data-schemas"
 
 interface CatalogLanguageSelectProps {
   languages: BookLanguage[]
@@ -17,13 +20,14 @@ interface CatalogLanguageSelectProps {
   anyLabel: string
   placeholder: string
   currentLabel: (value: string) => string
+  languageLabels: Record<string, string>
 }
 
 // The language reference list's own picker widget — see
 // catalog-category-select.tsx for why this lives in the data-owning slice
-// rather than book-catalog-filters. `title` is a real language name (not
-// admin-entered free text like category/difficulty), so no translation
-// dictionary is needed here.
+// rather than book-catalog-filters. `title` is admin-entered in a single
+// locale (e.g. "O'zbek"), same as category/difficulty, so it's translated
+// via the same labels-dictionary pattern rather than rendered as-is.
 function CatalogLanguageSelect({
   languages,
   value,
@@ -32,6 +36,7 @@ function CatalogLanguageSelect({
   anyLabel,
   placeholder,
   currentLabel,
+  languageLabels,
 }: CatalogLanguageSelectProps) {
   return (
     <Select value={value} onValueChange={(next) => next && onValueChange(next)}>
@@ -42,7 +47,7 @@ function CatalogLanguageSelect({
         <SelectItem value={anyValue}>{anyLabel}</SelectItem>
         {languages.map((language) => (
           <SelectItem key={language.id} value={String(language.id)}>
-            {language.title}
+            {translateLanguageTitle(languageLabels, language.title)}
           </SelectItem>
         ))}
       </SelectContent>

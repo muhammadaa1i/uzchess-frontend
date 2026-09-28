@@ -1,6 +1,6 @@
 import { z } from "zod"
 
-import { purchaseProviderSchema } from "@/features/courses/course-detail/model/course-detail-schemas"
+import { purchaseProviderSchema } from "@/features/courses/course-purchase/model/course-purchase-schemas"
 
 // RHF+zod schema for the purchase modal's payment-provider picker. One
 // field, but still routed through react-hook-form + zod rather than plain

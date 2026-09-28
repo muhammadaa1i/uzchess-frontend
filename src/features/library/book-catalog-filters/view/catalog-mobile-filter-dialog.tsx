@@ -41,9 +41,10 @@ interface CatalogMobileFilterDialogProps {
 }
 
 // Mirrors the Courses catalog's identical mobile filter treatment (see
-// ../../course-catalog/view/catalog-mobile-filter-dialog.tsx) for consistency
-// between the two catalogs — below `lg` the same fields render here inside a
-// Dialog instead of catalog-sidebar-filter.tsx's pushed-down inline panel.
+// ../../../course-catalog-filters/view/catalog-mobile-filter-dialog.tsx) for
+// consistency between the two catalogs — below `lg` the same fields render
+// here inside a Dialog instead of catalog-sidebar-filter.tsx's pushed-down
+// inline panel.
 function CatalogMobileFilterDialog({
   hasActiveFilters,
   onClear,

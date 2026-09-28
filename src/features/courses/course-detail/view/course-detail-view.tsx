@@ -13,14 +13,15 @@ import { CourseDetailSkeleton } from "@/features/courses/course-detail/view/cour
 import { useCourseDetail } from "@/features/courses/course-detail/viewmodel/use-course-detail"
 import { useAppDispatch } from "@/lib/store/hooks"
 
-// The purchase Dialog (react-hook-form + zod + the mutation) is loaded via
-// next/dynamic (ssr:false) and only mounted while open — see
-// purchase-modal.tsx — so its JS isn't part of this page's initial bundle.
-// The "Buy course" trigger button itself lives in course-detail-price-panel.tsx,
-// stays directly in this always-loaded view tree, per CLAUDE.md's "don't
+// The purchase Dialog (react-hook-form + zod + the mutation) lives in the
+// sibling course-purchase slice and is loaded via next/dynamic (ssr:false),
+// only mounted while open — see course-purchase/view/purchase-modal.tsx —
+// so its JS isn't part of this page's initial bundle. The "Buy course"
+// trigger button itself lives in course-detail-price-panel.tsx, stays
+// directly in this always-loaded view tree, per CLAUDE.md's "don't
 // next/dynamic small, always-visible UI" guidance.
 const PurchaseModal = dynamic(
-  () => import("@/features/courses/course-detail/view/purchase-modal").then((mod) => mod.PurchaseModal),
+  () => import("@/features/courses/course-purchase/view/purchase-modal").then((mod) => mod.PurchaseModal),
   { ssr: false }
 )
 

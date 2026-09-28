@@ -4,14 +4,14 @@ import { useTranslations } from "next-intl"
 
 import { ErrorState } from "@/components/shared/error/error-state"
 import { Skeleton } from "@/components/ui/skeleton"
+import type { CourseListItem } from "@/features/courses/course-catalog/model/course-catalog-schemas"
+import { CatalogPagination } from "@/features/courses/course-catalog/view/catalog-pagination"
+import { CourseListCard } from "@/features/courses/course-catalog/view/course-list-card"
 import type {
   CourseCategory,
   CourseDifficulty,
   CourseLanguage,
-  CourseListItem,
-} from "@/features/courses/course-catalog/model/course-catalog-schemas"
-import { CatalogPagination } from "@/features/courses/course-catalog/view/catalog-pagination"
-import { CourseListCard } from "@/features/courses/course-catalog/view/course-list-card"
+} from "@/features/courses/course-catalog-reference-data/model/course-catalog-reference-data-schemas"
 
 interface CatalogResultsProps {
   isLoading: boolean

@@ -5,8 +5,6 @@ import {
   courseDetailSchema,
   courseDifficultySchema,
   coursePurchaseSchema,
-  type createPurchaseRequestSchema,
-  createPurchaseResponseSchema,
 } from "@/features/courses/course-detail/model/course-detail-schemas"
 import { baseApi } from "@/lib/api/base-api"
 
@@ -19,7 +17,9 @@ import { baseApi } from "@/lib/api/base-api"
 // name, and importing course-catalog's hooks here would pull that feature's
 // model file into this route's bundle. The duplicate network request is a
 // deliberate, small tradeoff for keeping both features independently
-// reachable only through their own routes.
+// reachable only through their own routes. The purchase mutation this used
+// to also define here now lives in the sibling course-purchase slice — see
+// that slice's course-purchase-api.ts.
 const courseDetailApi = baseApi.injectEndpoints({
   endpoints: (builder) => ({
     getCourseById: builder.query<z.infer<typeof courseDetailSchema>, number>({
@@ -32,17 +32,6 @@ const courseDetailApi = baseApi.injectEndpoints({
     getPurchasedCourses: builder.query<z.infer<typeof coursePurchaseSchema>[], void>({
       query: () => ({ url: "/courses/purchased" }),
       transformResponse: (response: unknown) => z.array(coursePurchaseSchema).parse(response),
-    }),
-    purchaseCourse: builder.mutation<
-      z.infer<typeof createPurchaseResponseSchema>,
-      { courseId: number; body: z.infer<typeof createPurchaseRequestSchema> }
-    >({
-      query: ({ courseId, body }) => ({
-        url: `/courses/${courseId}/purchase`,
-        method: "POST",
-        body,
-      }),
-      transformResponse: (response: unknown) => createPurchaseResponseSchema.parse(response),
     }),
     getCourseDetailCategories: builder.query<z.infer<typeof courseCategorySchema>[], void>({
       query: () => ({ url: "/courses/categories/read" }),
@@ -58,7 +47,6 @@ const courseDetailApi = baseApi.injectEndpoints({
 const {
   useGetCourseByIdQuery,
   useGetPurchasedCoursesQuery,
-  usePurchaseCourseMutation,
   useGetCourseDetailCategoriesQuery,
   useGetCourseDetailDifficultiesQuery,
 } = courseDetailApi
@@ -69,5 +57,4 @@ export {
   useGetCourseDetailCategoriesQuery,
   useGetCourseDetailDifficultiesQuery,
   useGetPurchasedCoursesQuery,
-  usePurchaseCourseMutation,
 }

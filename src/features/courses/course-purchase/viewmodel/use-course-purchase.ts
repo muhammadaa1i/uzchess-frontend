@@ -3,12 +3,12 @@ import { useTranslations } from "next-intl"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
 
-import { usePurchaseCourseMutation } from "@/features/courses/course-detail/model/course-detail-api"
-import { getCourseDetailErrorMessage } from "@/features/courses/course-detail/model/course-detail-error"
+import { usePurchaseCourseMutation } from "@/features/courses/course-purchase/model/course-purchase-api"
+import { getCoursePurchaseErrorMessage } from "@/features/courses/course-purchase/model/course-purchase-error"
 import {
   createPurchaseFormSchema,
   type PurchaseFormValues,
-} from "@/features/courses/course-detail/model/course-purchase-form-schema"
+} from "@/features/courses/course-purchase/model/course-purchase-form-schema"
 
 type PurchaseStep = "form" | "success" | "fail"
 
@@ -35,7 +35,7 @@ function useCoursePurchase(courseId: number, onPurchased?: () => void) {
       setStep("success")
       onPurchased?.()
     } catch (error) {
-      setErrorMessage(getCourseDetailErrorMessage(error, t("errors.generic")))
+      setErrorMessage(getCoursePurchaseErrorMessage(error, t("errors.generic")))
       setStep("fail")
     }
   }

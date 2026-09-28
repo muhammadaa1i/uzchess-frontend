@@ -12,15 +12,13 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
+import type { CatalogFilterValues } from "@/features/courses/course-catalog-filters/model/catalog-filter-schemas"
+import { CatalogFilterFields } from "@/features/courses/course-catalog-filters/view/catalog-filter-fields"
 import type {
   CourseCategory,
   CourseDifficulty,
   CourseLanguage,
-} from "@/features/courses/course-catalog/model/course-catalog-schemas"
-import {
-  CatalogFilterFields,
-  type CatalogFilterValues,
-} from "@/features/courses/course-catalog/view/catalog-filter-fields"
+} from "@/features/courses/course-catalog-reference-data/model/course-catalog-reference-data-schemas"
 
 interface CatalogMobileFilterDialogProps {
   hasActiveFilters: boolean

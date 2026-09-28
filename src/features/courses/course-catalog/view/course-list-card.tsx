@@ -5,14 +5,14 @@ import Image from "next/image"
 import { useTranslations } from "next-intl"
 
 import { Badge } from "@/components/ui/badge"
+import type { CourseListItem } from "@/features/courses/course-catalog/model/course-catalog-schemas"
 import {
   type CourseCategory,
   type CourseDifficulty,
   type CourseLanguage,
-  type CourseListItem,
   translateCategoryTitle,
   translateDifficultyDegree,
-} from "@/features/courses/course-catalog/model/course-catalog-schemas"
+} from "@/features/courses/course-catalog-reference-data/model/course-catalog-reference-data-schemas"
 import { Link } from "@/lib/i18n/navigation"
 import { formatPrice } from "@/lib/utils"
 

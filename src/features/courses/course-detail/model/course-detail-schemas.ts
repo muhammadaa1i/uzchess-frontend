@@ -94,21 +94,6 @@ function translateDifficultyDegree(labels: Record<string, string>, degree: strin
   return labels[degree] ?? degree
 }
 
-// POST /courses/{id}/purchase — CreatePurchaseRequest/CreatePurchaseResponse.
-// The backend's CreatePurchaseHandler is a mocked/instant payment flow (sets
-// the purchase straight to "success", no real gateway redirect), but the
-// request still requires picking a `provider` — kept as a real field here
-// rather than hardcoding one, since the backend validates it.
-const purchaseProviderSchema = z.enum(["paylov", "payme", "click", "uzum"])
-const createPurchaseRequestSchema = z.object({ provider: purchaseProviderSchema })
-const purchaseStatusSchema = z.enum(["pending", "success", "failed"])
-const createPurchaseResponseSchema = z.object({
-  id: z.number(),
-  courseId: z.number(),
-  userId: z.number(),
-  status: purchaseStatusSchema,
-})
-
 type CourseDetail = z.infer<typeof courseDetailSchema>
 type CourseSection = z.infer<typeof courseSectionSchema>
 type CourseLesson = z.infer<typeof courseLessonSchema>
@@ -123,10 +108,6 @@ export {
   courseLessonSchema,
   coursePurchaseSchema,
   courseSectionSchema,
-  createPurchaseRequestSchema,
-  createPurchaseResponseSchema,
-  purchaseProviderSchema,
-  purchaseStatusSchema,
   translateCategoryTitle,
   translateDifficultyDegree,
 }

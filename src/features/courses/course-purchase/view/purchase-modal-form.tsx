@@ -8,8 +8,8 @@ import { Button } from "@/components/ui/button"
 import { DialogDescription, DialogTitle } from "@/components/ui/dialog"
 import { Field, FieldLabel } from "@/components/ui/field"
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
-import { purchaseProviderSchema } from "@/features/courses/course-detail/model/course-detail-schemas"
-import type { PurchaseFormValues } from "@/features/courses/course-detail/model/course-purchase-form-schema"
+import type { PurchaseFormValues } from "@/features/courses/course-purchase/model/course-purchase-form-schema"
+import { purchaseProviderSchema } from "@/features/courses/course-purchase/model/course-purchase-schemas"
 
 const PROVIDERS = purchaseProviderSchema.options
 
